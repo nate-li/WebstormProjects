@@ -56,6 +56,6 @@ function makeShapeAndBuffer(){
 
 function render(){
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLES, 0, 4);
+    gl.drawArrays(gl.RECTANGLES, 0, 4);
 }
 
