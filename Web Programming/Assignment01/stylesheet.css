@@ -1,0 +1,75 @@
+body {
+    background-color: lightblue;
+    font-family: "Times New Roman";
+}
+
+.leftbox {
+    color: white;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 50%;
+    height: 100%;
+    background-color: cadetblue;
+    transition: width 1s;
+}
+
+.rightbox {
+    color: black;
+    position:fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-color: chartreuse;
+    transition: width 1s;
+}
+
+.topbox {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 10%;
+    background-color: gray;
+    z-index: 3;
+    font-size: 3em;
+    text-align: center;
+}
+
+#picture{
+    position: fixed;
+    right: 0;
+    bottom: 5%;
+    z-index: 3;
+}
+
+.red{
+    background-color: red;
+}
+
+.maroon{
+    background-color: maroon;
+}
+
+#cornerbutton{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+#spicybutton{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+
+#toptext{
+    top: 0;
+    margin-top: 5%;
+    font-size: 2em;
+    position: relative;
+    z-index: 1;
+}
