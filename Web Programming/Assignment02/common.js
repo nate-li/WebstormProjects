@@ -14,40 +14,65 @@ function parseJSON(){
     var ul = document.createElement("ul");
 
     resultsDiv.appendChild(ul);
+
     if(userInput.hasOwnProperty('buttons')) {
         if (userInput.buttons) {
             if (Array.isArray(userInput.buttons)) {
                 userInput.buttons.forEach(function (arrayElement) {
-                    var button = document.createElement("button");
-                    button.appendChild(document.createTextNode(arrayElement));
-                    ul.appendChild(button);
+                    if (typeof(arrayElement) === "string") {
+                        var button = document.createElement("button");
+                        button.appendChild(document.createTextNode(arrayElement));
+                        ul.appendChild(button);
+                    } else {
+                        displayError("\"" + arrayElement + "\" was not a string");
+                    }
+
                 });
             } else {
                 displayError("buttons was not an array.");
             }
-        } else {
-            displayError("buttons was not set in your JSON.");
         }
     }
 
-    if(userInput.hasOwnProperty('fields')) {
-        var fieldDiv = document.createElement("div");
+    if (userInput.hasOwnProperty('fields')) {
         if (userInput.fields) {
             if (Array.isArray(userInput.fields)) {
                 userInput.fields.forEach(function (arrayElement) {
-                        var name = document.createElement("p");
-                        name.appendChild(document.createTextNode(arrayElement));
-                        var field = document.createElement("div");
-                        field.appendChild(document.createTextNode(arrayElement));
-
+                    var entry = document.createElement("div");
+                    var textbox = document.createElement("input");
+                    var label;
+                    if (typeof arrayElement === "object") {
+                        entry = document.createElement("div");
+                        textbox = document.createElement("input");
+                        textbox.appendChild(document.createTextNode(arrayElement.default));
+                        label = document.createTextNode(arrayElement.name);
+                        if(!arrayElement.name){
+                            displayError("no name field was given.");
+                        }
+                        entry.appendChild(label);
+                        entry.appendChild(textbox);
+                        ul.appendChild(entry);
+                    } else {
+                        if (typeof arrayElement === "string") {
+                                entry = document.createElement("div");
+                            textbox = document.createElement("input");
+                            label = document.createTextNode(arrayElement);
+                            entry.appendChild(label);
+                            entry.appendChild(textbox);
+                            ul.appendChild(entry);
+                        } else {
+                            displayError(arrayElement + " was not a string or object.");
+                        }
+                    }
                 });
+            } else {
+                displayError("fields was not an array.");
             }
         }
     }
-}
 
-
-function displayError(errorString) {
-    var errorDiv = document.getElementById("error");
-    errorDiv.innerHTML = errorString;
+    function displayError(errorString) {
+        var errorDiv = document.getElementById("error");
+        errorDiv.innerHTML = errorString;
+    }
 }
