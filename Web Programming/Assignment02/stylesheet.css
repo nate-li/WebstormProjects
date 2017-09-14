@@ -1,0 +1,14 @@
+body{
+    background-color: powderblue;
+}
+
+#error{
+    color: darkred;
+    font-family: "Times New Roman";
+}
+
+#results{
+    color: darkred;
+    font-family: "Times New Roman";
+    border: solid 2px;
+}
