@@ -12,8 +12,10 @@ var xoffset;
 var yoffset;
 var squareList;
 var hitList;
+var directionList;
 var xclick;
 var yclick;
+
 
 window.onload = function init(){
     window.setInterval(update, 16);
@@ -42,6 +44,8 @@ window.onload = function init(){
            }
            if(getTargetsRemaining() === 0){
                gameOver();
+           } else {
+               document.getElementById("feedback").innerHTML = "You have " + getTargetsRemaining() + " target(s) remaining.";
            }
        }
         gl.uniform4fv(ucolor, color);
@@ -51,18 +55,17 @@ window.onload = function init(){
     canvas.addEventListener("mousedown", mouseDownListener);
 
     makeShapeAndBuffer();
-
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
     crosshairMouse();
-
     render();
 };
 
 function makeShapeAndBuffer(){
     squareList = [];
     hitList = [];
+    directionList = [];
     var numSquares = 3;
 
 
@@ -70,11 +73,21 @@ function makeShapeAndBuffer(){
         xoffset = Math.random() * (.9 - (-.9)) + (-.9);
         yoffset = Math.random() * (.9 - (-.9)) + (-.9);
 
+        var xinterval = Math.random() * (.1 - (.05)) + (.05);
+        var yinterval = Math.random() * (.1 - (.05)) + (.05);
+        console.log(i);
+        console.log(xinterval);
+        console.log(yinterval);
+        directionList.push(xinterval);
+        directionList.push(yinterval);
         hitList.push(false);
         squareList.push(vec4(-0.1 + xoffset, -0.1 + yoffset, 0, 1));
         squareList.push(vec4(0.1 + xoffset, -0.1 + yoffset, 0, 1));
         squareList.push(vec4(0.1 + xoffset, 0.1 + yoffset, 0, 1));
         squareList.push(vec4(-0.1 + xoffset, 0.1 + yoffset, 0, 1));
+
+        console.log(directionList[0]);
+        console.log(directionList[1]);
     }
 
     bufferId = gl.createBuffer();
@@ -117,38 +130,22 @@ function update(){
 
     if(mode) {
         for (var i = 0; i < squareList.length; i = i + 4) {
-
-
             for(var j = i; j < 4+i; j++){
-                // var xreverse;
-                // var yreverse;
-                if(squareList[j][0] < -1){
-                    xreverse = true;
-                }
-                if(squareList[j][1] < -1){
-                    yreverse = true;
-                }
-                if(squareList[j][0] > 1){
-                    xreverse = false;
-                }
-                if(squareList[j][1] > 1){
-                    yreverse = false;
-                }
-            }
+                var xinterval = directionList[i/2];
+                var yinterval = directionList[(i/2)+1];
 
-            var xinterval;
-            var yinterval;
-
-            if (xreverse) {
-                xinterval = .01;
-            } else {
-                xinterval = -.01;
-            }
-
-            if (yreverse) {
-                yinterval = .01;
-            } else {
-                yinterval = -.01;
+                if((squareList[j][0] < -1) || (squareList[j][0] > 1)){
+                    xinterval = xinterval * -1;
+                    // alert(xinterval);
+                    directionList[i/2] = xinterval;
+                    // alert("x bounce");
+                }
+                if((squareList[j][1] < -1) || (squareList[j][1] > 1)){
+                    yinterval = yinterval * -1;
+                    directionList[(i/2)+1] = yinterval;
+                    // alert(yinterval);
+                    // alert("y bounce");
+                }
             }
 
             for(var k = i; k < 4+i; k++){

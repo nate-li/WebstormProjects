@@ -35,7 +35,6 @@ window.onload = function init() {
     ucolor = gl.getUniformLocation(program, "color");
     gl.uniform4fv(ucolor, color);
 
-
     window.addEventListener("keydown" ,function(event){
         if(event.key == " "){
             if(mode){
