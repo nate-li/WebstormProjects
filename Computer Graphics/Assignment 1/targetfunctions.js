@@ -12,7 +12,8 @@ var xoffset;
 var yoffset;
 var squareList;
 var hitList;
-var directionList;
+var directionXList;
+var directionYList;
 var xclick;
 var yclick;
 
@@ -62,32 +63,34 @@ window.onload = function init(){
     render();
 };
 
+//render the squares
 function makeShapeAndBuffer(){
     squareList = [];
     hitList = [];
-    directionList = [];
-    var numSquares = 3;
+    directionXList = [];
+    directionYList = [];
+
+    //the number of targets to render
+    var numSquares = 6;
 
 
     for(var i = 0; i < numSquares; i++) {
+        //give random starting position
         xoffset = Math.random() * (.9 - (-.9)) + (-.9);
         yoffset = Math.random() * (.9 - (-.9)) + (-.9);
 
-        var xinterval = Math.random() * (.1 - (.05)) + (.05);
-        var yinterval = Math.random() * (.1 - (.05)) + (.05);
-        console.log(i);
-        console.log(xinterval);
-        console.log(yinterval);
-        directionList.push(xinterval);
-        directionList.push(yinterval);
+        //set direction of square
+        var xinterval = Math.random() * (.01 - (.005)) + (.005);
+        var yinterval = Math.random() * (.01 - (.005)) + (.005);
+
+        //push all the points, direction, and the fact that it hasn't been hit yet
+        directionXList.push(xinterval);
+        directionYList.push(yinterval);
         hitList.push(false);
         squareList.push(vec4(-0.1 + xoffset, -0.1 + yoffset, 0, 1));
         squareList.push(vec4(0.1 + xoffset, -0.1 + yoffset, 0, 1));
         squareList.push(vec4(0.1 + xoffset, 0.1 + yoffset, 0, 1));
         squareList.push(vec4(-0.1 + xoffset, 0.1 + yoffset, 0, 1));
-
-        console.log(directionList[0]);
-        console.log(directionList[1]);
     }
 
     bufferId = gl.createBuffer();
@@ -101,7 +104,9 @@ function makeShapeAndBuffer(){
     gl.enableVertexAttribArray(vPosition);
 }
 
+//onclick see if a square has been hit
 function mouseDownListener(event){
+    //conversion
     var rect = canvas.getBoundingClientRect();
     var canvasY = event.clientY - rect.top;
     var flippedY = canvas.height - canvasY;
@@ -110,7 +115,9 @@ function mouseDownListener(event){
     xclick = 2*(event.clientX - rect.left)/canvas.width-1;
 
     for(var i = 0; i < squareList.length; i = i + 4){
+        //check to see if x coordinate is valid
         if((squareList[i][0] <= xclick) && (xclick <= squareList[i+2][0])){
+            //check to see if y coordinate is valid
             if((squareList[i][1] <= yclick) && (yclick <= squareList[i+2][1])){
                 hitList[i/4] = true;
                 document.getElementById("feedback").innerHTML = "You have " + getTargetsRemaining() + " target(s) remaining.";
@@ -127,36 +134,36 @@ function mouseDownListener(event){
 }
 
 function update(){
-
+    //see if movement is enabled
     if(mode) {
+        //loops through all squares
         for (var i = 0; i < squareList.length; i = i + 4) {
+            var xchanged = false;
+            var ychanged = false;
+
+            //check to see if a direction needs to be changed
             for(var j = i; j < 4+i; j++){
-                var xinterval = directionList[i/2];
-                var yinterval = directionList[(i/2)+1];
-
-                if((squareList[j][0] < -1) || (squareList[j][0] > 1)){
-                    xinterval = xinterval * -1;
-                    // alert(xinterval);
-                    directionList[i/2] = xinterval;
-                    // alert("x bounce");
+                //check x direction
+                if(((squareList[j][0] < -1) || (squareList[j][0] > 1)) && !xchanged){
+                    directionXList[i/4] *= -1;
+                    xchanged = true;
                 }
-                if((squareList[j][1] < -1) || (squareList[j][1] > 1)){
-                    yinterval = yinterval * -1;
-                    directionList[(i/2)+1] = yinterval;
-                    // alert(yinterval);
-                    // alert("y bounce");
+                //check y direction
+                if(((squareList[j][1] < -1) || (squareList[j][1] > 1)) && !ychanged) {
+                    directionYList[i / 4] *= -1;
+                    ychanged = true;
                 }
             }
 
-            for(var k = i; k < 4+i; k++){
-                squareList[k][0] += xinterval;
-                squareList[k][1] += yinterval;
+            //update positions of square coordinates
+            for(var k = i; k < i+4; k++){
+                squareList[k][0] += directionXList[i/4];
+                squareList[k][1] += directionYList[i/4];
             }
-
-            gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
-            gl.bufferData(gl.ARRAY_BUFFER, flatten(squareList), gl.STATIC_DRAW);
-            requestAnimationFrame(render);
         }
+        gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+        gl.bufferData(gl.ARRAY_BUFFER, flatten(squareList), gl.STATIC_DRAW);
+        requestAnimationFrame(render);
     }
 }
 
