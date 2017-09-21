@@ -5,9 +5,13 @@
     <title>Assignment 3</title>
     <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
     <script src="common.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"   integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="   crossorigin="anonymous"></script>
 </head>
 <body>
-<form>
+<div id="topbar">
+    <img id="logo" src="StarWarsOpeningLogo.png">
+</div>
+<form class = inputText>
     First name: <input id="firstBox"/><br><br>
     Last name: <input id="lastBox"/><br><br>
     Favorite Star Wars Character: <input id="favBox"/><br><br>
@@ -17,8 +21,17 @@
         <button type="button" onclick="forceRead()">Force Read</button>
     </div>
 </form>
-<div id="results">
-    results go here
-</div>
+<br><br>
+<form class = inputText>
+    View Date: <input id="viewDate"/><br><br>
+    <div>
+        <button type="button" onclick="forceInsight()">Force Insight</button>
+        <button type="button" onclick="watchMovies()">Watch Movies</button>
+    </div>
+</form>
+<br>
+<div id="results"></div>
+<br>
+<div id="error"></div>
 </body>
 </html>

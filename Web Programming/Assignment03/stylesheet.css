@@ -1,0 +1,12 @@
+body{
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-family: "Lucida Console";
+}
+
+#error {font-size: 2em; color:red; text-align: left;}
+
+#results {text-align: left;}
+
+.inputText{color: #e5b13a; border: solid 2px; border-color: #e5b13a; padding: 2%}
