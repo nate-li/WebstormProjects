@@ -101,21 +101,21 @@ function makeShapeAndBuffer(){
     var vPosition = gl.getAttribLocation(program, "vPosition");
 
     gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(vPosition);
-}
+    gl.enableVertexAttribArray(vPosition);}
+
 
 //onclick see if a square has been hit
-function mouseDownListener(event){
-    //conversion
-    var rect = canvas.getBoundingClientRect();
-    var canvasY = event.clientY - rect.top;
-    var flippedY = canvas.height - canvasY;
+        function mouseDownListener(event){
+            //conversion
+            var rect = canvas.getBoundingClientRect();
+            var canvasY = event.clientY - rect.top;
+            var flippedY = canvas.height - canvasY;
 
-    yclick = 2*flippedY / canvas.height - 1;
-    xclick = 2*(event.clientX - rect.left)/canvas.width-1;
+            yclick = 2*flippedY / canvas.height - 1;
+            xclick = 2*(event.clientX - rect.left)/canvas.width-1;
 
-    for(var i = 0; i < squareList.length; i = i + 4){
-        //check to see if x coordinate is valid
+            for(var i = 0; i < squareList.length; i = i + 4){
+                //check to see if x coordinate is valid
         if((squareList[i][0] <= xclick) && (xclick <= squareList[i+2][0])){
             //check to see if y coordinate is valid
             if((squareList[i][1] <= yclick) && (yclick <= squareList[i+2][1])){
