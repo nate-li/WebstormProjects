@@ -12,7 +12,7 @@
         out vec4 color;
 
         void main(){
-            gl_Position = projection*model_view*vPosition/vPosition.w;
+            gl_Position = projection*model_view*vPosition;
             color = vColor;
         }
     </script>
@@ -33,7 +33,7 @@
 
 </head>
 <body>
-    <canvas id="gl-canvas" width="512" height="512">
+    <canvas id="gl-canvas" width="512" height="512" style="border: solid 2px">
         Sorry; your web browser doesn't support HTML5's canvas element.
     </canvas>
 </body>

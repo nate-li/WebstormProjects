@@ -16,28 +16,51 @@
     <favorites_list name="WebstormProjects" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Web Programming/Assignment03/home.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="48" lean-forward="false" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Web Programming/Assignment03/common.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="transformfunctionsComplete.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Computer Graphics/9-21-17/transformfunctionsComplete.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-11">
+                  <caret line="250" column="31" lean-forward="false" selection-start-line="250" selection-start-column="31" selection-end-line="250" selection-end-column="31" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="rollercoaster.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/rollercoaster.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="477">
+                  <caret line="30" column="56" lean-forward="false" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="56" />
+                  <folding>
+                    <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="367">
+                  <caret line="253" column="0" lean-forward="true" selection-start-line="253" selection-start-column="0" selection-end-line="253" selection-end-column="0" />
+                  <folding>
+                    <element signature="n#!!block;n#makeCubeAndBuffer#0" expanded="false" />
+                    <element signature="n#!!block;n#makeGroundAndBuffer#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -59,6 +82,7 @@
       <find>squareList</find>
       <find>alert</find>
       <find>font</find>
+      <find>bufferId</find>
     </findStrings>
     <replaceStrings>
       <replace>points</replace>
@@ -100,6 +124,8 @@
         <option value="$PROJECT_DIR$/Web Programming/Assignment03/stylesheet.css" />
         <option value="$PROJECT_DIR$/Web Programming/Assignment03/common.js" />
         <option value="$PROJECT_DIR$/Web Programming/Assignment03/home.html" />
+        <option value="$PROJECT_DIR$/Computer Graphics/Assignment 2/rollercoaster.html" />
+        <option value="$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js" />
       </list>
     </option>
   </component>
@@ -130,7 +156,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -147,35 +172,30 @@
               <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
               <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
-              <item name="9-12-17" type="462c0819:PsiDirectoryNode" />
+              <item name="9-21-17" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
               <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
-              <item name="9-19-17" type="462c0819:PsiDirectoryNode" />
+              <item name="Assignment 1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
+              <item name="Assignment 2" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
               <item name="Web Programming" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="Web Programming" type="462c0819:PsiDirectoryNode" />
-              <item name="Assignment02" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="Web Programming" type="462c0819:PsiDirectoryNode" />
-              <item name="Assignment03" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -187,15 +207,15 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
-      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics" />
-      <recent name="C:\Users\linat\WebstormProjects\Web Programming\Assignment01" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\9-19-17" />
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\Assignment 1" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
+      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics" />
+      <recent name="C:\Users\linat\WebstormProjects\Web Programming\Assignment01" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -210,26 +230,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.targetpractice.html">
-    <configuration name="HelloInteract.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Computer Graphics/9-12-17/HelloInteract.html" />
+  <component name="RunManager" selected="JavaScript Debug.rollercoaster.html">
     <configuration name="TransformationsSkeleton.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Computer Graphics/9-19-17/TransformationsSkeleton.html" />
+    <configuration name="functions.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="functions.js" working-dir="$PROJECT_DIR$/Computer Graphics/Assignment 2" />
     <configuration name="home.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Web Programming/Assignment03/home.html" />
-    <configuration name="hw2.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Web Programming/Assignment02/hw2.html" />
+    <configuration name="rollercoaster.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Computer Graphics/Assignment 2/rollercoaster.html" />
     <configuration name="targetpractice.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Computer Graphics/Assignment 1/targetpractice.html" />
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.HelloInteract.html" />
-      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.targetpractice.html" />
-      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.hw2.html" />
-      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.TransformationsSkeleton.html" />
-      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.home.html" />
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.targetpractice.html" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.TransformationsSkeleton.html" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.home.html" />
+      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.rollercoaster.html" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.functions.js" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.targetpractice.html" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.home.html" />
-        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.TransformationsSkeleton.html" />
-        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.HelloInteract.html" />
-        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.hw2.html" />
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.rollercoaster.html" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.functions.js" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.targetpractice.html" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.home.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.TransformationsSkeleton.html" />
       </list>
     </recent_temporary>
   </component>
@@ -260,12 +280,13 @@
       <workItem from="1505940209575" duration="858000" />
       <workItem from="1506013370897" duration="1586000" />
       <workItem from="1506015533706" duration="99000" />
-      <workItem from="1506269118010" duration="22000" />
+      <workItem from="1506269118010" duration="209000" />
+      <workItem from="1506269354435" duration="20255000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85886000" />
+    <option name="totallyTimeSpent" value="106328000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1613" height="913" extended-state="6" />
@@ -273,11 +294,11 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11319575" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06666667" sideWeight="0.50218886" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06282052" sideWeight="0.5046904" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06282052" sideWeight="0.49781114" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06282052" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.128125" sideWeight="0.5036726" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -318,32 +339,11 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="9" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 1/targetfunctions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 1/targetpractice.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/9-7-17/HelloInteract.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="28" lean-forward="false" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/9-7-17/hellofunctions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -607,13 +607,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 1/targetfunctions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/9-19-17/transformfunctionSkeleton.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1649">
@@ -646,15 +639,50 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="19" column="48" lean-forward="false" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Web Programming/Assignment03/common.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+        <state relative-caret-position="272">
+          <caret line="30" column="18" lean-forward="false" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/9-21-17/transformfunctionsComplete.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11">
+          <caret line="250" column="31" lean-forward="false" selection-start-line="250" selection-start-column="31" selection-end-line="250" selection-end-column="31" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 1/targetfunctions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/rollercoaster.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="30" column="56" lean-forward="false" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="56" />
+          <folding>
+            <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="253" column="0" lean-forward="true" selection-start-line="253" selection-start-column="0" selection-end-line="253" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!block;n#makeCubeAndBuffer#0" expanded="false" />
+            <element signature="n#!!block;n#makeGroundAndBuffer#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
