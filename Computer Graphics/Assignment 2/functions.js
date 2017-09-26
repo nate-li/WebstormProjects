@@ -16,6 +16,7 @@ var cubePoints;
 var cylinderPoints;
 var circlePoints;
 var groundPoints;
+var rotateAngle;
 
 window.onload = function init() {
     canvas = document.getElementById("gl-canvas");
@@ -31,6 +32,7 @@ window.onload = function init() {
     uproj = gl.getUniformLocation(program, "projection");
 
     xoffset = yoffset = zoffset = 0;
+    rotateAngle = 0;
 
     //TODO make cube
     makeCubeAndBuffer();
@@ -189,7 +191,7 @@ function makeCircleAndBuffer(){
 
     for(var i = 0; i < 2*Math.PI; i+=.1){
         circlePoints.push(vec4(Math.cos(i), Math.sin(i), 0, 1));
-        circlePoints.push(0, 0, 0, 1);
+        circlePoints.push(0);
     }
 
     circleBuffer = gl.createBuffer();
@@ -231,6 +233,11 @@ function makeGroundAndBuffer(){
 
 //TODO
 function update(){
+    rotateAngle += 10;
+    while(rotateAngle >= 360){
+        rotateAngle -= 360
+    }
+
     requestAnimationFrame(render);
 }
 
@@ -272,6 +279,7 @@ function render(){
     //TODO circle 1
     var circleMV = mult(cubeMV, translate(-.8, -1, 1.05));
     circleMV = mult(circleMV, scalem(.35 , .5, 1));
+    circleMV = mult(circleMV, rotateZ(rotateAngle));
     gl.uniformMatrix4fv(umv, false, flatten(circleMV));
 
     gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
@@ -292,6 +300,7 @@ function render(){
     //TODO circle 2
     var circle2MV = mult(cubeMV, translate(.8, -1, 1.05));
     circle2MV = mult(circle2MV, scalem(.35, .5, 1));
+    circle2MV = mult(circle2MV, rotateZ(rotateAngle));
     gl.uniformMatrix4fv(umv, false, flatten(circle2MV));
 
     gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
@@ -312,6 +321,7 @@ function render(){
     //TODO circle 3
     var circle3MV = mult(cubeMV, translate(-.8, -1, -1.05));
     circle3MV = mult(circle3MV, scalem(.35, .5, 1));
+    circle3MV = mult(circle3MV, rotateZ(rotateAngle));
     gl.uniformMatrix4fv(umv, false, flatten(circle3MV));
 
     gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
@@ -332,13 +342,14 @@ function render(){
     //TODO circle 4
     var circle4MV = mult(cubeMV, translate(.8, -1, -1.05));
     circle4MV = mult(circle4MV, scalem(.35, .5, 1));
+    circle4MV = mult(circle4MV, rotateZ(rotateAngle));
+
     gl.uniformMatrix4fv(umv, false, flatten(circle4MV));
 
     gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
     gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
     gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
     gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length/2);
-
 
     //TODO ground
     var groundMV = mult(mainMV, translate(0, -1.5, 5));

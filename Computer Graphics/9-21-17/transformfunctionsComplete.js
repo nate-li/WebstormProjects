@@ -212,7 +212,7 @@ function makeCubeAndBuffer(){
 //increase rotation angle and request new frame
 function update(){
     //alter the rotation angle
-    rotateAngle += 1;
+    rotateAngle += 3;
     while (rotateAngle >= 360){
         rotateAngle -= 360;
     }
