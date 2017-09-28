@@ -17,6 +17,7 @@ var circleBuffer;
 var groundBuffer;
 var trackBuffer;
 var boardBuffer;
+var railBuffer;
 
 var cubePoints;
 var cylinderPoints;
@@ -24,6 +25,7 @@ var circlePoints;
 var groundPoints;
 var trackPoints;
 var boardPoints;
+var railPoints;
 
 var rotateAngle;
 var move;
@@ -42,7 +44,7 @@ window.onload = function init() {
     }
 
     program = initShaders(gl, "vertex-shader", "fragment-shader");
-    gl.useProgram(program); //and we want to use that program for our rendering
+    gl.useProgram(program);
 
     umv = gl.getUniformLocation(program, "model_view");
     uproj = gl.getUniformLocation(program, "projection");
@@ -105,19 +107,21 @@ window.onload = function init() {
     makeGroundAndBuffer();
     //TODO make board
     makeBoardAndBuffer();
+    //TODO make rail
+    makeRailAndBuffer();
 
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
-    // gl.clearColor(0, 0, 0, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
-    window.setInterval(update, 16); //target 60 frames per second
+    window.setInterval(update, 16);
     requestAnimationFrame(render);
 };
 
+//parse the track data into individual track points
 function parseData(input){
     trackPoints = [];
-    var numbers = input.split(/\s+/); //split on white space
+    var numbers = input.split(/\s+/);
     for(var i = 0; i < numbers.length; i+= 3){
         trackPoints.push(vec4(parseFloat(numbers[i]), parseFloat(numbers[i+1]), parseFloat(numbers[i+2]), 1));
         trackPoints.push(vec4(0,0,0,1));
@@ -137,6 +141,7 @@ function parseData(input){
     fileChosen = true;
 }
 
+//create the cube for the cart
 function makeCubeAndBuffer(){
     cubePoints = [];
     //front face = 6 verts, position then color
@@ -243,6 +248,7 @@ function makeCubeAndBuffer(){
     gl.enableVertexAttribArray(vColor);
 }
 
+//create the cylinder object for the wheel
 function makeCylinderAndBuffer(){
     cylinderPoints = [];
 
@@ -272,6 +278,7 @@ function makeCylinderAndBuffer(){
     gl.enableVertexAttribArray(vColor);
 }
 
+//create the wheel object for the wheel
 function makeCircleAndBuffer(){
     circlePoints = [];
 
@@ -293,6 +300,7 @@ function makeCircleAndBuffer(){
     gl.enableVertexAttribArray(vColor);
 }
 
+//create the square to represent the ground
 function makeGroundAndBuffer(){
     groundPoints = [];
     groundPoints.push(vec4(1, -1, 1, 1));
@@ -317,6 +325,7 @@ function makeGroundAndBuffer(){
     gl.enableVertexAttribArray(vColor);
 }
 
+//create the railroad tie object
 function makeBoardAndBuffer(){
     var boardColor = vec4(0.525,0.437,0.118,1);
     boardPoints = [];
@@ -416,7 +425,108 @@ function makeBoardAndBuffer(){
     gl.enableVertexAttribArray(vColor);
 }
 
+//create the rail prism object
+function makeRailAndBuffer(){
+    var railColor = vec4(0,0,0,1);
+    railPoints = [];
+    railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+
+    //back face
+    railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+
+    //left face
+    railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+
+    //right face
+    railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+
+    //top
+    railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+
+    //bottom
+    railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+    railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    railPoints.push(railColor);
+
+    railBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, railBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(railPoints), gl.STATIC_DRAW);
+
+    vPosition = gl.getAttribLocation(program, "vPosition");
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.enableVertexAttribArray(vPosition);
+
+    vColor = gl.getAttribLocation(program, "vColor");
+    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+    gl.enableVertexAttribArray(vColor);
+}
+
 function update(){
+    //to move the cart and spin the wheel
     if(move){
         rotateAngle += 10;
         while(rotateAngle >= 360){
@@ -426,9 +536,9 @@ function update(){
         while(num >= trackPoints.length-3){
             num = 0;
         }
-    // requestAnimationFrame(render);
     }
 
+    //to rotate the camera around the track
     if(rotateview){
         rotationnum += .5;
         while (rotationnum >= 360){
@@ -448,9 +558,9 @@ function render(){
 //     var mainMV = lookAt(vec3(0, 50, 0), vec3(0, 0, 0), vec3(0, 0, 1));
 //look stright from the side
     var mainMV = lookAt(vec3(0, 20, 50), vec3(0, 0, 0), vec3(0, 1, 0));
-    mainMV = mult(mainMV, rotateY(rotationnum));
-//     var mainMV = lookAt(vec3(10, 10, 30), vec3(0, 0, 0), vec3(0, 1, 0));
 
+    //create the main MV
+    mainMV = mult(mainMV, rotateY(rotationnum));
     mainMV = mult(mainMV, translate(xoffset, yoffset, zoffset));
     gl.uniformMatrix4fv(umv, false, flatten(mainMV));
 
@@ -460,9 +570,9 @@ function render(){
         var tracksize = .2;
         trackMV = mult(trackMV, scalem(tracksize, tracksize, tracksize));
 
+        //create the track
         for (var i = 0; i < trackPoints.length; i += 2) {
-            var boardMV = mult(trackMV, translate(0, 0, 0));
-            boardMV = mult(boardMV, translate(trackPoints[i][0], trackPoints[i][1], trackPoints[i][2]));
+            //calculate direction for each track point
             var eyeB;
             if(i === trackPoints.length-2){
                 eyeB = vec3(trackPoints[0][0], trackPoints[0][1], trackPoints[0][2]);
@@ -477,23 +587,43 @@ function render(){
             var cB = mat4(uB, vB, nB, tB);
             var resultB = transpose(cB);
 
+            //render the railroad tie
+            var boardMV = mult(trackMV, translate(0, 0, 0));
+            boardMV = mult(boardMV, translate(trackPoints[i][0], trackPoints[i][1], trackPoints[i][2]));
+
             boardMV = mult(boardMV, resultB);
             boardMV = mult(boardMV, rotateY(90));
-            boardMV = mult(boardMV, scalem(1.2, .5, 5));
+            boardMV = mult(boardMV, scalem(1.1, .5, 5));
             gl.uniformMatrix4fv(umv, false, flatten(boardMV));
             gl.bindBuffer(gl.ARRAY_BUFFER, boardBuffer);
             gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
             gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
             gl.drawArrays(gl.TRIANGLES, 0, boardPoints.length / 2);
+
+            //render the rails
+            var railMV = mult(trackMV, translate(0, 0, 0));
+            railMV = mult(railMV, translate(trackPoints[i][0], trackPoints[i][1], trackPoints[i][2]));
+            railMV = mult(railMV, resultB);
+            railMV = mult(railMV, rotateY(90));
+            railMV = mult(railMV, scalem(2, 1, .5));
+
+            var rail2MV = mult(railMV, translate(0, 0, -4));
+            railMV = mult(railMV, translate(0, 0, 4));
+
+            gl.uniformMatrix4fv(umv, false, flatten(railMV));
+            gl.bindBuffer(gl.ARRAY_BUFFER, railBuffer);
+            gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+            gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+            gl.drawArrays(gl.TRIANGLES, 0, railPoints.length / 2);
+
+            gl.uniformMatrix4fv(umv, false, flatten(rail2MV));
+            gl.bindBuffer(gl.ARRAY_BUFFER, railBuffer);
+            gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+            gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+            gl.drawArrays(gl.TRIANGLES, 0, railPoints.length / 2);
         }
 
-        gl.uniformMatrix4fv(umv, false, flatten(trackMV));
-        gl.bindBuffer(gl.ARRAY_BUFFER, trackBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.POINTS, 0, trackPoints.length / 2);
-
-
+        //render the cart and all its parts
         //TODO cube
         var cubeMV = mult(trackMV, translate(0, 0, 0));
         cubeMV = mult(cubeMV, translate(trackPoints[num][0], trackPoints[num][1]+3.6, trackPoints[num][2]));
@@ -504,12 +634,10 @@ function render(){
         var v = vec4(normalize(cross(n,u)), 0);
         var t = vec4(0, 0, 0, 1);
         var c = mat4(u, v, n, t);
-        // var result = c * translate(-eye);
 
         var result = transpose(c);
         cubeMV = mult(cubeMV, result);
         cubeMV = mult(cubeMV, rotateY(90));
-        // cubeMV = mult(cubeMV, rotateY(0));
         cubeMV = mult(cubeMV, scalem(3, 2, 2));
         gl.uniformMatrix4fv(umv, false, flatten(cubeMV));
 
@@ -519,7 +647,7 @@ function render(){
         gl.drawArrays(gl.TRIANGLES, 0, 36);
 
         //TODO cylinder 1
-        var cylinderMV = mult(cubeMV, translate(-.8, -1, .9));
+        var cylinderMV = mult(cubeMV, translate(-.8, -.9, .9));
         cylinderMV = mult(cylinderMV, scalem(.35, .5, 1));
         gl.uniformMatrix4fv(umv, false, flatten(cylinderMV));
 

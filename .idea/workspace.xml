@@ -16,20 +16,22 @@
     <window id="1">
       <content type="file-editors">
         <state>
-          <leaf>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
             <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="1082">
-                    <caret line="456" column="16" lean-forward="true" selection-start-line="456" selection-start-column="16" selection-end-line="456" selection-end-column="16" />
+                  <state relative-caret-position="6210">
+                    <caret line="748" column="0" lean-forward="true" selection-start-line="748" selection-start-column="0" selection-end-line="748" selection-end-column="0" />
                     <folding>
-                      <element signature="e#571#618#0" expanded="false" />
-                      <element signature="e#1704#2192#0" expanded="false" />
+                      <element signature="e#603#650#0" expanded="false" />
+                      <element signature="e#1076#1570#0" expanded="false" />
+                      <element signature="e#1684#2172#0" expanded="false" />
                       <element signature="n#!!block;n#makeCubeAndBuffer#0" expanded="false" />
                       <element signature="n#!!block;n#makeCylinderAndBuffer#0" expanded="false" />
                       <element signature="n#!!block;n#makeCircleAndBuffer#0" expanded="false" />
                       <element signature="n#!!block;n#makeGroundAndBuffer#0" expanded="false" />
                       <element signature="n#!!block;n#makeBoardAndBuffer#0" expanded="false" />
+                      <element signature="n#!!block;n#makeRailAndBuffer#0" expanded="false" />
                     </folding>
                   </state>
                 </provider>
@@ -45,26 +47,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="rollercoaster.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="rollercoaster.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/rollercoaster.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="30" column="53" lean-forward="true" selection-start-line="30" selection-start-column="53" selection-end-line="30" selection-end-column="53" />
+            <state relative-caret-position="310">
+              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1506459866031" expanded="true" signature="335:366" ph="..." />
+                <marker date="1506606454322" expanded="true" signature="335:366" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HelloInteract.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Computer Graphics/9-12-17/HelloInteract.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -96,10 +88,15 @@
       <find>PointSize</find>
       <find>cubePoints</find>
       <find>var p</find>
+      <find>boardColor</find>
+      <find>POINTS</find>
+      <find>boardPoints</find>
     </findStrings>
     <replaceStrings>
       <replace>points</replace>
       <replace>boardPoints</replace>
+      <replace>railPoints</replace>
+      <replace>railColor</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -138,10 +135,10 @@
         <option value="$PROJECT_DIR$/Web Programming/Assignment03/common.js" />
         <option value="$PROJECT_DIR$/Web Programming/Assignment03/home.html" />
         <option value="$PROJECT_DIR$/Computer Graphics/9-21-17/TransformationsComplete.html" />
-        <option value="$PROJECT_DIR$/Computer Graphics/Assignment 2/rollercoaster.html" />
         <option value="$PROJECT_DIR$/Computer Graphics/9-21-17/transformfunctionsComplete.js" />
-        <option value="$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js" />
         <option value="$PROJECT_DIR$/Computer Graphics/9-12-17/HelloInteract.html" />
+        <option value="$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js" />
+        <option value="$PROJECT_DIR$/Computer Graphics/Assignment 2/rollercoaster.html" />
       </list>
     </option>
   </component>
@@ -171,6 +168,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -210,8 +209,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -300,24 +297,25 @@
       <workItem from="1506269118010" duration="209000" />
       <workItem from="1506269354435" duration="30030000" />
       <workItem from="1506448836210" duration="12160000" />
-      <workItem from="1506541432529" duration="9147000" />
+      <workItem from="1506541432529" duration="9248000" />
+      <workItem from="1506603054136" duration="4254000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137410000" />
+    <option name="totallyTimeSpent" value="141765000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1613" height="913" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11319575" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.056285176" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06282052" sideWeight="0.5046904" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06282052" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06153846" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.128125" sideWeight="0.5036726" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -358,7 +356,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="27" />
+      <option name="time" value="30" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -644,7 +642,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="140" column="0" lean-forward="false" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -672,18 +669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/rollercoaster.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="30" column="53" lean-forward="true" selection-start-line="30" selection-start-column="53" selection-end-line="30" selection-end-column="53" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1506459866031" expanded="true" signature="335:366" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/9-12-17/hellofunctions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -692,27 +677,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/9-12-17/HelloInteract.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="31" column="50" lean-forward="true" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1082">
-          <caret line="456" column="16" lean-forward="true" selection-start-line="456" selection-start-column="16" selection-end-line="456" selection-end-column="16" />
+        <state relative-caret-position="6210">
+          <caret line="748" column="0" lean-forward="true" selection-start-line="748" selection-start-column="0" selection-end-line="748" selection-end-column="0" />
           <folding>
-            <element signature="e#571#618#0" expanded="false" />
-            <element signature="e#1704#2192#0" expanded="false" />
+            <element signature="e#603#650#0" expanded="false" />
+            <element signature="e#1076#1570#0" expanded="false" />
+            <element signature="e#1684#2172#0" expanded="false" />
             <element signature="n#!!block;n#makeCubeAndBuffer#0" expanded="false" />
             <element signature="n#!!block;n#makeCylinderAndBuffer#0" expanded="false" />
             <element signature="n#!!block;n#makeCircleAndBuffer#0" expanded="false" />
             <element signature="n#!!block;n#makeGroundAndBuffer#0" expanded="false" />
             <element signature="n#!!block;n#makeBoardAndBuffer#0" expanded="false" />
+            <element signature="n#!!block;n#makeRailAndBuffer#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/9-12-17/HelloInteract.html">
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/rollercoaster.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="310">
+          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1506606454322" expanded="true" signature="335:366" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
