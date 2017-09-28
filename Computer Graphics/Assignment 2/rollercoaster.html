@@ -12,6 +12,7 @@
         out vec4 color;
 
         void main(){
+            gl_PointSize = 5.0;
             gl_Position = projection*model_view*vPosition;
             color = vColor;
         }
@@ -33,8 +34,13 @@
 
 </head>
 <body>
-    <canvas id="gl-canvas" width="512" height="512" style="border: solid 2px">
+    <div style="font-size: 2em">
+        Welcome to Valleyfair's newest ride
+    </div>
+    <canvas id="gl-canvas" width="768" height="768" style="border: solid 2px">
         Sorry; your web browser doesn't support HTML5's canvas element.
     </canvas>
+    <br><br>
+    <input type = "file" id="fileInput">
 </body>
 </html>

@@ -45,7 +45,7 @@ window.onload = function init() {
     //Note that we're defining the function anonymously.  If this gets too complicated
     //we probably want to split the code off somewhere and just give the name of the function
     //to call for this event
-    window.addEventListener("keydown" ,function(event){
+    window.addEventListener("keydown", function(event){
         switch(event.key) {
             case "0": //switch modes
             case "1":
@@ -212,7 +212,7 @@ function makeCubeAndBuffer(){
 //increase rotation angle and request new frame
 function update(){
     //alter the rotation angle
-    rotateAngle += 3;
+    rotateAngle += 1;
     while (rotateAngle >= 360){
         rotateAngle -= 360;
     }
@@ -253,11 +253,12 @@ function update(){
 
 //draw a new frame
 function render(){
+    gl.viewport(0, 0, 512, 512);
     //start by clearing any previous data for both color and depth
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     //we'll discuss projection matrices in a couple of days, but use this for now:
-    var p = perspective(45.0, canvas.width / canvas.height, 1.0, 100.0);
+    var p = perspective(45.0, (canvas.width/2) / canvas.height, 1.0, 100.0);
     gl.uniformMatrix4fv(uproj, false, flatten(p));
 
     //now set up the model view matrix and send it over as a uniform
@@ -282,15 +283,52 @@ function render(){
 
     mv = commonMat; //go back to the transforms that apply to the whole scene
 
-    if (mode == 1){
+    if (mode === 1){
          mv = mult(mv, mult(rotateY(orbit), mult(translate(3, 0, 0), rotateX(rotateAngle))));
          gl.uniformMatrix4fv(umv, false, flatten(mv));
          gl.drawArrays(gl.TRIANGLES, 0, 36);    // draw the same cube but in a different location/orientation
      }
-     else if (mode == 2){
+     else if (mode === 2){
          mv = mult( mv, rotmat); //see update() for how we construct this
          gl.uniformMatrix4fv(umv, false, flatten(mv));
          gl.drawArrays(gl.TRIANGLES, 0, 36);    // draw the cube
      }
 
+     gl.viewport(512, 0, 512, 512);
+
+    var p = perspective(45.0, (canvas.width/2) / canvas.height, 1.0, 100.0);
+    gl.uniformMatrix4fv(uproj, false, flatten(p));
+
+    //now set up the model view matrix and send it over as a uniform
+    //the inputs to this lookAt are to move back 20 units, point at the origin, and the positive y axis is up
+    var mv = lookAt(vec3(0, 20, 0), vec3(0, 0, 0), vec3(1, 0, 0));
+    mv = mult(mv, translate(xoffset, yoffset, zoffset));
+
+    var commonMat = mv; //so we can get back to this state later
+
+    mv = mult(mv, rotateY(rotateAngle));
+
+    gl.uniformMatrix4fv(umv, false, flatten(mv));
+
+    //we only have one object at the moment, but just so we don't forget this step if we have multiple buffers
+    gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+
+    //draw the geometry we previously sent over.  It's a list of 12 triangle(s),
+    //we want to start at index 0, and there will be a total of 36 vertices (6 faces with 6 vertices each)
+    gl.drawArrays(gl.TRIANGLES, 0, 36);    // draw the cube
+
+    mv = commonMat; //go back to the transforms that apply to the whole scene
+
+    if (mode == 1){
+        mv = mult(mv, mult(rotateY(orbit), mult(translate(3, 0, 0), rotateX(rotateAngle))));
+        gl.uniformMatrix4fv(umv, false, flatten(mv));
+        gl.drawArrays(gl.TRIANGLES, 0, 36);    // draw the same cube but in a different location/orientation
+    }
+    else if (mode == 2){
+        mv = mult( mv, rotmat); //see update() for how we construct this
+        gl.uniformMatrix4fv(umv, false, flatten(mv));
+        gl.drawArrays(gl.TRIANGLES, 0, 36);    // draw the cube
+    }
 }
