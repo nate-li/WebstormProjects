@@ -745,4 +745,3 @@ function render(){
         gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
     }
 }
-

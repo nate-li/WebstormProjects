@@ -15,7 +15,15 @@ var yoffset; //translation y
 var zoffset; //translation z
 var vPosition; //remember the location of shader attributes
 var vColor; //remember the location of shader attributes
-
+var fov;
+var zoomin = false;
+var zoomout = false;
+var xmove = 0;
+var ymove = 0;
+var zmove = 20;
+var gox = false;
+var noz = false;
+var goz = false;
 //We want some set up to happen immediately when the page loads
 window.onload = function init() {
 
@@ -41,6 +49,7 @@ window.onload = function init() {
     orbit = 0;
     rotmat = mat4();//identity matrix
 
+    fov = 45;
     //This won't execute until the user hits a key
     //Note that we're defining the function anonymously.  If this gets too complicated
     //we probably want to split the code off somewhere and just give the name of the function
@@ -70,9 +79,38 @@ window.onload = function init() {
             case "z":
                 zoffset += 0.1;
                 break;
-
+            case "=":
+                if(zoomin){
+                    zoomin = false;
+                }else{
+                    zoomin = true;
+                    zoomout = false;
+                }
+                break;
+            case "-":
+                if(zoomout){
+                    zoomout = false;
+                }else{
+                    zoomout = true;
+                    zoomin = false;
+                }
+                break;
+            case "8":
+                if(goz){
+                    goz = false;
+                }else{
+                    goz = true;
+                    noz = false;
+                }
+                break;
+            case "9":
+                if(noz){
+                    noz = false;
+                }else{
+                    noz = true;
+                    goz = false;
+                }
         }
-
         requestAnimationFrame(render);//and now we need a new frame since we made a change
     });
 
@@ -88,7 +126,6 @@ window.onload = function init() {
 
     //we need to do this to avoid having objects that are behind other objects show up anyway
     gl.enable(gl.DEPTH_TEST);
-
 
     window.setInterval(update, 16); //target 60 frames per second
 };
@@ -223,6 +260,22 @@ function update(){
         orbit -= 360;
     }
 
+    if(zoomin){
+        fov += .2;
+    }
+
+    if(zoomout){
+        fov -= .2;
+    }
+
+    if(goz) {
+        zmove += .2
+    }
+
+    if(noz){
+        zmove -= .2
+    }
+
     //what if we want a change in coordinate frame matrix?
     //we need to calculate side, up and forward vectors
     //this is just one example of what we might want as our goal
@@ -258,12 +311,12 @@ function render(){
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     //we'll discuss projection matrices in a couple of days, but use this for now:
-    var p = perspective(45.0, (canvas.width/2) / canvas.height, 1.0, 100.0);
+    var p = perspective(fov, (canvas.width/2) / canvas.height, 1.0, 100.0);
     gl.uniformMatrix4fv(uproj, false, flatten(p));
 
     //now set up the model view matrix and send it over as a uniform
     //the inputs to this lookAt are to move back 20 units, point at the origin, and the positive y axis is up
-    var mv = lookAt(vec3(0, 0, 20), vec3(0, 0, 0), vec3(0, 1, 0));
+    var mv = lookAt(vec3(xmove, ymove, zmove), vec3(0, 0, 0), vec3(0, 1, 0));
     mv = mult(mv, translate(xoffset, yoffset, zoffset));
 
     var commonMat = mv; //so we can get back to this state later
@@ -296,12 +349,12 @@ function render(){
 
      gl.viewport(512, 0, 512, 512);
 
-    var p = perspective(45.0, (canvas.width/2) / canvas.height, 1.0, 100.0);
+    var p = perspective(fov, (canvas.width/2) / canvas.height, 1.0, 100.0);
     gl.uniformMatrix4fv(uproj, false, flatten(p));
 
     //now set up the model view matrix and send it over as a uniform
     //the inputs to this lookAt are to move back 20 units, point at the origin, and the positive y axis is up
-    var mv = lookAt(vec3(0, 20, 0), vec3(0, 0, 0), vec3(1, 0, 0));
+    var mv = lookAt(vec3(0, 20, zmove), vec3(0, 0, 0), vec3(1, 0, 0));
     mv = mult(mv, translate(xoffset, yoffset, zoffset));
 
     var commonMat = mv; //so we can get back to this state later
