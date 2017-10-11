@@ -1,4 +1,6 @@
-var azureURL = "http://webprogrammingassignment3.azurewebsites.net/api/favoriteCharacters";
+var azureURL =
+    "http://localhost:52082/api/characters";
+    // "http://webprogrammingassignment3.azurewebsites.net/api/favoriteCharacters";
 var length;
 var randInt;
 
