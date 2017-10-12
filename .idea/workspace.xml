@@ -12,46 +12,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-            <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="693">
-                    <caret line="747" column="0" lean-forward="false" selection-start-line="747" selection-start-column="0" selection-end-line="747" selection-end-column="0" />
-                    <folding>
-                      <element signature="e#603#650#0" expanded="false" />
-                      <element signature="e#1076#1570#0" expanded="false" />
-                      <element signature="e#1684#2172#0" expanded="false" />
-                      <element signature="n#!!block;n#makeCubeAndBuffer#0" expanded="false" />
-                      <element signature="n#!!block;n#makeCylinderAndBuffer#0" expanded="false" />
-                      <element signature="n#!!block;n#makeCircleAndBuffer#0" expanded="false" />
-                      <element signature="n#!!block;n#makeGroundAndBuffer#0" expanded="false" />
-                      <element signature="n#!!block;n#makeBoardAndBuffer#0" expanded="false" />
-                      <element signature="n#!!block;n#makeRailAndBuffer#0" expanded="false" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FavoritesManager">
     <favorites_list name="WebstormProjects" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Web Programming/Assignment03/common.js">
+      <file leaf-file-name="rollercoaster.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 3/rollercoaster.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="698">
-              <caret line="79" column="27" lean-forward="false" selection-start-line="79" selection-start-column="27" selection-end-line="79" selection-end-column="27" />
+            <state relative-caret-position="255">
+              <caret line="15" column="58" lean-forward="true" selection-start-line="15" selection-start-column="58" selection-end-line="16" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -150,6 +120,7 @@
         <option value="$PROJECT_DIR$/Computer Graphics/10-3-17/lightingfunctions-skeleton.js" />
         <option value="$PROJECT_DIR$/Computer Graphics/10-3-17/fshader-phong.glsl" />
         <option value="$PROJECT_DIR$/Web Programming/Assignment03/common.js" />
+        <option value="$PROJECT_DIR$/Computer Graphics/Assignment 3/initShaders.js" />
       </list>
     </option>
   </component>
@@ -193,6 +164,12 @@
               <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
               <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
+              <item name="Assignment 3" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -208,17 +185,17 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\10-3-17" />
-      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\Assignment 2" />
-      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\9-19-17" />
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\Assignment 1" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
       <recent name="C:\Users\linat\WebstormProjects\Computer Graphics" />
       <recent name="C:\Users\linat\WebstormProjects\Web Programming\Assignment01" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics" />
+      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\10-3-17" />
+      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\Assignment 2" />
+      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\9-19-17" />
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -233,26 +210,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.home.html">
+  <component name="RunManager" selected="JavaScript Debug.rollercoaster.html (1)">
     <configuration name="Lighting.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Computer Graphics/10-3-17/Lighting.html" />
     <configuration name="TransformationsComplete.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Computer Graphics/9-21-17/TransformationsComplete.html" />
     <configuration name="home.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Web Programming/Assignment03/home.html" />
+    <configuration name="rollercoaster.html (1)" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Computer Graphics/Assignment 3/rollercoaster.html" />
     <configuration name="rollercoaster.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/WebstormProjects/Computer Graphics/Assignment 2/rollercoaster.html" />
-    <configuration name="transformfunctionsComplete.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="transformfunctionsComplete.js" working-dir="$PROJECT_DIR$/Computer Graphics/9-21-17" />
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.rollercoaster.html" />
       <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.TransformationsComplete.html" />
-      <item index="2" class="java.lang.String" itemvalue="Node.js.transformfunctionsComplete.js" />
-      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.home.html" />
-      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.Lighting.html" />
+      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.home.html" />
+      <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.Lighting.html" />
+      <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.rollercoaster.html (1)" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.home.html" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.Lighting.html" />
-        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.rollercoaster.html" />
-        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.TransformationsComplete.html" />
-        <item index="4" class="java.lang.String" itemvalue="Node.js.transformfunctionsComplete.js" />
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.rollercoaster.html (1)" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.rollercoaster.html" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.home.html" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.Lighting.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.TransformationsComplete.html" />
       </list>
     </recent_temporary>
   </component>
@@ -290,12 +267,12 @@
       <workItem from="1506603054136" duration="7924000" />
       <workItem from="1507044008831" duration="1039000" />
       <workItem from="1507209461715" duration="12805000" />
-      <workItem from="1507654520644" duration="1822000" />
+      <workItem from="1507654520644" duration="2341000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="161101000" />
+    <option name="totallyTimeSpent" value="161620000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1613" height="913" extended-state="6" />
@@ -355,34 +332,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Web Programming/9-5-17/commons.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="24" lean-forward="false" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/8-31-17/MV.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/8-31-17/initShaders.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="2" lean-forward="true" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Web Programming/9-5-17/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="21" lean-forward="true" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/HelloColor.html" />
     <entry file="file://$USER_HOME$/Downloads/hellofunctions (1).js" />
     <entry file="file://$PROJECT_DIR$/Web Programming/Assignment01/Assignment01.html">
@@ -570,24 +519,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="747" column="0" lean-forward="false" selection-start-line="747" selection-start-column="0" selection-end-line="747" selection-end-column="0" />
-          <folding>
-            <element signature="e#603#650#0" expanded="false" />
-            <element signature="e#1076#1570#0" expanded="false" />
-            <element signature="e#1684#2172#0" expanded="false" />
-            <element signature="n#!!block;n#makeCubeAndBuffer#0" expanded="false" />
-            <element signature="n#!!block;n#makeCylinderAndBuffer#0" expanded="false" />
-            <element signature="n#!!block;n#makeCircleAndBuffer#0" expanded="false" />
-            <element signature="n#!!block;n#makeGroundAndBuffer#0" expanded="false" />
-            <element signature="n#!!block;n#makeBoardAndBuffer#0" expanded="false" />
-            <element signature="n#!!block;n#makeRailAndBuffer#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/rollercoaster.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
@@ -624,6 +555,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="13" column="16" lean-forward="false" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -689,8 +621,60 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Web Programming/Assignment03/common.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="698">
-          <caret line="79" column="27" lean-forward="false" selection-start-line="79" selection-start-column="27" selection-end-line="79" selection-end-column="27" />
+        <state relative-caret-position="1003">
+          <caret line="59" column="21" lean-forward="false" selection-start-line="59" selection-start-column="21" selection-end-line="59" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="693">
+          <caret line="747" column="0" lean-forward="false" selection-start-line="747" selection-start-column="0" selection-end-line="747" selection-end-column="0" />
+          <folding>
+            <element signature="e#603#650#0" expanded="false" />
+            <element signature="e#1076#1570#0" expanded="false" />
+            <element signature="e#1684#2172#0" expanded="false" />
+            <element signature="n#!!block;n#makeCubeAndBuffer#0" expanded="false" />
+            <element signature="n#!!block;n#makeCylinderAndBuffer#0" expanded="false" />
+            <element signature="n#!!block;n#makeCircleAndBuffer#0" expanded="false" />
+            <element signature="n#!!block;n#makeGroundAndBuffer#0" expanded="false" />
+            <element signature="n#!!block;n#makeBoardAndBuffer#0" expanded="false" />
+            <element signature="n#!!block;n#makeRailAndBuffer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 3/functions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 3/initShaders.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 3/MV.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 3/rollercoaster.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="58" lean-forward="true" selection-start-line="15" selection-start-column="58" selection-end-line="16" selection-end-column="27" />
           <folding />
         </state>
       </provider>
