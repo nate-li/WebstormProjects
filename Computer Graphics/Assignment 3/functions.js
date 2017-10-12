@@ -18,6 +18,7 @@ var groundBuffer;
 var trackBuffer;
 var boardBuffer;
 var railBuffer;
+var sphereBufferID;
 
 var cubePoints;
 var cylinderPoints;
@@ -26,6 +27,7 @@ var groundPoints;
 var trackPoints;
 var boardPoints;
 var railPoints;
+var sphereverts;
 
 var rotateAngle;
 var move;
@@ -109,6 +111,8 @@ window.onload = function init() {
     makeBoardAndBuffer();
     //TODO make rail
     makeRailAndBuffer();
+    //TODO make sphere
+    generateSphere(15);
 
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
@@ -328,89 +332,89 @@ function makeGroundAndBuffer(){
 //create the railroad tie object
 function makeBoardAndBuffer(){
     var boardColor = vec4(0.525,0.437,0.118,1);
-    boardPoints = [];
-    boardPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-
-    //back face
-    boardPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-
-    //left face
-    boardPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-
-    //right face
-    boardPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-
-    //top
-    boardPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-
-    //bottom
-    boardPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
-    boardPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
-    boardPoints.push(boardColor);
+    boardPoints = makeCube(boardColor);
+    // boardPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    //
+    // //back face
+    // boardPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    //
+    // //left face
+    // boardPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    //
+    // //right face
+    // boardPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    //
+    // //top
+    // boardPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    //
+    // //bottom
+    // boardPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
+    // boardPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    // boardPoints.push(boardColor);
 
     boardBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, boardBuffer);
@@ -429,88 +433,89 @@ function makeBoardAndBuffer(){
 function makeRailAndBuffer(){
     var railColor = vec4(0,0,0,1);
     railPoints = [];
-    railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-
-    //back face
-    railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-
-    //left face
-    railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-
-    //right face
-    railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-
-    //top
-    railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-
-    //bottom
-    railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
-    railPoints.push(railColor);
-    railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
-    railPoints.push(railColor);
+    railPoints = makeCube(railColor);
+    // railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    //
+    // //back face
+    // railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    //
+    // //left face
+    // railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    //
+    // //right face
+    // railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    //
+    // //top
+    // railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    //
+    // //bottom
+    // railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
+    // railPoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    // railPoints.push(railColor);
 
     railBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, railBuffer);
@@ -523,6 +528,127 @@ function makeRailAndBuffer(){
     vColor = gl.getAttribLocation(program, "vColor");
     gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
     gl.enableVertexAttribArray(vColor);
+}
+
+function generateSphere(subdiv){
+
+    var step = (360.0 / subdiv)*(Math.PI / 180.0); //how much do we increase the angles by per triangle?
+    sphereverts = [];
+
+    for (var lat = 0; lat <= Math.PI ; lat += step){ //latitude
+        for (var lon = 0; lon + step <= 2*Math.PI; lon += step){ //longitude
+            //triangle 1
+            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0)); //position
+            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0)); //normal
+            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 1.0)); //position
+            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 0.0)); //normal
+            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0)); //etc
+            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
+
+            //triangle 2
+            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0));
+            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
+            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step), 1.0));
+            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step),0.0));
+            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0));
+            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0));
+        }
+    }
+
+    //and send it over to graphics memory
+    sphereBufferID = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, sphereBufferID);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(sphereverts), gl.STATIC_DRAW);
+
+}
+
+
+function makeCube(cubeColor){
+    cubePoints = [];
+    cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+
+    //back face
+    cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+
+    //left face
+    cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+
+    //right face
+    cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+
+    //top
+    cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+
+    //bottom
+    cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+    cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(cubeColor);
+
+    return cubePoints;
 }
 
 function update(){
@@ -645,6 +771,13 @@ function render(){
         gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
         gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
         gl.drawArrays(gl.TRIANGLES, 0, 36);
+
+
+        //TODO sphere
+        gl.bindBuffer(gl.ARRAY_BUFFER, sphereBufferID);
+        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+        gl.drawArrays(gl.TRIANGLES, 0, sphereverts.length/2);
 
         //TODO cylinder 1
         var cylinderMV = mult(cubeMV, translate(-.8, -.9, .9));
