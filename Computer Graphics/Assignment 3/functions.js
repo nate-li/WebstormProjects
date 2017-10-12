@@ -18,7 +18,8 @@ var groundBuffer;
 var trackBuffer;
 var boardBuffer;
 var railBuffer;
-var sphereBufferID;
+var sphereBuffer;
+var eyeBuffer;
 
 var cubePoints;
 var cylinderPoints;
@@ -27,14 +28,31 @@ var groundPoints;
 var trackPoints;
 var boardPoints;
 var railPoints;
-var sphereverts;
+var spherePoints;
+var eyePoints;
 
 var rotateAngle;
 var move;
 var fileChosen;
 
+//sphere rotation
+var sphereright = false;
+var sphereleft = false;
+var sphereposition = 0;
+
+//camera controls
 var rotateview;
 var rotationnum;
+var dollyin = false;
+var dollyout = false;
+var fovup = false;
+var fovdown = false;
+var followcam = false;
+var fov = 45;
+var zmove = 50;
+var xmove = 0;
+var ymove = 20;
+
 
 var num;
 
@@ -69,7 +87,7 @@ window.onload = function init() {
                     move = true;
                 }
                 break;
-            case "r":
+            case "=":
                 if(rotateview){
                     rotateview = false;
                 }
@@ -77,7 +95,79 @@ window.onload = function init() {
                     rotateview = true;
                 }
                 break;
+            //fov up
+            case "x":
+                if(fovup){
+                    fovup = false;
+                }else{
+                    fovup = true;
+                    fovdown = false;
+                }
+                break;
+            //fov down
+            case "z":
+                if(fovdown){
+                    fovdown = false;
+                }else{
+                    fovdown = true;
+                    fovup = false;
+                }
+                break;
+            //dolly in
+            case "q":
+                if(dollyin){
+                    dollyin = false;
+                }else {
+                    dollyin = true;
+                    dollyout = false;
+                }
+                break;
+            //dolly out
+            case "e":
+                if(dollyout){
+                    dollyout = false;
+                }else {
+                    dollyout = true;
+                    dollyin = false;
+                }
+                break;
+            //follow cam
+            case "f":
+                if(followcam){
+                    followcam = false;
+                }else{
+                    followcam = true;
+                }
+                break;
+            //reset camera to default
+            case "r":
+                fov = 45;
+                zmove = 50;
+                xmove = 0;
+                ymove = 20;
+                dollyin = false;
+                dollyout = false;
+                fovup = false;
+                fovdown = false;
+                followcam = false;
+                break;
 
+            case "ArrowLeft":
+                if(sphereleft){
+                    sphereleft = false;
+                }else {
+                    sphereleft = true;
+                    sphereright = false;
+                }
+                break;
+            case "ArrowRight":
+                if(sphereright){
+                    sphereright = false;
+                }else {
+                    sphereright = true;
+                    sphereleft = false;
+                }
+                break;
         }
         requestAnimationFrame(render);
     });
@@ -99,20 +189,22 @@ window.onload = function init() {
         }
     });
 
-    //TODO make cube
+    //make cube
     makeCubeAndBuffer();
-    //TODO make cylinder
+    //make cylinder
     makeCylinderAndBuffer();
-    //TODO make circle
+    //make circle
     makeCircleAndBuffer();
-    //TODO make ground
+    //make ground
     makeGroundAndBuffer();
-    //TODO make board
+    //make board
     makeBoardAndBuffer();
-    //TODO make rail
+    //make rail
     makeRailAndBuffer();
-    //TODO make sphere
+    //make sphere
     generateSphere(15);
+    //make eye
+    generateEye(15);
 
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
@@ -531,35 +623,87 @@ function makeRailAndBuffer(){
 }
 
 function generateSphere(subdiv){
-
     var step = (360.0 / subdiv)*(Math.PI / 180.0); //how much do we increase the angles by per triangle?
-    sphereverts = [];
+    spherePoints = makeSphere(step, vec4(0, 0, 0, 1));
 
+    // for (var lat = 0; lat <= Math.PI ; lat += step){ //latitude
+    //     for (var lon = 0; lon + step <= 2*Math.PI; lon += step){ //longitude
+    //         //triangle 1
+    //         sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0)); //position
+    //         sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0)); //normal
+    //         sphereverts.push(color);
+    //
+    //         sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 1.0)); //position
+    //         sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 0.0)); //normal
+    //         sphereverts.push(color);
+    //
+    //         sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0)); //etc
+    //         sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
+    //         sphereverts.push(color);
+    //
+    //         //triangle 2
+    //         sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0));
+    //         sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
+    //         sphereverts.push(color);
+    //
+    //         sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step), 1.0));
+    //         sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step),0.0));
+    //         sphereverts.push(color);
+    //
+    //         sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0));
+    //         sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0));
+    //         sphereverts.push(color);
+    //     }
+    // }
+
+    //and send it over to graphics memory
+    sphereBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, sphereBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(spherePoints), gl.STATIC_DRAW);
+}
+
+function generateEye(subdiv){
+    var step = (360.0 / subdiv)*(Math.PI / 180.0); //how much do we increase the angles by per triangle?
+    eyePoints = makeSphere(step, vec4(1, 0, 0, 1));
+
+    eyeBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, eyeBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(eyePoints), gl.STATIC_DRAW);
+
+}
+
+function makeSphere(step, color){
+    var verts = [];
     for (var lat = 0; lat <= Math.PI ; lat += step){ //latitude
         for (var lon = 0; lon + step <= 2*Math.PI; lon += step){ //longitude
             //triangle 1
-            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0)); //position
-            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0)); //normal
-            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 1.0)); //position
-            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 0.0)); //normal
-            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0)); //etc
-            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
+            verts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0)); //position
+            verts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0)); //normal
+            verts.push(color);
+
+            verts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 1.0)); //position
+            verts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 0.0)); //normal
+            verts.push(color);
+
+            verts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0)); //etc
+            verts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
+            verts.push(color);
 
             //triangle 2
-            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0));
-            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
-            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step), 1.0));
-            sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step),0.0));
-            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0));
-            sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0));
+            verts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0));
+            verts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
+            verts.push(color);
+
+            verts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step), 1.0));
+            verts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step),0.0));
+            verts.push(color);
+
+            verts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0));
+            verts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0));
+            verts.push(color);
         }
     }
-
-    //and send it over to graphics memory
-    sphereBufferID = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, sphereBufferID);
-    gl.bufferData(gl.ARRAY_BUFFER, flatten(sphereverts), gl.STATIC_DRAW);
-
+    return verts;
 }
 
 
@@ -671,20 +815,53 @@ function update(){
             rotationnum -= 360;
         }
     }
+
+    if(fovup && fov < 180){
+        fov += .2;
+    }
+
+    if(sphereleft && sphereposition < 45){
+        sphereposition += 1;
+    }
+
+    if(sphereright && sphereposition > -45){
+        sphereposition -= 1;
+    }
+
+
+    if(fovdown && fov > 20){
+        fov -= .2;
+    }
+
+    if(dollyin && zmove < 60) {
+        zmove += .2
+    }
+
+    if(dollyout && zmove > 5){
+        zmove -= .2
+    }
+
+    if(followcam){
+        xoffset
+    }
+
     requestAnimationFrame(render);
 }
 
 function render(){
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    var p = perspective(45.0, canvas.width / canvas.height, 1.0, 100.0);
+    var p = perspective(fov, canvas.width / canvas.height, 1.0, 100.0);
     gl.uniformMatrix4fv(uproj, false, flatten(p));
 
 //look straight down
 //     var mainMV = lookAt(vec3(0, 50, 0), vec3(0, 0, 0), vec3(0, 0, 1));
 //look stright from the side
-    var mainMV = lookAt(vec3(0, 20, 50), vec3(0, 0, 0), vec3(0, 1, 0));
 
+    var mainMV = lookAt(vec3(xmove, ymove, zmove), vec3(0, 0, 0), vec3(0, 1, 0));
+    if(followcam){
+        mainMV = lookAt(vec3(trackPoints[num][0], trackPoints[num][1], zmove), vec3(0, 0, 0), vec3(0, 1, 0));
+    }
     //create the main MV
     mainMV = mult(mainMV, rotateY(rotationnum));
     mainMV = mult(mainMV, translate(xoffset, yoffset, zoffset));
@@ -772,100 +949,131 @@ function render(){
         gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
         gl.drawArrays(gl.TRIANGLES, 0, 36);
 
+        //sphere
+        var sphereMV = mult(cubeMV, translate(-.5, 3, 0));
+        sphereMV = mult(sphereMV, scalem((2/3)*.8, .8, .8));
+        sphereMV = mult(sphereMV, rotateY(sphereposition));
+        gl.uniformMatrix4fv(umv, false, flatten(sphereMV));
 
-        //TODO sphere
-        gl.bindBuffer(gl.ARRAY_BUFFER, sphereBufferID);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.TRIANGLES, 0, sphereverts.length/2);
+        gl.bindBuffer(gl.ARRAY_BUFFER, sphereBuffer);
+        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 48, 32);
+        gl.drawArrays(gl.TRIANGLES, 0, spherePoints.length/3);
 
-        //TODO cylinder 1
-        var cylinderMV = mult(cubeMV, translate(-.8, -.9, .9));
-        cylinderMV = mult(cylinderMV, scalem(.35, .5, 1));
-        gl.uniformMatrix4fv(umv, false, flatten(cylinderMV));
+        //TODO eye 1
+        var eye1MV = mult(sphereMV, translate(-.7, .1, .4));
+        eye1MV = mult(eye1MV, scalem(.3, .4, .3));
+        gl.uniformMatrix4fv(umv, false, flatten(eye1MV));
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
+        gl.bindBuffer(gl.ARRAY_BUFFER, eyeBuffer);
+        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 48, 32);
+        gl.drawArrays(gl.TRIANGLES, 0, eyePoints.length/3);
 
+        //TODO eye 2
+        var eye2MV = mult(sphereMV, translate(-.7, .1, -.4));
+        eye2MV = mult(eye2MV, scalem(.3, .4, .3));
+        gl.uniformMatrix4fv(umv, false, flatten(eye2MV));
 
-        //TODO circle 1
-        var circleMV = mult(cubeMV, translate(-.8, -1, 1.05));
-        circleMV = mult(circleMV, scalem(.35, .5, 1));
-        circleMV = mult(circleMV, rotateZ(rotateAngle));
-        gl.uniformMatrix4fv(umv, false, flatten(circleMV));
+        gl.bindBuffer(gl.ARRAY_BUFFER, eyeBuffer);
+        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 48, 32);
+        gl.drawArrays(gl.TRIANGLES, 0, eyePoints.length/3);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
+        //cylinder 1
+        var cylinder1MV = mult(cubeMV, translate(-.8, -.9, .9));
+        renderCylinder(cylinder1MV);
+        // cylinderMV = mult(cylinderMV, scalem(.35, .5, 1));
+        // gl.uniformMatrix4fv(umv, false, flatten(cylinderMV));
+        //
+        // gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
+        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+        // gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
 
-        //TODO cylinder 2
+        //cylinder 2
         var cylinder2MV = mult(cubeMV, translate(.8, -1, .9));
-        cylinder2MV = mult(cylinder2MV, scalem(.35, .5, 1));
-        gl.uniformMatrix4fv(umv, false, flatten(cylinder2MV));
+        renderCylinder(cylinder2MV);
+        // cylinder2MV = mult(cylinder2MV, scalem(.35, .5, 1));
+        // gl.uniformMatrix4fv(umv, false, flatten(cylinder2MV));
+        //
+        // gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
+        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+        // gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
-
-        //TODO circle 2
-        var circle2MV = mult(cubeMV, translate(.8, -1, 1.05));
-        circle2MV = mult(circle2MV, scalem(.35, .5, 1));
-        circle2MV = mult(circle2MV, rotateZ(rotateAngle));
-        gl.uniformMatrix4fv(umv, false, flatten(circle2MV));
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
-
-        //TODO cylinder 3
+        //cylinder 3
         var cylinder3MV = mult(cubeMV, translate(-.8, -1, -1.1));
-        cylinder3MV = mult(cylinder3MV, scalem(.35, .5, 1));
-        gl.uniformMatrix4fv(umv, false, flatten(cylinder3MV));
+        renderCylinder(cylinder3MV);
+        // cylinder3MV = mult(cylinder3MV, scalem(.35, .5, 1));
+        // gl.uniformMatrix4fv(umv, false, flatten(cylinder3MV));
+        //
+        // gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
+        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+        // gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
-
-        //TODO circle 3
-        var circle3MV = mult(cubeMV, translate(-.8, -1, -1.05));
-        circle3MV = mult(circle3MV, scalem(.35, .5, 1));
-        circle3MV = mult(circle3MV, rotateZ(rotateAngle));
-        gl.uniformMatrix4fv(umv, false, flatten(circle3MV));
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
-
-        //TODO cylinder 4
+        //cylinder 4
         var cylinder4MV = mult(cubeMV, translate(.8, -1, -1.1));
-        cylinder4MV = mult(cylinder4MV, scalem(.35, .5, 1));
-        gl.uniformMatrix4fv(umv, false, flatten(cylinder4MV));
+        renderCylinder(cylinder4MV);
+        // cylinder4MV = mult(cylinder4MV, scalem(.35, .5, 1));
+        // gl.uniformMatrix4fv(umv, false, flatten(cylinder4MV));
+        //
+        // gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
+        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+        // gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
+        //circle 1
+        var circle1MV = mult(cubeMV, translate(-.8, -1, 1.05));
+        renderCircle(circle1MV);
+        // circleMV = mult(circleMV, scalem(.35, .5, 1));
+        // circleMV = mult(circleMV, rotateZ(rotateAngle));
+        // gl.uniformMatrix4fv(umv, false, flatten(circleMV));
+        //
+        // gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
+        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+        // gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
 
-        //TODO circle 4
+        //circle 2
+        var circle2MV = mult(cubeMV, translate(.8, -1, 1.05));
+        renderCircle(circle2MV);
+        // circle2MV = mult(circle2MV, scalem(.35, .5, 1));
+        // circle2MV = mult(circle2MV, rotateZ(rotateAngle));
+        // gl.uniformMatrix4fv(umv, false, flatten(circle2MV));
+        //
+        // gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
+        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+        // gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
+
+        //circle 3
+        var circle3MV = mult(cubeMV, translate(-.8, -1, -1.05));
+        renderCircle(circle3MV);
+        // circle3MV = mult(circle3MV, scalem(.35, .5, 1));
+        // circle3MV = mult(circle3MV, rotateZ(rotateAngle));
+        // gl.uniformMatrix4fv(umv, false, flatten(circle3MV));
+        //
+        // gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
+        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+        // gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
+
+        //circle 4
         var circle4MV = mult(cubeMV, translate(.8, -1, -1.05));
-        circle4MV = mult(circle4MV, scalem(.35, .5, 1));
-        circle4MV = mult(circle4MV, rotateZ(rotateAngle));
+        renderCircle(circle4MV);
+        // circle4MV = mult(circle4MV, scalem(.35, .5, 1));
+        // circle4MV = mult(circle4MV, rotateZ(rotateAngle));
+        //
+        // gl.uniformMatrix4fv(umv, false, flatten(circle4MV));
+        //
+        // gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
+        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+        // gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
 
-        gl.uniformMatrix4fv(umv, false, flatten(circle4MV));
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
-
-        //TODO ground
+        //ground
         var groundMV = mult(mainMV, translate(0, -1.5, 0));
         groundMV = mult(groundMV, rotateX(90));
         groundMV = mult(groundMV, scalem(20, 20, 0));
@@ -877,4 +1085,25 @@ function render(){
         gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
         gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
     }
+}
+
+function renderCylinder(cylinderMV){
+    cylinderMV = mult(cylinderMV, scalem(.35, .5, 1));
+    gl.uniformMatrix4fv(umv, false, flatten(cylinderMV));
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
+}
+
+function renderCircle(circleMV){
+    circleMV = mult(circleMV, scalem(.35, .5, 1));
+    circleMV = mult(circleMV, rotateZ(rotateAngle));
+    gl.uniformMatrix4fv(umv, false, flatten(circleMV));
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
 }
