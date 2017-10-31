@@ -8,11 +8,16 @@ var xoffset;
 var yoffset;
 var zoffset;
 var vPosition;
-var vColor;
+// var vColor;
 
 //lighting
 var vAmbientDiffuseColor;
 var vNormal;
+var vSpecularColor;
+var vSpecularExponent;
+var ambient_light;
+var light_position;
+var light_color;
 
 //buffers
 var carBuffer;
@@ -70,12 +75,24 @@ window.onload = function init() {
         alert("WebGL isn't available");
     }
 
+
     program=initShaders(gl, "vertex-shader", "fragment-shader");
 
     gl.useProgram(program);
 
     umv = gl.getUniformLocation(program, "model_view");
     uproj = gl.getUniformLocation(program, "projection");
+    //TODO for specular colors
+    ambient_light = gl.getUniformLocation(program, "ambient_light");
+    light_position = gl.getUniformLocation(program, "light_position");
+    light_color = gl.getUniformLocation(program, "light_color");
+
+    vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
+    vSpecularColor = gl.getAttribLocation(program, "vSpecularColor");
+    vSpecularExponent = gl.getAttribLocation(program, "vSpecularExponent");
+    vNormal = gl.getAttribLocation(program, "vNormal");
+
+
 
     xoffset = yoffset = zoffset = 0;
     rotateAngle = 0;
@@ -254,9 +271,9 @@ function parseData(input){
     gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
     gl.enableVertexAttribArray(vPosition);
 
-    vColor = gl.getAttribLocation(program, "vColor");
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-    gl.enableVertexAttribArray(vColor);
+    vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 16);
+    gl.enableVertexAttribArray(vAmbientDiffuseColor);
 
     fileChosen = true;
 }
@@ -275,107 +292,157 @@ function makeCarAndBuffer(subdiv){
 function makeCubeAndBuffer(){
     cubePoints = [];
     //front face = 6 verts, position then color
-    cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0)); //position
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 1.0, 1.0)); //cyan
     cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 1.0, 1.0)); //cyan
     cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 1.0, 1.0)); //cyan
     cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 1.0, 1.0)); //cyan
     cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 1.0, 1.0)); //cyan
     cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 1.0, 1.0)); //cyan
 
     //back face
     cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 1.0, 1.0)); //magenta
     cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 1.0, 1.0));//magenta
     cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 1.0, 1.0));//magenta
     cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 1.0, 1.0));//magenta
     cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 1.0, 1.0));//magenta
     cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 1.0, 1.0));//magenta
 
     //left face
     cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 1.0, 0.0, 1.0)); //yellow
     cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 1.0, 0.0, 1.0)); //yellow
     cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 1.0, 0.0, 1.0)); //yellow
     cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 1.0, 0.0, 1.0)); //yellow
     cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 1.0, 0.0, 1.0)); //yellow
     cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 1.0, 0.0, 1.0)); //yellow
 
     //right face
     cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 0.0, 1.0)); //red
     cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 0.0, 1.0)); //red
     cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 0.0, 1.0)); //red
     cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 0.0, 1.0)); //red
     cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 0.0, 1.0)); //red
     cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(1.0, 0.0, 0.0, 1.0)); //red
 
     //top
     cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 0.0, 1.0, 1.0)); //blue
     cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 0.0, 1.0, 1.0)); //blue
     cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 0.0, 1.0, 1.0)); //blue
     cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 0.0, 1.0, 1.0)); //blue
     cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 0.0, 1.0, 1.0)); //blue
     cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 0.0, 1.0, 1.0)); //blue
 
     //bottom
     cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 0.0, 1.0)); //green
     cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 0.0, 1.0)); //green
     cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 0.0, 1.0)); //green
     cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 0.0, 1.0)); //green
     cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 0.0, 1.0)); //green
     cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(vec4(0.0, 1.0, 0.0, 1.0)); //green
 
     cubeBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(cubePoints), gl.STATIC_DRAW);
 
-    //What is this data going to be used for?
-    //The vertex shader has an attribute named "vPosition".  Let's associate part of this data to that attribute
+    // //What is this data going to be used for?
+    // //The vertex shader has an attribute named "vPosition".  Let's associate part of this data to that attribute
+    // vPosition = gl.getAttribLocation(program, "vPosition");
+    // //attribute location we just fetched, 4 elements in each vector, data type float, don't normalize this data,
+    // //each position starts 32 bytes after the start of the previous one, and starts right away at index 0
+    // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+    // gl.enableVertexAttribArray(vPosition);
+    //
+    // //The vertex shader also has an attribute named "vColor".  Let's associate the other part of this data to that attribute
+    // vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
+    // //attribute location we just fetched, 4 elements in each vector, data type float, don't normalize this data,
+    // //each color starts 32 bytes after the start of the previous one, and the first color starts 16 bytes into the data
+    //
+    //
+    // gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 16);
+    // gl.enableVertexAttribArray(vAmbientDiffuseColor);
+
     vPosition = gl.getAttribLocation(program, "vPosition");
-    //attribute location we just fetched, 4 elements in each vector, data type float, don't normalize this data,
-    //each position starts 32 bytes after the start of the previous one, and starts right away at index 0
-    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
     gl.enableVertexAttribArray(vPosition);
 
-    //The vertex shader also has an attribute named "vColor".  Let's associate the other part of this data to that attribute
-    vColor = gl.getAttribLocation(program, "vColor");
-    //attribute location we just fetched, 4 elements in each vector, data type float, don't normalize this data,
-    //each color starts 32 bytes after the start of the previous one, and the first color starts 16 bytes into the data
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-    gl.enableVertexAttribArray(vColor);
+    vNormal = gl.getAttribLocation(program, "vNormal");
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+    gl.enableVertexAttribArray(vNormal);
+
+    vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
+    gl.enableVertexAttribArray(vAmbientDiffuseColor);
 }
 
 //create the cylinder object for the wheel
@@ -384,14 +451,18 @@ function makeCylinderAndBuffer(){
 
     for(var i = 0; i < 2*Math.PI; i+= .1){
         cylinderPoints.push(vec4(Math.cos(i), Math.sin(i), 0, 1));
+        cylinderPoints.push(vec4(Math.cos(i), Math.sin(i), 0, 0)); //normal
         cylinderPoints.push(vec4(0,0,0,1)); //black
         cylinderPoints.push(vec4(Math.cos(i), Math.sin(i), .2, 1));
+        cylinderPoints.push(vec4(Math.cos(i), Math.sin(i), .2, 0)); //normal
         cylinderPoints.push(vec4(0,0,0,1)); //black
     }
 
     cylinderPoints.push(vec4(Math.cos(2*Math.PI), Math.sin(2*Math.PI), 0, 1));
+    cylinderPoints.push(vec4(Math.cos(2*Math.PI), Math.sin(2*Math.PI), 0, 0)); //normal
     cylinderPoints.push(vec4(0,0,0,1)); //black
     cylinderPoints.push(vec4(Math.cos(2*Math.PI), Math.sin(2*Math.PI), .2, 1));
+    cylinderPoints.push(vec4(Math.cos(2*Math.PI), Math.sin(2*Math.PI), .2, 0)); //normal
     cylinderPoints.push(vec4(0,0,0,1)); //black
 
 
@@ -403,9 +474,9 @@ function makeCylinderAndBuffer(){
     gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
     gl.enableVertexAttribArray(vPosition);
 
-    vColor = gl.getAttribLocation(program, "vColor");
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-    gl.enableVertexAttribArray(vColor);
+    vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 16);
+    gl.enableVertexAttribArray(vAmbientDiffuseColor);
 }
 
 //create the wheel object for the wheel
@@ -414,6 +485,7 @@ function makeCircleAndBuffer(){
 
     for(var i = 0; i < 2*Math.PI; i+=.1){
         circlePoints.push(vec4(Math.cos(i), Math.sin(i), 0, 1));
+        circlePoints.push(vec4(0.0, 1.0, 0.0, 0.0));
         circlePoints.push(0);
     }
 
@@ -422,45 +494,48 @@ function makeCircleAndBuffer(){
     gl.bufferData(gl.ARRAY_BUFFER, flatten(circlePoints), gl.STATIC_DRAW);
 
     vPosition = gl.getAttribLocation(program, "vPosition");
-    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
     gl.enableVertexAttribArray(vPosition);
 
-    vColor = gl.getAttribLocation(program, "vColor");
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-    gl.enableVertexAttribArray(vColor);
+    vNormal = gl.getAttribLocation(program, "vNormal");
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+    gl.enableVertexAttribArray(vNormal);
+
+    vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
+    gl.enableVertexAttribArray(vAmbientDiffuseColor);
 }
 
 //create the square to represent the ground
 function makeGroundAndBuffer(){
     groundPoints = [];
-    groundPoints.push(vec4(1, -1, 1, 1));
-    groundPoints.push(vec4(0, 1, 0, 0));
-    // groundPoints.push(vec4(0.122,0.535,0.090,1));
+    groundPoints.push(vec4(1, -1, 1, 1)); //position
+    groundPoints.push(vec4(0, 1, 0, 0)); //normal
+    groundPoints.push(vec4(0.122,0.535,0.090,1)); //color
     groundPoints.push(vec4(1, 1, 1, 1));
     groundPoints.push(vec4(0, 1, 0, 0));
-    // groundPoints.push(vec4(0.122,0.535,0.090,1));
+    groundPoints.push(vec4(0.122,0.535,0.090,1));
     groundPoints.push(vec4(-1, 1, 1, 1));
     groundPoints.push(vec4(0, 1, 0, 0));
-    // groundPoints.push(vec4(0.122,0.535,0.090,1));
+    groundPoints.push(vec4(0.122,0.535,0.090,1));
     groundPoints.push(vec4(-1, -1, 1, 1));
     groundPoints.push(vec4(0, 1, 0, 0));
-    // groundPoints.push(vec4(0.122,0.535,0.090,1));
-
+    groundPoints.push(vec4(0.122,0.535,0.090,1));
     groundBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, groundBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(groundPoints), gl.STATIC_DRAW);
-
     vPosition = gl.getAttribLocation(program, "vPosition");
-    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
     gl.enableVertexAttribArray(vPosition);
-
     vNormal = gl.getAttribLocation(program, "vNormal");
-    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 8);
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
     gl.enableVertexAttribArray(vNormal);
-
+    // vColor = gl.getAttribLocation(program, "vColor");
+    // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+    // gl.enableVertexAttribArray(vColor);
     vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
-    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 16);
-    gl.enableVertexAttribArray(vColor);
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
+    gl.enableVertexAttribArray(vAmbientDiffuseColor);
 }
 
 //create the railroad tie object
@@ -473,12 +548,18 @@ function makeBoardAndBuffer(){
     gl.bufferData(gl.ARRAY_BUFFER, flatten(boardPoints), gl.STATIC_DRAW);
 
     vPosition = gl.getAttribLocation(program, "vPosition");
-    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
     gl.enableVertexAttribArray(vPosition);
 
-    vColor = gl.getAttribLocation(program, "vColor");
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-    gl.enableVertexAttribArray(vColor);
+    vNormal = gl.getAttribLocation(program, "vNormal");
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+    gl.enableVertexAttribArray(vNormal);
+    // vColor = gl.getAttribLocation(program, "vColor");
+    // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+    // gl.enableVertexAttribArray(vColor);
+    vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
+    gl.enableVertexAttribArray(vAmbientDiffuseColor);
 }
 
 //create the rail prism object
@@ -492,12 +573,18 @@ function makeRailAndBuffer(){
     gl.bufferData(gl.ARRAY_BUFFER, flatten(railPoints), gl.STATIC_DRAW);
 
     vPosition = gl.getAttribLocation(program, "vPosition");
-    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
     gl.enableVertexAttribArray(vPosition);
 
-    vColor = gl.getAttribLocation(program, "vColor");
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-    gl.enableVertexAttribArray(vColor);
+    vNormal = gl.getAttribLocation(program, "vNormal");
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+    gl.enableVertexAttribArray(vNormal);
+    // vColor = gl.getAttribLocation(program, "vColor");
+    // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+    // gl.enableVertexAttribArray(vColor);
+    vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
+    gl.enableVertexAttribArray(vAmbientDiffuseColor);
 }
 
 function generateSphere(subdiv){
@@ -557,86 +644,122 @@ function makeSphere(step, color){
 function makeCube(cubeColor){
     cubePoints = [];
     cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, -1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
 
     //back face
     cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 0.0, 1.0, 0.0)); //normal
     cubePoints.push(cubeColor);
 
     //left face
     cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(-1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
 
     //right face
     cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(1.0, 0.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
 
     //top
     cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, 1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, 1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
 
     //bottom
     cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(-1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
     cubePoints.push(vec4(1.0, -1.0, -1.0, 1.0));
+    cubePoints.push(vec4(0.0, -1.0, 0.0, 0.0)); //normal
     cubePoints.push(cubeColor);
 
     return cubePoints;
@@ -700,6 +823,14 @@ function render(){
     var mainMV = lookAt(vec3(xmove, ymove, zmove), vec3(0, 0, 0), vec3(0, 1, 0));
     mainMV = mult(mainMV, rotateY(rotationnum));
     var camera = mainMV;
+
+    //TODO ambient light
+    gl.vertexAttrib4fv(vAmbientDiffuseColor, vec4(.5, 0, 0, 1));
+    // gl.vertexAttrib4fv(vSpecularColor, vec4(1, 1, 1, 1));
+    // gl.vertexAttrib4fv(vSpecularExponent, 30.0);
+    // gl.uniform4fv(ambient_light, vec4(.5, .5, .5, 5));
+    // gl.uniform4fv(light_position, mult(mainMV, vec4(50, 50, 50, 1)));
+    // gl.uniform4fv(llight_color, vec4(1, 1, 1, 1));
 
     //TODO track
 
@@ -788,7 +919,8 @@ function render(){
             gl.uniformMatrix4fv(umv, false, flatten(boardMV));
             gl.bindBuffer(gl.ARRAY_BUFFER, boardBuffer);
             gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-            gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+            gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
+            gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
             gl.drawArrays(gl.TRIANGLES, 0, boardPoints.length / 2);
 
             //render the rails
@@ -804,13 +936,15 @@ function render(){
             gl.uniformMatrix4fv(umv, false, flatten(railMV));
             gl.bindBuffer(gl.ARRAY_BUFFER, railBuffer);
             gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-            gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+            gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
+            gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
             gl.drawArrays(gl.TRIANGLES, 0, railPoints.length / 2);
 
             gl.uniformMatrix4fv(umv, false, flatten(rail2MV));
             gl.bindBuffer(gl.ARRAY_BUFFER, railBuffer);
             gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-            gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+            gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
+            gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
             gl.drawArrays(gl.TRIANGLES, 0, railPoints.length / 2);
         }
 
@@ -826,7 +960,8 @@ function render(){
 
         gl.bindBuffer(gl.ARRAY_BUFFER, carBuffer);
         gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 48, 32);
+        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 32);
+        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 64);
         gl.drawArrays(gl.TRIANGLES, 0, carPoints.length/3);
 
         //cube
@@ -852,7 +987,8 @@ function render(){
 
         gl.bindBuffer(gl.ARRAY_BUFFER, sphereBuffer);
         gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 48, 32);
+        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 32);
+        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 64);
         gl.drawArrays(gl.TRIANGLES, 0, spherePoints.length/3);
 
         //TODO eye 1
@@ -862,7 +998,8 @@ function render(){
 
         gl.bindBuffer(gl.ARRAY_BUFFER, eyeBuffer);
         gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 48, 32);
+        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 32);
+        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 64);
         gl.drawArrays(gl.TRIANGLES, 0, eyePoints.length/3);
 
         //TODO eye 2
@@ -872,7 +1009,8 @@ function render(){
 
         gl.bindBuffer(gl.ARRAY_BUFFER, eyeBuffer);
         gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 48, 32);
+        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 32);
+        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 64);
         gl.drawArrays(gl.TRIANGLES, 0, eyePoints.length/3);
 
         //cylinder 1
@@ -921,12 +1059,15 @@ function render(){
 
         gl.uniformMatrix4fv(umv, false, flatten(groundMV));
 
-        gl.vertexAttrib4fv(vAmbientDiffuseColor, vec4(.5, 0, 0, 1));
+        // gl.vertexAttrib4fv(vAmbientDiffuseColor, vec4(.5, 0, 0, 1));
 
 
         gl.bindBuffer(gl.ARRAY_BUFFER, groundBuffer);
         gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
+        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+        //TODO specular color
+        //TODO specular exponent
         gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
         //reference objects
@@ -936,7 +1077,8 @@ function render(){
 
         gl.bindBuffer(gl.ARRAY_BUFFER, sphereBuffer);
         gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 48, 32);
+        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 32);
+        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 64);
         gl.drawArrays(gl.TRIANGLES, 0, spherePoints.length/3);
 
         var referencecube = mult(camera, translate(-10, 0, -10));
@@ -945,8 +1087,9 @@ function render(){
 
         gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer);
         gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        gl.drawArrays(gl.TRIANGLES, 0, cubePoints.length/2);    }
+        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
+        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+        gl.drawArrays(gl.TRIANGLES, 0, cubePoints.length/3);    }
 }
 
 function renderCylinder(cylinderMV){
@@ -955,8 +1098,9 @@ function renderCylinder(cylinderMV){
 
     gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
     gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 3);
 }
 
 function renderCircle(circleMV){
@@ -966,6 +1110,7 @@ function renderCircle(circleMV){
 
     gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
     gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 3);
 }

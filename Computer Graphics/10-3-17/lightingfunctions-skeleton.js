@@ -70,7 +70,7 @@ window.onload = function init() {
     program = [];
     program.push(initShaders(gl, "vshader-unlit.glsl", "fshader-unlit.glsl"));
     program.push(initShaders(gl, "vshader-lighting.glsl", "fshader-lighting.glsl"));
-    program.push(initShaders(gl, "vshader-phong.glsl", "fshader-phong.glsl"));
+    // program.push(initShaders(gl, "vshader-phong.glsl", "fshader-phong.glsl"));
     //eventually we're going to add additional shader programs here
     //note that these are located in .glsl files, so we're using InitShaders2.js
     //Also note that we'll need to be using a local web server rather than just loading it off the harddrive to make
