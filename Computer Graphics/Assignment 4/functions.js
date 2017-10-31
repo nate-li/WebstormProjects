@@ -1,5 +1,4 @@
 "use strict";
-
 var gl;
 var canvas;
 var program;
@@ -11,6 +10,12 @@ var zoffset;
 var vPosition;
 var vColor;
 
+//lighting
+var vAmbientDiffuseColor;
+var vNormal;
+
+//buffers
+var carBuffer;
 var cubeBuffer;
 var cylinderBuffer;
 var circleBuffer;
@@ -21,6 +26,8 @@ var railBuffer;
 var sphereBuffer;
 var eyeBuffer;
 
+//point arrays
+var carPoints;
 var cubePoints;
 var cylinderPoints;
 var circlePoints;
@@ -63,7 +70,8 @@ window.onload = function init() {
         alert("WebGL isn't available");
     }
 
-    program = initShaders(gl, "vertex-shader", "fragment-shader");
+    program=initShaders(gl, "vertex-shader", "fragment-shader");
+
     gl.useProgram(program);
 
     umv = gl.getUniformLocation(program, "model_view");
@@ -201,6 +209,10 @@ window.onload = function init() {
         }
     });
 
+    //make car
+    makeCarAndBuffer(15);
+    //make spotlight
+    // makeFlashlightAndBuffer();
     //make cube
     makeCubeAndBuffer();
     //make cylinder
@@ -247,6 +259,16 @@ function parseData(input){
     gl.enableVertexAttribArray(vColor);
 
     fileChosen = true;
+}
+
+//create the sphere that is to become the cart
+function makeCarAndBuffer(subdiv){
+    var step = (360.0 / subdiv)*(Math.PI / 180.0);
+    carPoints = makeSphere(step, vec4(1, 0, 0, 1));
+
+    carBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, carBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(carPoints), gl.STATIC_DRAW);
 }
 
 //create the cube for the cart
@@ -412,13 +434,17 @@ function makeCircleAndBuffer(){
 function makeGroundAndBuffer(){
     groundPoints = [];
     groundPoints.push(vec4(1, -1, 1, 1));
-    groundPoints.push(vec4(0.122,0.535,0.090,1));
+    groundPoints.push(vec4(0, 1, 0, 0));
+    // groundPoints.push(vec4(0.122,0.535,0.090,1));
     groundPoints.push(vec4(1, 1, 1, 1));
-    groundPoints.push(vec4(0.122,0.535,0.090,1));
+    groundPoints.push(vec4(0, 1, 0, 0));
+    // groundPoints.push(vec4(0.122,0.535,0.090,1));
     groundPoints.push(vec4(-1, 1, 1, 1));
-    groundPoints.push(vec4(0.122,0.535,0.090,1));
+    groundPoints.push(vec4(0, 1, 0, 0));
+    // groundPoints.push(vec4(0.122,0.535,0.090,1));
     groundPoints.push(vec4(-1, -1, 1, 1));
-    groundPoints.push(vec4(0.122,0.535,0.090,1));
+    groundPoints.push(vec4(0, 1, 0, 0));
+    // groundPoints.push(vec4(0.122,0.535,0.090,1));
 
     groundBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, groundBuffer);
@@ -428,8 +454,12 @@ function makeGroundAndBuffer(){
     gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
     gl.enableVertexAttribArray(vPosition);
 
-    vColor = gl.getAttribLocation(program, "vColor");
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+    vNormal = gl.getAttribLocation(program, "vNormal");
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 8);
+    gl.enableVertexAttribArray(vNormal);
+
+    vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 16);
     gl.enableVertexAttribArray(vColor);
 }
 
@@ -646,7 +676,6 @@ function update(){
             fov += .2;
         }
 
-
         if (fovdown && fov > 20) {
             fov -= .2;
         }
@@ -725,11 +754,7 @@ function render(){
             point2 = mult(translate(trackPoints[num][0], trackPoints[num][1]+3.6, trackPoints[num][2]), point2);
             point2 = mult(scalem(tracksize, tracksize, tracksize), point2);
             point2 = mult(translate(0, 0, 0), point2);
-
-            // n = mult(rotateY(20), n);
-
             camera = lookAt((add(vec3(point2), vec3(n))), vec3(point2), vec3(0, 1, 0));
-
         }
 
 
@@ -791,8 +816,21 @@ function render(){
 
 
         //render the cart and all its parts
+        //car body
+        var carMV = mult(trackMV, translate(0, 0, 0));
+        carMV = mult(carMV, translate(trackPoints[num][0], trackPoints[num][1]+3.6, trackPoints[num][2]));
+        carMV = mult(carMV, result);
+        carMV = mult(carMV, rotateY(90));
+        carMV = mult(carMV, scalem(3, 2, 2));
+        gl.uniformMatrix4fv(umv, false, flatten(carMV));
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, carBuffer);
+        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 48, 32);
+        gl.drawArrays(gl.TRIANGLES, 0, carPoints.length/3);
+
         //cube
-        var cubeMV = mult(trackMV, translate(0, 0, 0));
+/*        var cubeMV = mult(trackMV, translate(0, 0, 0));
         cubeMV = mult(cubeMV, translate(trackPoints[num][0], trackPoints[num][1]+3.6, trackPoints[num][2]));
         cubeMV = mult(cubeMV, result);
         cubeMV = mult(cubeMV, rotateY(90));
@@ -803,10 +841,10 @@ function render(){
         gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
         gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
         gl.drawArrays(gl.TRIANGLES, 0, 36);
-
+*/
 
         //sphere
-        var sphereMV = mult(cubeMV, translate(-.1, 3, 0));
+        var sphereMV = mult(carMV, translate(-.1, 3, 0));
         sphereMV = mult(sphereMV, scalem((2/3)*.6, .6, .6));
         sphereMV = mult(sphereMV, rotateY(sphereposition));
         gl.uniformMatrix4fv(umv, false, flatten(sphereMV));
@@ -838,7 +876,7 @@ function render(){
         gl.drawArrays(gl.TRIANGLES, 0, eyePoints.length/3);
 
         //cylinder 1
-        var cylinder1MV = mult(cubeMV, translate(-.8, -.9, .9));
+        var cylinder1MV = mult(carMV, translate(-.8, -.9, .9));
         renderCylinder(cylinder1MV);
         // cylinderMV = mult(cylinderMV, scalem(.35, .5, 1));
         // gl.uniformMatrix4fv(umv, false, flatten(cylinderMV));
@@ -849,86 +887,32 @@ function render(){
         // gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
 
         //cylinder 2
-        var cylinder2MV = mult(cubeMV, translate(.8, -1, .9));
+        var cylinder2MV = mult(carMV, translate(.8, -1, .9));
         renderCylinder(cylinder2MV);
-        // cylinder2MV = mult(cylinder2MV, scalem(.35, .5, 1));
-        // gl.uniformMatrix4fv(umv, false, flatten(cylinder2MV));
-        //
-        // gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
-        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        // gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
 
         //cylinder 3
-        var cylinder3MV = mult(cubeMV, translate(-.8, -1, -1.1));
+        var cylinder3MV = mult(carMV, translate(-.8, -1, -1.1));
         renderCylinder(cylinder3MV);
-        // cylinder3MV = mult(cylinder3MV, scalem(.35, .5, 1));
-        // gl.uniformMatrix4fv(umv, false, flatten(cylinder3MV));
-        //
-        // gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
-        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        // gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
 
         //cylinder 4
-        var cylinder4MV = mult(cubeMV, translate(.8, -1, -1.1));
+        var cylinder4MV = mult(carMV, translate(.8, -1, -1.1));
         renderCylinder(cylinder4MV);
-        // cylinder4MV = mult(cylinder4MV, scalem(.35, .5, 1));
-        // gl.uniformMatrix4fv(umv, false, flatten(cylinder4MV));
-        //
-        // gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
-        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        // gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 2);
 
         //circle 1
-        var circle1MV = mult(cubeMV, translate(-.8, -1, 1.05));
+        var circle1MV = mult(carMV, translate(-.8, -1, 1.05));
         renderCircle(circle1MV);
-        // circleMV = mult(circleMV, scalem(.35, .5, 1));
-        // circleMV = mult(circleMV, rotateZ(rotateAngle));
-        // gl.uniformMatrix4fv(umv, false, flatten(circleMV));
-        //
-        // gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
-        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        // gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
 
         //circle 2
-        var circle2MV = mult(cubeMV, translate(.8, -1, 1.05));
+        var circle2MV = mult(carMV, translate(.8, -1, 1.05));
         renderCircle(circle2MV);
-        // circle2MV = mult(circle2MV, scalem(.35, .5, 1));
-        // circle2MV = mult(circle2MV, rotateZ(rotateAngle));
-        // gl.uniformMatrix4fv(umv, false, flatten(circle2MV));
-        //
-        // gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
-        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        // gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
 
         //circle 3
-        var circle3MV = mult(cubeMV, translate(-.8, -1, -1.05));
+        var circle3MV = mult(carMV, translate(-.8, -1, -1.05));
         renderCircle(circle3MV);
-        // circle3MV = mult(circle3MV, scalem(.35, .5, 1));
-        // circle3MV = mult(circle3MV, rotateZ(rotateAngle));
-        // gl.uniformMatrix4fv(umv, false, flatten(circle3MV));
-        //
-        // gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
-        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        // gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
 
         //circle 4
-        var circle4MV = mult(cubeMV, translate(.8, -1, -1.05));
+        var circle4MV = mult(carMV, translate(.8, -1, -1.05));
         renderCircle(circle4MV);
-        // circle4MV = mult(circle4MV, scalem(.35, .5, 1));
-        // circle4MV = mult(circle4MV, rotateZ(rotateAngle));
-        //
-        // gl.uniformMatrix4fv(umv, false, flatten(circle4MV));
-        //
-        // gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
-        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-        // gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 2);
 
         //ground
         var groundMV = mult(camera, translate(0, -1.5, 0));
@@ -936,6 +920,9 @@ function render(){
         groundMV = mult(groundMV, scalem(20, 20, 0));
 
         gl.uniformMatrix4fv(umv, false, flatten(groundMV));
+
+        gl.vertexAttrib4fv(vAmbientDiffuseColor, vec4(.5, 0, 0, 1));
+
 
         gl.bindBuffer(gl.ARRAY_BUFFER, groundBuffer);
         gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);

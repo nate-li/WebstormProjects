@@ -38,7 +38,7 @@ var num;
 
 window.onload = function init() {
     canvas = document.getElementById("gl-canvas");
-    gl = canvas.getContext('webgl2');
+    gl = canvas.getContext('webgl2', {antialias:false});
     if(!gl){
         alert("WebGL isn't available");
     }

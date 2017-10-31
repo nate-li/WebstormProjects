@@ -126,7 +126,8 @@ window.onload = function init() {
 
     //we need to do this to avoid having objects that are behind other objects show up anyway
     gl.enable(gl.DEPTH_TEST);
-
+    gl.enable(gl.CULL_FACE);
+    gl.cullFace(gl.FRONT);
     window.setInterval(update, 16); //target 60 frames per second
 };
 

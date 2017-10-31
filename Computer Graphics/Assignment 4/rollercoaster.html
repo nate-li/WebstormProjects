@@ -6,7 +6,7 @@
 
     <script id="vertex-shader" type="x-shader/x-vertex">#version 300 es
         in vec4 vPosition;
-        in vec4 vColor;
+        in vec4 vAmbientDiffuseColor;
         uniform mat4 model_view;
         uniform mat4 projection;
         out vec4 color;
@@ -14,7 +14,7 @@
         void main(){
             gl_PointSize = 5.0;
             gl_Position = projection*model_view*vPosition;
-            color = vColor;
+            color = vAmbientDiffuseColor;
         }
     </script>
 

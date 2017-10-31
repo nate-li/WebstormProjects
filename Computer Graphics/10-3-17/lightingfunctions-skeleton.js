@@ -9,8 +9,8 @@ var NUM_PROGRAMS = 2; //at first we only have one program, but we'll eventually 
 var activeProgram; //we'll demonstrate how to switch between shader programs
 var UNLIT = 0; //This is so we can give a name to the shader program at index 0
 var GOURAUD = 1;
-
 //uniform locations
+
 var umv; //uniform for mv matrix
 var uproj; //uniform for projection matrix
 
