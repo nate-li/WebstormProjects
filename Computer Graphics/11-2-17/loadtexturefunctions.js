@@ -42,6 +42,9 @@ var domoimage;
 var alpacaimage;
 var logoimage;
 
+var anisotropic_ext;
+var factor = 8;
+
 window.onload = function init() {
 
     canvas = document.getElementById("gl-canvas");
@@ -91,6 +94,15 @@ window.onload = function init() {
                 if(zoom > 10){
                     zoom -= 5;
                 }
+                break;
+            case 1:
+                factor = 1;
+                break;
+            case 4:
+                factor = 4;
+                break;
+            case 8:
+                factor = 8;
                 break;
         }
 
@@ -191,6 +203,8 @@ function handleTextureLoaded(image, texture) {
     gl.generateMipmap(gl.TEXTURE_2D);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.texParmeteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR));//gl.NEAREST); //if you want to see some aliasing
+    anisotropic_ext = gl.getExtension('EXT_texture_filter_anisotropic');
+    gl.texParameterf(gl.TEXTURE_2D, anisotropic_ext.TEXTURE_MAX_ANISOTROPY_EXT, factor);
     gl.bindTexture(gl.TEXTURE_2D, null); //we aren't bound to any textures now
 }
 
@@ -232,7 +246,7 @@ function render(){
     mv = mult(camera, mult(rotateY(-90), translate(0,0,1)));
     gl.uniformMatrix4fv(umv, false, flatten(mv));
     gl.bindTexture(gl.TEXTURE_2D, logotex); //we're still talking about texture unit 0, but we want a logo on the next object drawn
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4)
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
     //turn blending back off
     gl.disable(gl.BLEND);

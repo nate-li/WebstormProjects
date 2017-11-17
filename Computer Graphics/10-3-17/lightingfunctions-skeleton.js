@@ -59,8 +59,8 @@ window.onload = function init() {
     canvas.addEventListener("mousemove", mouse_drag);
     canvas.addEventListener("mouseup", mouse_up);
 
-    //white background
-    gl.clearColor(1.0, 1.0, 1.0, 1.0);
+    //black background
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
     //initialize rotation angles
