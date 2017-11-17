@@ -471,11 +471,15 @@ function makeCylinderAndBuffer(){
     gl.bufferData(gl.ARRAY_BUFFER, flatten(cylinderPoints), gl.STATIC_DRAW);
 
     vPosition = gl.getAttribLocation(program, "vPosition");
-    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
     gl.enableVertexAttribArray(vPosition);
 
+    vNormal = gl.getAttribLocation(program, "vNormal");
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+    gl.enableVertexAttribArray(vNormal);
+
     vAmbientDiffuseColor = gl.getAttribLocation(program, "vAmbientDiffuseColor");
-    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 16);
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
     gl.enableVertexAttribArray(vAmbientDiffuseColor);
 }
 
@@ -918,9 +922,9 @@ function render(){
             boardMV = mult(boardMV, scalem(1.1, .5, 5));
             gl.uniformMatrix4fv(umv, false, flatten(boardMV));
             gl.bindBuffer(gl.ARRAY_BUFFER, boardBuffer);
-            gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-            gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
-            gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+            gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+            gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+            gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
             gl.drawArrays(gl.TRIANGLES, 0, boardPoints.length / 2);
 
             //render the rails
@@ -935,16 +939,16 @@ function render(){
 
             gl.uniformMatrix4fv(umv, false, flatten(railMV));
             gl.bindBuffer(gl.ARRAY_BUFFER, railBuffer);
-            gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-            gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
-            gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+            gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+            gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+            gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
             gl.drawArrays(gl.TRIANGLES, 0, railPoints.length / 2);
 
             gl.uniformMatrix4fv(umv, false, flatten(rail2MV));
             gl.bindBuffer(gl.ARRAY_BUFFER, railBuffer);
-            gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-            gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
-            gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+            gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+            gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+            gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
             gl.drawArrays(gl.TRIANGLES, 0, railPoints.length / 2);
         }
 
@@ -1063,9 +1067,9 @@ function render(){
 
 
         gl.bindBuffer(gl.ARRAY_BUFFER, groundBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
-        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
         //TODO specular color
         //TODO specular exponent
         gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
@@ -1086,9 +1090,9 @@ function render(){
         gl.uniformMatrix4fv(umv, false, flatten(referencecube));
 
         gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer);
-        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
-        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+        gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+        gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+        gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
         gl.drawArrays(gl.TRIANGLES, 0, cubePoints.length/3);    }
 }
 
@@ -1097,9 +1101,9 @@ function renderCylinder(cylinderMV){
     gl.uniformMatrix4fv(umv, false, flatten(cylinderMV));
 
     gl.bindBuffer(gl.ARRAY_BUFFER, cylinderBuffer);
-    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
-    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, cylinderPoints.length / 3);
 }
 
@@ -1109,8 +1113,8 @@ function renderCircle(circleMV){
     gl.uniformMatrix4fv(umv, false, flatten(circleMV));
 
     gl.bindBuffer(gl.ARRAY_BUFFER, circleBuffer);
-    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
-    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 32, 32);
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 48, 0);
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 48, 16);
+    gl.vertexAttribPointer(vAmbientDiffuseColor, 4, gl.FLOAT, false, 48, 32);
     gl.drawArrays(gl.TRIANGLE_FAN, 0, circlePoints.length / 3);
 }

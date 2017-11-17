@@ -22,12 +22,11 @@
           <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 4/functions.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="825" column="0" lean-forward="true" selection-start-line="825" selection-start-column="0" selection-end-line="825" selection-end-column="0" />
+                <state relative-caret-position="244">
+                  <caret line="1090" column="0" lean-forward="true" selection-start-line="1090" selection-start-column="0" selection-end-line="1090" selection-end-column="0" />
                   <folding>
                     <element signature="e#2169#5100#0" expanded="false" />
                     <element signature="e#13731#13775#0" expanded="false" />
-                    <element signature="n#!!block;n#makeCylinderAndBuffer#0" expanded="false" />
                     <element signature="n#!!block;n#generateSphere#0" expanded="false" />
                     <element signature="n#!!block;n#generateEye#0" expanded="false" />
                     <element signature="n#!!block;n#makeSphere#0" expanded="false" />
@@ -63,7 +62,7 @@
           <file leaf-file-name="rollercoaster.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 4/rollercoaster.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="510">
+                <state relative-caret-position="663">
                   <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
                   <folding />
                 </state>
@@ -155,7 +154,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&quot;=&quot;</find>
       <find>update</find>
       <find>fov</find>
       <find>followcam</find>
@@ -185,6 +183,7 @@
       <find>initshaders</find>
       <find>/ 3</find>
       <find>vcolor</find>
+      <find>false, 32</find>
     </findStrings>
     <replaceStrings>
       <replace>points</replace>
@@ -246,9 +245,9 @@
         <option value="$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js" />
         <option value="$PROJECT_DIR$/Computer Graphics/10-26-17/blendfunctions-skeleton.js" />
         <option value="$PROJECT_DIR$/Computer Graphics/Assignment 4/rollercoaster.html" />
-        <option value="$PROJECT_DIR$/Computer Graphics/Assignment 4/functions.js" />
         <option value="$PROJECT_DIR$/Computer Graphics/10-3-17/lightingfunctions-skeleton.js" />
         <option value="$PROJECT_DIR$/Computer Graphics/Assignment 4/initShaders2.js" />
+        <option value="$PROJECT_DIR$/Computer Graphics/Assignment 4/functions.js" />
       </list>
     </option>
   </component>
@@ -258,7 +257,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1590" />
     <option name="width" value="1622" />
     <option name="height" value="1812" />
@@ -447,15 +446,15 @@
       <workItem from="1509029996474" duration="669000" />
       <workItem from="1509030874966" duration="979000" />
       <workItem from="1509310228951" duration="13810000" />
-      <workItem from="1509422595307" duration="16359000" />
+      <workItem from="1509422595307" duration="17315000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="237823000" />
+    <option name="totallyTimeSpent" value="238779000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1066" extended-state="7" />
+    <frame x="-8" y="-8" width="2576" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10859375" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
@@ -465,7 +464,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.061290324" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.061290324" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.128125" sideWeight="0.5036726" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -841,7 +840,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 4/rollercoaster.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
+        <state relative-caret-position="663">
           <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding />
         </state>
@@ -849,12 +848,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 4/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="825" column="0" lean-forward="true" selection-start-line="825" selection-start-column="0" selection-end-line="825" selection-end-column="0" />
+        <state relative-caret-position="244">
+          <caret line="1090" column="0" lean-forward="true" selection-start-line="1090" selection-start-column="0" selection-end-line="1090" selection-end-column="0" />
           <folding>
             <element signature="e#2169#5100#0" expanded="false" />
             <element signature="e#13731#13775#0" expanded="false" />
-            <element signature="n#!!block;n#makeCylinderAndBuffer#0" expanded="false" />
             <element signature="n#!!block;n#generateSphere#0" expanded="false" />
             <element signature="n#!!block;n#generateEye#0" expanded="false" />
             <element signature="n#!!block;n#makeSphere#0" expanded="false" />
