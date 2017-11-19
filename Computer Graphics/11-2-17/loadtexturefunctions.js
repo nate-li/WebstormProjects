@@ -187,7 +187,7 @@ function initTextures() {
     alpacatex = gl.createTexture();
     alpacaimage = new Image();
     alpacaimage.onload = function() { handleTextureLoaded(alpacaimage, alpacatex); }
-    alpacaimage.src = 'alpaca.png';
+    alpacaimage.src = 'Earth.png';
 
     logotex = gl.createTexture();
     logoimage = new Image();

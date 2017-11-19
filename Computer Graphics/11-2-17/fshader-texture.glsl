@@ -13,6 +13,4 @@ void main()
 
     // look up the relevant coordinates in the sampler and use that as our fragment color
     fColor =texture(textureSampler, ftexCoord);
-
-
 }
