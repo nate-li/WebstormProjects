@@ -57,6 +57,7 @@ var earthimage;
 var uTextureSampler;
 var anisotropic_ext;
 var factor = 8;
+var vTexCoord;
 
 window.onload = function init() {
 
@@ -120,7 +121,7 @@ window.onload = function init() {
 
     initTextures();
     //get our sphere, 15 slices around the circle
-    generateSphere(15);
+    generateSphere(20);
 
     switchShaders(PHONG); //start with the phong shader
 
@@ -149,13 +150,20 @@ function switchShaders(index){
     //Set up the connections between vertex attributes and buffers
     gl.bindBuffer(gl.ARRAY_BUFFER, sphereBufferID);
 
-    gl.vertexAttribPointer(vPosition[activeProgram], 4, gl.FLOAT, false, 32, 0); //stride is 32 bytes total for position, normal
+    gl.vertexAttribPointer(vPosition[activeProgram], 4, gl.FLOAT, false, 40, 0); //stride is 32 bytes total for position, normal
     gl.enableVertexAttribArray(vPosition[activeProgram]);
 
     if(activeProgram != 0) { //the normal vector isn't used in our unlit program
-        gl.vertexAttribPointer(vNormal[activeProgram], 4, gl.FLOAT, false, 32, 16);
+        gl.vertexAttribPointer(vNormal[activeProgram], 4, gl.FLOAT, false, 40, 16);
         gl.enableVertexAttribArray(vNormal[activeProgram]);
     }
+
+    vTexCoord = gl.getAttribLocation(program[activeProgram], "texCoord");
+    gl.vertexAttribPointer(vTexCoord, 2, gl.FLOAT, false, 40, 32);
+    gl.enableVertexAttribArray(vTexCoord);
+
+
+
 }
 
 //***********************************************
@@ -169,34 +177,29 @@ function generateSphere(subdiv){
 
     var step = (360.0 / subdiv)*(Math.PI / 180.0); //how much do we increase the angles by per triangle?
     sphereverts = [];
-    spheretex = [];
-    spheretex.push(vec2(0, 0));
-    spheretex.push(vec2(0, 360));
-    spheretex.push(vec2(180, 0));
-    spheretex.push(vec2(180, 360));
     for (var lat = 0; lat <= Math.PI ; lat += step){ //latitude (up down 0-180)
         for (var lon = 0; lon + step <= 2*Math.PI; lon += step){ //longitude (around world 0-360)
             //triangle 1
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0)); //position
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0)); //normal
-            sphereverts.push(vec2(1-lon/(2*Math.PI), lat/Math.PI));
+            sphereverts.push(vec2(lon/(2*Math.PI), lat/Math.PI));
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 1.0)); //position
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 0.0)); //normal
-            sphereverts.push(vec2(1-lon+step/(2*Math.PI), lat/Math.PI));
+            sphereverts.push(vec2((lon+step)/(2*Math.PI), lat/Math.PI));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0)); //etc
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
-            sphereverts.push(vec2(1-lon+step/(2*Math.PI), lat+step/Math.PI));
+            sphereverts.push(vec2((lon+step)/(2*Math.PI), (lat+step)/Math.PI));
 
             //triangle 2
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
-            sphereverts.push(vec2(1-lon+step/(2*Math.PI), lat+step/Math.PI));
+            sphereverts.push(vec2((lon+step)/(2*Math.PI), (lat+step)/Math.PI));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step), 1.0));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step),0.0));
-            sphereverts.push(vec2(1-lon/(2*Math.PI), lat+step/Math.PI));
+            sphereverts.push(vec2(lon/(2*Math.PI), (lat+step)/Math.PI));
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0));
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0));
-            sphereverts.push(vec2(1-lon/(2*Math.PI), lat/Math.PI));
+            sphereverts.push(vec2(lon/(2*Math.PI), lat/Math.PI));
         }
     }
 
@@ -296,7 +299,7 @@ function render(){
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     //position camera 10 units back from origin
-    mv = lookAt(vec3(0, 0, 10), vec3(0, 0, 0), vec3(0, 1, 0));
+    mv = lookAt(vec3(0, 0, 5), vec3(0, 0, 0), vec3(0, 1, 0));
 
     //rotate if the user has been dragging the mouse around
     mv = mult(mv, mult(rotateY(yAngle), rotateX(xAngle)));
@@ -307,6 +310,7 @@ function render(){
 
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, earthtex);
+    gl.uniform1i(uTextureSampler, 0);
 
     //note that if we have one value that should be applied to all the vertices,
     //we can send it over just once even if it's an attribute and not a uniform
@@ -321,7 +325,6 @@ function render(){
         gl.uniform4fv(ambient_light[activeProgram], vec4(.5, .5, .5, 1)); //every single spot is getting at least 50% light, which is pretty high (.1 more realistic)
     }
 
-    gl.uniform1i(uTextureSampler, 0);
 
     if(rotate){
         mv = mult(mv, rotateY(yAngle));

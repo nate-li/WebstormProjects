@@ -20,8 +20,12 @@ uniform sampler2D textureSampler;
 
 void main()
 {
-    vec4 amb = AmbientDiffuseColor * ambient_light;
-    vec4 diff = max(dot(normalize(oL), normalize(oN)),0.0) * AmbientDiffuseColor * light_color;
+    vec4 amb = texture(textureSampler, ftexCoord) * ambient_light;
+    //vec4 amb = AmbientDiffuseColor * ambient_light;
+
+    vec4 diff = max(dot(normalize(oL), normalize(oN)),0.0) * texture(textureSampler, ftexCoord) * light_color;
+    //vec4 diff = max(dot(normalize(oL), normalize(oN)),0.0) * AmbientDiffuseColor * light_color;
+
     vec4 spec = SpecularColor * light_color * pow(max(dot(normalize(oN), normalize(oH)),0.0), SpecularExponent);
     if(dot(normalize(oL),normalize(oN)) < 0.0)
     {
@@ -31,8 +35,7 @@ void main()
 
     vec4 color = diff + amb + spec;
 
-    fColor = texture(textureSampler, ftexCoord);
-    //fColor = color;
+    fColor = color;
 
 }
 
