@@ -37,6 +37,8 @@ void main()
     oH = normalize(oL+oE); //halfway between light direction and camera direction, avg of 2 vectors
     oN = normalize(model_view * vNormal).xyz;
 
+    ftexCoord = texCoord;
+
     gl_Position = projection * eyepos;
 
 

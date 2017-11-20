@@ -55,6 +55,9 @@ var spheretex;
 var earthtex;
 var earthimage;
 var uTextureSampler;
+var anisotropic_ext;
+var factor = 8;
+
 window.onload = function init() {
 
     canvas = document.getElementById("gl-canvas");
@@ -176,18 +179,24 @@ function generateSphere(subdiv){
             //triangle 1
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0)); //position
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0)); //normal
+            sphereverts.push(vec2(1-lon/(2*Math.PI), lat/Math.PI));
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 1.0)); //position
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 0.0)); //normal
+            sphereverts.push(vec2(1-lon+step/(2*Math.PI), lat/Math.PI));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0)); //etc
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
+            sphereverts.push(vec2(1-lon+step/(2*Math.PI), lat+step/Math.PI));
 
             //triangle 2
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
+            sphereverts.push(vec2(1-lon+step/(2*Math.PI), lat+step/Math.PI));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step), 1.0));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step),0.0));
+            sphereverts.push(vec2(1-lon/(2*Math.PI), lat+step/Math.PI));
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0));
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0));
+            sphereverts.push(vec2(1-lon/(2*Math.PI), lat/Math.PI));
         }
     }
 
@@ -256,6 +265,7 @@ function initTextures() {
     earthtex = gl.createTexture();
     earthimage = new Image();
     earthimage.onload = function() { handleTextureLoaded(earthimage, earthtex); }
+    earthimage.src = 'Earth.png';
 }
 
 function handleTextureLoaded(image, texture) {
@@ -265,7 +275,7 @@ function handleTextureLoaded(image, texture) {
 
     gl.generateMipmap(gl.TEXTURE_2D);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.texParmeteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR));//gl.NEAREST); //if you want to see some aliasing
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR));//gl.NEAREST); //if you want to see some aliasing
     anisotropic_ext = gl.getExtension('EXT_texture_filter_anisotropic');
     gl.texParameterf(gl.TEXTURE_2D, anisotropic_ext.TEXTURE_MAX_ANISOTROPY_EXT, factor);
     gl.bindTexture(gl.TEXTURE_2D, null); //we aren't bound to any textures now
@@ -298,9 +308,6 @@ function render(){
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, earthtex);
 
-    gl.uniform1i(uTextureSampler, 0);
-
-
     //note that if we have one value that should be applied to all the vertices,
     //we can send it over just once even if it's an attribute and not a uniform
     gl.vertexAttrib4fv(vAmbientDiffuseColor[activeProgram], vec4(0, 0, .2, 1));
@@ -314,9 +321,11 @@ function render(){
         gl.uniform4fv(ambient_light[activeProgram], vec4(.5, .5, .5, 1)); //every single spot is getting at least 50% light, which is pretty high (.1 more realistic)
     }
 
+    gl.uniform1i(uTextureSampler, 0);
+
     if(rotate){
         mv = mult(mv, rotateY(yAngle));
     }
 
-    gl.drawArrays(gl.TRIANGLES, 0, sphereverts.length/2);
+    gl.drawArrays(gl.TRIANGLES, 0, sphereverts.length/3);
 }

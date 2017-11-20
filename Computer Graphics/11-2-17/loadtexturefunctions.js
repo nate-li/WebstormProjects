@@ -232,24 +232,24 @@ function render(){
 
     gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
-    mv = mult(camera, mult(rotateY(90), translate(0,0,1)));
-    gl.uniformMatrix4fv(umv, false, flatten(mv));
-    gl.bindTexture(gl.TEXTURE_2D, alpacatex); //we're still talking about texture unit 0, but we want an alpaca on the next object drawn
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
-
-    //the next texture has some transparency, so we are drawing it last with blending turned on
-    gl.depthMask(false);//doesn't really matter in this example, but generally when drawing transparent objects, disable writing to the
-                        //depth buffer since this object shouldn't occlude other objects that come along later
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
-
-    mv = mult(camera, mult(rotateY(-90), translate(0,0,1)));
-    gl.uniformMatrix4fv(umv, false, flatten(mv));
-    gl.bindTexture(gl.TEXTURE_2D, logotex); //we're still talking about texture unit 0, but we want a logo on the next object drawn
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
-
-    //turn blending back off
-    gl.disable(gl.BLEND);
-    gl.depthMask(true); //allow writing to the depth buffer again
+    // mv = mult(camera, mult(rotateY(90), translate(0,0,1)));
+    // gl.uniformMatrix4fv(umv, false, flatten(mv));
+    // gl.bindTexture(gl.TEXTURE_2D, alpacatex); //we're still talking about texture unit 0, but we want an alpaca on the next object drawn
+    // gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+    //
+    // //the next texture has some transparency, so we are drawing it last with blending turned on
+    // gl.depthMask(false);//doesn't really matter in this example, but generally when drawing transparent objects, disable writing to the
+    //                     //depth buffer since this object shouldn't occlude other objects that come along later
+    // gl.enable(gl.BLEND);
+    // gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+    //
+    // mv = mult(camera, mult(rotateY(-90), translate(0,0,1)));
+    // gl.uniformMatrix4fv(umv, false, flatten(mv));
+    // gl.bindTexture(gl.TEXTURE_2D, logotex); //we're still talking about texture unit 0, but we want a logo on the next object drawn
+    // gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+    //
+    // //turn blending back off
+    // gl.disable(gl.BLEND);
+    // gl.depthMask(true); //allow writing to the depth buffer again
 
 }
