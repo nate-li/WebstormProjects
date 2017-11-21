@@ -1,15 +1,12 @@
-/**
- * Created by gosnat on 7/14/2017.
- */
-
 "use strict";
 var gl;
 var program; //this is going to be an array instead of just a single program
-var NUM_PROGRAMS = 3; //at first we only have one program, but we'll eventually have more
+var NUM_PROGRAMS = 4; //at first we only have one program, but we'll eventually have more
 var activeProgram; //we'll demonstrate how to switch between shader programs
 var UNLIT = 0; //This is so we can give a name to the shader program at index 0
 var GOURAUD = 1;
 var PHONG = 2;
+var PHONGSPEC = 3;
 
 
 //uniform locations
@@ -51,9 +48,10 @@ var sphereBufferID; //buffer id
 var rotate = false;
 
 //textures
-var spheretex;
 var earthtex;
 var earthimage;
+var specimage;
+var specearth;
 var uTextureSampler;
 var anisotropic_ext;
 var factor = 8;
@@ -63,10 +61,10 @@ var earthRot = 0;
 window.onload = function init() {
 
     canvas = document.getElementById("gl-canvas");
-    gl = canvas.getContext('webgl2');
+    // gl = canvas.getContext('webgl2');
     //antialiasing : false makes it a rougher outline, true makes lines smoother
     //   gl = canvas.getContext('webgl2', {antialias:false});
-//    gl = canvas.getContext('webgl2', {antialias:true});
+    gl = canvas.getContext('webgl2', {antialias:true});
     if (!gl) {
         alert("WebGL isn't available");
     }
@@ -89,6 +87,7 @@ window.onload = function init() {
     program.push(initShaders(gl, "vshader-unlit.glsl", "fshader-unlit.glsl"));
     program.push(initShaders(gl, "vshader-lighting.glsl", "fshader-lighting.glsl"));
     program.push(initShaders(gl, "vshader-phong.glsl", "fshader-phong.glsl"));
+    program.push(initShaders(gl, "vshader-phong-specular.glsl", "fshader-phong-specular.glsl"));
     //eventually we're going to add additional shader programs here
     //note that these are located in .glsl files, so we're using InitShaders2.js
     //Also note that we'll need to be using a local web server rather than just loading it off the harddrive to make
@@ -127,16 +126,15 @@ window.onload = function init() {
     switchShaders(PHONG); //start with the phong shader
 
     window.setInterval(update, 16);
-    requestAnimationFrame(render);
 };
 
 function switchShaders(index){
     //There are a variety of ways to accomplish this, but this way is pretty straightforward
     //note that we don't re-buffer the data, simply connect the existing buffer to a different shader program
 
-    gl.disableVertexAttribArray(vPosition[activeProgram]);
-    gl.disableVertexAttribArray(vNormal[activeProgram]);
-
+    // gl.disableVertexAttribArray(vPosition[activeProgram]);
+    // gl.disableVertexAttribArray(vNormal[activeProgram]);
+    // gl.disableVertexAttribArray(vTexCoord);
 
     //switch to the new program
     gl.useProgram(program[index]);
@@ -162,9 +160,6 @@ function switchShaders(index){
     vTexCoord = gl.getAttribLocation(program[activeProgram], "texCoord");
     gl.vertexAttribPointer(vTexCoord, 2, gl.FLOAT, false, 40, 32);
     gl.enableVertexAttribArray(vTexCoord);
-
-
-
 }
 
 //***********************************************
@@ -183,24 +178,24 @@ function generateSphere(subdiv){
             //triangle 1
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0)); //position
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0)); //normal
-            sphereverts.push(vec2(lon/(2*Math.PI), lat/Math.PI));
+            sphereverts.push(vec2(1-lon/(2*Math.PI), lat/Math.PI));
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 1.0)); //position
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon+step), Math.sin(lat)*Math.sin(lon+step), Math.cos(lat), 0.0)); //normal
-            sphereverts.push(vec2((lon+step)/(2*Math.PI), lat/Math.PI));
+            sphereverts.push(vec2(1-(lon+step)/(2*Math.PI), lat/Math.PI));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0)); //etc
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
-            sphereverts.push(vec2((lon+step)/(2*Math.PI), (lat+step)/Math.PI));
+            sphereverts.push(vec2(1-(lon+step)/(2*Math.PI), (lat+step)/Math.PI));
 
             //triangle 2
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 1.0));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon+step), Math.sin(lon+step)*Math.sin(lat+step), Math.cos(lat+step), 0.0));
-            sphereverts.push(vec2((lon+step)/(2*Math.PI), (lat+step)/Math.PI));
+            sphereverts.push(vec2(1-(lon+step)/(2*Math.PI), (lat+step)/Math.PI));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step), 1.0));
             sphereverts.push(vec4(Math.sin(lat+step)*Math.cos(lon), Math.sin(lat+step)*Math.sin(lon), Math.cos(lat+step),0.0));
-            sphereverts.push(vec2(lon/(2*Math.PI), (lat+step)/Math.PI));
+            sphereverts.push(vec2(1-lon/(2*Math.PI), (lat+step)/Math.PI));
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 1.0));
             sphereverts.push(vec4(Math.sin(lat)*Math.cos(lon), Math.sin(lon)*Math.sin(lat), Math.cos(lat), 0.0));
-            sphereverts.push(vec2(lon/(2*Math.PI), lat/Math.PI));
+            sphereverts.push(vec2(1-lon/(2*Math.PI), lat/Math.PI));
         }
     }
 
@@ -255,12 +250,6 @@ window.addEventListener("keydown" ,function(event){
         case "p":
             switchShaders(PHONG);
             break;
-        case "u":
-            switchShaders(PHONG_UNPROTECT);
-            break;
-        case "c": //random color
-            switchShaders(CEL);
-            break;
     }
     requestAnimationFrame(render);//and now we need a new frame since we made a change
 });
@@ -270,6 +259,11 @@ function initTextures() {
     earthimage = new Image();
     earthimage.onload = function() { handleTextureLoaded(earthimage, earthtex); }
     earthimage.src = 'Earth.png';
+
+    specearth = gl.createTexture();
+    specimage = new Image();
+    specimage.onload = function() { handleTextureLoaded(specimage, specearth); }
+    specimage.src = 'EarthSpec.png';
 }
 
 function handleTextureLoaded(image, texture) {
@@ -277,9 +271,10 @@ function handleTextureLoaded(image, texture) {
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
 
-    gl.generateMipmap(gl.TEXTURE_2D);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR));//gl.NEAREST); //if you want to see some aliasing
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);//gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR));//gl.NEAREST); //if you want to see some aliasing
+    gl.generateMipmap(gl.TEXTURE_2D);
+
     anisotropic_ext = gl.getExtension('EXT_texture_filter_anisotropic');
     gl.texParameterf(gl.TEXTURE_2D, anisotropic_ext.TEXTURE_MAX_ANISOTROPY_EXT, factor);
     gl.bindTexture(gl.TEXTURE_2D, null); //we aren't bound to any textures now
@@ -300,23 +295,22 @@ function render(){
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     //position camera 10 units back from origin
-    mv = lookAt(vec3(0, 0, 5), vec3(0, 0, 0), vec3(0, 1, 0));
+    mv = lookAt(vec3(0, 0, 10), vec3(0, 0, 0), vec3(0, 1, 0));
 
     //rotate if the user has been dragging the mouse around
 
     mv = mult(mv, mult(rotateY(yAngle), rotateX(xAngle)));
-
+    var earthMV = mult(mv, translate(0, 0, 0));
+    earthMV = mult(earthMV, rotateZ(earthRot));
+    earthMV = mult(earthMV, scalem(3, 3, 3));
 
     //send the modelview matrix over
-    gl.uniformMatrix4fv(umv[activeProgram], false, flatten(mv));
-
-    gl.activeTexture(gl.TEXTURE0);
-    gl.bindTexture(gl.TEXTURE_2D, earthtex);
-    gl.uniform1i(uTextureSampler, 0);
+    // gl.uniformMatrix4fv(umv[activeProgram], false, flatten(mv));
+    gl.uniformMatrix4fv(umv[activeProgram], false, flatten(earthMV));
 
     //note that if we have one value that should be applied to all the vertices,
     //we can send it over just once even if it's an attribute and not a uniform
-    gl.vertexAttrib4fv(vAmbientDiffuseColor[activeProgram], vec4(0, 0, .2, 1));
+    gl.vertexAttrib4fv(vAmbientDiffuseColor[activeProgram], vec4(0, 0, .5, 1));
 
     if(activeProgram != 0) { //if we actually have lights
         gl.vertexAttrib4fv(vSpecularColor[activeProgram], vec4(1.0, 1.0, 1.0, 1.0)); //setting specular highlight to full white instead of red. glossy highlights are the color of the light
@@ -327,10 +321,9 @@ function render(){
         gl.uniform4fv(ambient_light[activeProgram], vec4(.5, .5, .5, 1)); //every single spot is getting at least 50% light, which is pretty high (.1 more realistic)
     }
 
-    var earthMV = mult(mv, translate(0, 0, 0));
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, earthtex);
+    gl.uniform1i(uTextureSampler, 0);
 
-    earthMV = mult(earthMV, rotateZ(earthRot));
-
-    gl.uniformMatrix4fv(umv[activeProgram], false, flatten(earthMV));
     gl.drawArrays(gl.TRIANGLES, 0, sphereverts.length/3);
 }
