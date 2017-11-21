@@ -22,8 +22,8 @@
           <file leaf-file-name="Lighting.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/RealAssignment5/Lighting.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+                <state relative-caret-position="221">
+                  <caret line="13" column="46" lean-forward="false" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
                   <folding />
                 </state>
               </provider>
@@ -32,8 +32,8 @@
           <file leaf-file-name="vshader-phong.glsl" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/RealAssignment5/vshader-phong.glsl">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="238">
-                  <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+                <state relative-caret-position="187">
+                  <caret line="11" column="16" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -42,8 +42,8 @@
           <file leaf-file-name="fshader-phong.glsl" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/RealAssignment5/fshader-phong.glsl">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="22" column="61" lean-forward="false" selection-start-line="22" selection-start-column="61" selection-end-line="22" selection-end-column="61" />
+                <state relative-caret-position="408">
+                  <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -52,18 +52,8 @@
           <file leaf-file-name="lightingfunctions-skeleton.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/RealAssignment5/lightingfunctions-skeleton.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="239">
-                  <caret line="313" column="0" lean-forward="true" selection-start-line="313" selection-start-column="0" selection-end-line="313" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="initShaders2.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Computer Graphics/RealExample/initShaders2.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <state relative-caret-position="219">
+                  <caret line="124" column="20" lean-forward="false" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="20" />
                   <folding />
                 </state>
               </provider>
@@ -73,26 +63,6 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 4/functions.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="435">
-                  <caret line="940" column="55" lean-forward="false" selection-start-line="940" selection-start-column="54" selection-end-line="940" selection-end-column="55" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="lightingfunctions-skeleton.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Computer Graphics/RealExample/lightingfunctions-skeleton.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="698">
-                  <caret line="146" column="0" lean-forward="true" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="fshader-texture.glsl" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Computer Graphics/11-2-17/fshader-texture.glsl">
               <provider selected="true" editor-type-id="text-editor">
@@ -113,11 +83,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="loadtexturefunctions.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="loadtexturefunctions.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Computer Graphics/11-2-17/loadtexturefunctions.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="197">
-                  <caret line="195" column="1" lean-forward="true" selection-start-line="195" selection-start-column="1" selection-end-line="195" selection-end-column="1" />
+                <state relative-caret-position="25">
+                  <caret line="180" column="10" lean-forward="false" selection-start-line="180" selection-start-column="10" selection-end-line="180" selection-end-column="10" />
                   <folding />
                 </state>
               </provider>
@@ -138,7 +108,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fshader</find>
       <find>program</find>
       <find>vposition</find>
       <find>render</find>
@@ -168,6 +137,7 @@
       <find>rotate</find>
       <find>disagree</find>
       <find>generatesphere</find>
+      <find>prevmouse</find>
     </findStrings>
     <replaceStrings>
       <replace>points</replace>
@@ -309,7 +279,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -332,25 +301,7 @@
               <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
               <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
-              <item name="10-3-17" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
-              <item name="10-26-17" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
               <item name="11-2-17" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
-              <item name="11-7-17" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
@@ -361,18 +312,13 @@
             <path>
               <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
-              <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
-              <item name="RealExample" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
               <item name="RealAssignment5" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -385,19 +331,19 @@
     <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\RealExample" />
-      <recent name="C:\Users\linat\WebstormProjects\RealAssignment5" />
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\PhongExample" />
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
-      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\RealExample" />
       <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\11-2-17" />
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\PhongExample" />
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\Assignment 4" />
       <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\10-26-17" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\RealExample" />
+      <recent name="C:\Users\linat\WebstormProjects\RealAssignment5" />
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\PhongExample" />
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
+      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -479,23 +425,24 @@
       <workItem from="1511037940408" duration="7974000" />
       <workItem from="1511148824052" duration="7192000" />
       <workItem from="1511207517743" duration="4940000" />
+      <workItem from="1511227129003" duration="1771000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="267808000" />
+    <option name="totallyTimeSpent" value="269581000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1066" extended-state="6" />
+    <frame x="-6" y="-6" width="1613" height="913" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10664062" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10631645" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06282052" sideWeight="0.5046904" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.060215052" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.05897436" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.128125" sideWeight="0.5036726" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -740,7 +687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1205">
           <caret line="213" column="18" lean-forward="true" selection-start-line="213" selection-start-column="18" selection-end-line="213" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -764,14 +710,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/11-2-17/loadtexturefunctions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="195" column="1" lean-forward="true" selection-start-line="195" selection-start-column="1" selection-end-line="195" selection-end-column="1" />
+        <state relative-caret-position="25">
+          <caret line="180" column="10" lean-forward="false" selection-start-line="180" selection-start-column="10" selection-end-line="180" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -780,14 +725,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RealAssignment5/vshader-phong.glsl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+        <state relative-caret-position="187">
+          <caret line="11" column="16" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -796,22 +740,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="11" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RealAssignment5/fshader-phong.glsl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="61" lean-forward="false" selection-start-line="22" selection-start-column="61" selection-end-line="22" selection-end-column="61" />
+        <state relative-caret-position="408">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RealAssignment5/Lighting.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="221">
+          <caret line="13" column="46" lean-forward="false" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
           <folding />
         </state>
       </provider>
@@ -820,7 +763,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="698">
           <caret line="146" column="0" lean-forward="true" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -828,14 +770,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="940" column="55" lean-forward="false" selection-start-line="940" selection-start-column="54" selection-end-line="940" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RealAssignment5/lightingfunctions-skeleton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="313" column="0" lean-forward="true" selection-start-line="313" selection-start-column="0" selection-end-line="313" selection-end-column="0" />
+        <state relative-caret-position="219">
+          <caret line="124" column="20" lean-forward="false" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="20" />
           <folding />
         </state>
       </provider>

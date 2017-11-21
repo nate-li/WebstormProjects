@@ -122,7 +122,7 @@ window.onload = function init() {
 
     initTextures();
     //get our sphere, 15 slices around the circle
-    generateSphere(50);
+    generateSphere(60);
 
     switchShaders(PHONG); //start with the phong shader
 
@@ -245,8 +245,6 @@ window.addEventListener("keydown" ,function(event){
         case "r":
             if(rotate){
                 rotate = false;
-                yAngle = earthRot;
-                earthRot = 0;
             }else{
                 rotate = true;
             }
@@ -331,9 +329,7 @@ function render(){
 
     var earthMV = mult(mv, translate(0, 0, 0));
 
-    if(rotate){
-        earthMV = mult(earthMV, rotateZ(earthRot));
-    }
+    earthMV = mult(earthMV, rotateZ(earthRot));
 
     gl.uniformMatrix4fv(umv[activeProgram], false, flatten(earthMV));
     gl.drawArrays(gl.TRIANGLES, 0, sphereverts.length/3);
