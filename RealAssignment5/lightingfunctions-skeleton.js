@@ -1,13 +1,11 @@
 "use strict";
 var gl;
 var program; //this is going to be an array instead of just a single program
-var NUM_PROGRAMS = 4; //at first we only have one program, but we'll eventually have more
+var NUM_PROGRAMS = 3; //at first we only have one program, but we'll eventually have more
 var activeProgram; //we'll demonstrate how to switch between shader programs
 var UNLIT = 0; //This is so we can give a name to the shader program at index 0
 var GOURAUD = 1;
 var PHONG = 2;
-var PHONGSPEC = 3;
-
 
 //uniform locations
 var umv; //uniform for mv matrix
@@ -25,7 +23,6 @@ var vSpecularColor; //highlight color
 var vSpecularExponent;
 
 //uniform indices for light properties
-//TODO
 var light_position;
 var light_color;
 var ambient_light;
@@ -50,8 +47,14 @@ var rotate = false;
 //textures
 var earthtex;
 var earthimage;
+var cloudtex;
+var cloudimage;
+var spectex;
 var specimage;
-var specearth;
+var nighttex;
+var nightimage;
+var normaltex;
+var normalimage;
 var uTextureSampler;
 var anisotropic_ext;
 var factor = 8;
@@ -87,11 +90,7 @@ window.onload = function init() {
     program.push(initShaders(gl, "vshader-unlit.glsl", "fshader-unlit.glsl"));
     program.push(initShaders(gl, "vshader-lighting.glsl", "fshader-lighting.glsl"));
     program.push(initShaders(gl, "vshader-phong.glsl", "fshader-phong.glsl"));
-    program.push(initShaders(gl, "vshader-phong-specular.glsl", "fshader-phong-specular.glsl"));
-    //eventually we're going to add additional shader programs here
-    //note that these are located in .glsl files, so we're using InitShaders2.js
-    //Also note that we'll need to be using a local web server rather than just loading it off the harddrive to make
-    //the browser happy with external .glsl files
+
 
     //Eventually we're going to have to store references to these attributes an uniforms in many different shaders
     //TODO
@@ -129,12 +128,10 @@ window.onload = function init() {
 };
 
 function switchShaders(index){
-    //There are a variety of ways to accomplish this, but this way is pretty straightforward
-    //note that we don't re-buffer the data, simply connect the existing buffer to a different shader program
 
-    // gl.disableVertexAttribArray(vPosition[activeProgram]);
-    // gl.disableVertexAttribArray(vNormal[activeProgram]);
-    // gl.disableVertexAttribArray(vTexCoord);
+    gl.disableVertexAttribArray(vPosition[activeProgram]);
+    gl.disableVertexAttribArray(vNormal[activeProgram]);
+    gl.disableVertexAttribArray(vTexCoord);
 
     //switch to the new program
     gl.useProgram(program[index]);
@@ -162,13 +159,7 @@ function switchShaders(index){
     gl.enableVertexAttribArray(vTexCoord);
 }
 
-//***********************************************
-//TODO HEY! READ THIS!
-//In this particular case, our normal vectors and vertex vectors are identical since the sphere is centered at the origin
-//For most objects this won't be the case, so I'm treating them as separate values for that reason
-//This could also be done as separate triangle strips, but I've chosen to make them just triangles so I don't
-//have to execute multiple glDrawArrays() commands
-//***********************************************
+
 function generateSphere(subdiv){
 
     var step = (360.0 / subdiv)*(Math.PI / 180.0); //how much do we increase the angles by per triangle?
@@ -260,10 +251,25 @@ function initTextures() {
     earthimage.onload = function() { handleTextureLoaded(earthimage, earthtex); }
     earthimage.src = 'Earth.png';
 
-    specearth = gl.createTexture();
-    specimage = new Image();
-    specimage.onload = function() { handleTextureLoaded(specimage, specearth); }
-    specimage.src = 'EarthSpec.png';
+    // cloudtex = gl.createTexture();
+    // cloudimage = new Image();
+    // cloudimage.onload = function() { handleTextureLoaded(cloudimage, cloudtex); }
+    // cloudimage.src = 'earthcloudmap-visness.png';
+    //
+    // spectex = gl.createTexture();
+    // specimage = new Image();
+    // specimage.onload = function() { handleTextureLoaded(spectex, specimage); }
+    // specimage.src = 'EarthSpec.png';
+    //
+    // nighttex = gl.createTexture();
+    // nightimage = new Image();
+    // nightimage.onload = function() { handleTextureLoaded(nighttex, nightimage); }
+    // nightimage.src = 'EarthNight.png';
+    //
+    // normaltex = gl.createTexture();
+    // normalimage = new Image();
+    // normalimage.onload = function() { handleTextureLoaded(normaltex, normalimage); }
+    // normalimage.src = 'EarthNormal.png';
 }
 
 function handleTextureLoaded(image, texture) {
@@ -300,6 +306,7 @@ function render(){
     //rotate if the user has been dragging the mouse around
 
     mv = mult(mv, mult(rotateY(yAngle), rotateX(xAngle)));
+
     var earthMV = mult(mv, translate(0, 0, 0));
     earthMV = mult(earthMV, rotateZ(earthRot));
     earthMV = mult(earthMV, scalem(3, 3, 3));
@@ -326,4 +333,18 @@ function render(){
     gl.uniform1i(uTextureSampler, 0);
 
     gl.drawArrays(gl.TRIANGLES, 0, sphereverts.length/3);
+
+    // gl.depthMask(false);
+    //
+    // gl.enable(gl.BLEND);
+    // gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+    //
+    // var cloudMV = mult(earthMV, scalem(1, 1.5, 1.5));
+    // gl.uniformMatrix4fv(umv, false, flatten(cloudMV));
+    //
+    // gl.bindTexture(gl.TEXTURE_2D, cloudtex);
+    // gl.drawArrays(gl.TRIANGLES, 0, sphereverts.length/3);
+    //
+    // gl.disable(gl.BLEND);
+    // gl.depthMask(true);
 }
