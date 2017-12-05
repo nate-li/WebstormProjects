@@ -97,23 +97,28 @@ window.onload = function init() {
  */
 function createMesh(input){
     var numbers = input.split(/\s+/); //split on white space
-    var numVerts = numbers[0]; //first element is number of vertices
-    var numTris = numbers[1]; //second element is number of triangles
+    var numVerts = 35947; //first element is number of vertices
+    var numTris = 69451; //second element is number of triangles
     var positionData = [];
 
     //three numbers at a time for xyz
-    for(var i = 2; i < 3*numVerts + 2; i+= 3){
+    for(var i = 0; i < 5*numVerts; i+= 5){
         positionData.push(vec4(parseFloat(numbers[i]), parseFloat(numbers[i+1]), parseFloat(numbers[i+2]), 1));
         // console.log(numbers[i] + ' ' + numbers[i+1] + ' ' + numbers[i+2]);
-        console.log("points pushed")
     }
-
+    console.log("Position length: " + positionData.length);
     //now the triangles
     indexData = []; //empty out any previous data
     //three vertex indices per triangle
-    for(var i = 3*numVerts + 2; i < numbers.length; i++){
-        indexData.push(parseInt(numbers[i]));
+    // 5*numVerts + 4*numTris
+    for(var i = 5*numVerts; i < 5*numVerts + 4*numTris; i+=4){
+        indexData.push(parseInt(numbers[i+1]));
+        indexData.push(parseInt(numbers[i+2]));
+        indexData.push(parseInt(numbers[i+3]));
+        // console.log(numbers[i] + ' ' + numbers[i+1] + ' ' + numbers[i+2] + ' ' + numbers[i+3]);
     }
+    console.log("Index length: " + indexData.length);
+
 
     var normalVectors = [];
 
@@ -122,10 +127,8 @@ function createMesh(input){
     }
 
     for(var i = 0; i < indexData.length; i+= 3) {
-        var triLeg1 = normalize(vec3(subtract(positionData[indexData[i+1]],
-            positionData[indexData[i]])));
-        var triLeg2 = normalize(vec3(subtract(positionData[indexData[i+2]],
-            positionData[indexData[i]])));
+        var triLeg1 = normalize(vec3(subtract(positionData[indexData[i+1]], positionData[indexData[i]])));
+        var triLeg2 = normalize(vec3(subtract(positionData[indexData[i+2]], positionData[indexData[i]])));
         var triNormal = vec4(normalize(cross(triLeg1, triLeg2)), 0);
 
         normalVectors[indexData[i]] = add(normalVectors[indexData[i]], triNormal);
@@ -202,7 +205,8 @@ function render(){
 
     //position camera 10 units back from origin
     mv = lookAt(vec3(0, 0, 10), vec3(0, 0, 0), vec3(0, 1, 0));
-
+    var scalefactor = 25;
+    mv = mult(mv, scalem(scalefactor, scalefactor, scalefactor));
     //rotate if the user has been dragging the mouse around
     mv = mult(mv, mult(rotateY(yAngle), rotateX(xAngle)));
 

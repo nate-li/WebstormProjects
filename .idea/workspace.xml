@@ -20,8 +20,18 @@
       <file leaf-file-name="LoadMesh.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/LoadMesh.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="59" column="36" lean-forward="false" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="36" />
+            <state relative-caret-position="340">
+              <caret line="26" column="48" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vshader-lighting.glsl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 5/vshader-lighting.glsl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="15" lean-forward="true" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -30,8 +40,8 @@
       <file leaf-file-name="meshfunctions-skeleton.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+            <state relative-caret-position="195">
+              <caret line="99" column="24" lean-forward="false" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -40,8 +50,8 @@
       <file leaf-file-name="teapot.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/teapot.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+            <state relative-caret-position="-57771">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -60,7 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>1, 1, 1, 1</find>
       <find>rotateview</find>
       <find>update</find>
       <find>textureSam</find>
@@ -90,6 +99,7 @@
       <find>normalize</find>
       <find>canvas</find>
       <find>clearcolor</find>
+      <find>color</find>
     </findStrings>
     <replaceStrings>
       <replace>points</replace>
@@ -157,9 +167,9 @@
         <option value="$PROJECT_DIR$/RealAssignment5/fshader-phong-specular.glsl" />
         <option value="$PROJECT_DIR$/RealAssignment5/Lighting.html" />
         <option value="$PROJECT_DIR$/RealAssignment5/lightingfunctions-skeleton.js" />
-        <option value="$PROJECT_DIR$/Computer Graphics/FinalExample/LoadMesh.html" />
         <option value="$PROJECT_DIR$/Computer Graphics/FinalExample/teapot.txt" />
         <option value="$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js" />
+        <option value="$PROJECT_DIR$/Computer Graphics/FinalExample/LoadMesh.html" />
       </list>
     </option>
   </component>
@@ -254,7 +264,7 @@
               <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
               <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
-              <item name="FinalExample" type="462c0819:PsiDirectoryNode" />
+              <item name="Assignment 5" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -369,12 +379,12 @@
       <workItem from="1512069775861" duration="2417000" />
       <workItem from="1512492915841" duration="10317000" />
       <workItem from="1512509194158" duration="184000" />
-      <workItem from="1512510304703" duration="133000" />
+      <workItem from="1512510304703" duration="4638000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="302387000" />
+    <option name="totallyTimeSpent" value="306892000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1613" height="913" extended-state="6" />
@@ -417,14 +427,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/9-21-17/transformfunctionsComplete.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4199">
-          <caret line="362" column="40" lean-forward="true" selection-start-line="362" selection-start-column="40" selection-end-line="362" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 4/Assignment 3/MV.js" />
     <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 4/MV.js" />
     <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 3/functions.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -690,26 +692,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 5/fshader-lighting.glsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="1" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/teapot.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        <state relative-caret-position="-57771">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 5/vshader-lighting.glsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="15" lean-forward="true" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/LoadMesh.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="59" column="36" lean-forward="false" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="36" />
+        <state relative-caret-position="340">
+          <caret line="26" column="48" lean-forward="true" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+        <state relative-caret-position="195">
+          <caret line="99" column="24" lean-forward="false" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="24" />
           <folding />
         </state>
       </provider>
