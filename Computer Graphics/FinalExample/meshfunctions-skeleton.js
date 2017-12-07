@@ -34,6 +34,8 @@ var indexData;
 var positionData;
 var triangleList;
 
+var treeDepth = 5;
+
 window.onload = function init() {
 
     canvas = document.getElementById("gl-canvas");
@@ -96,10 +98,47 @@ window.onload = function init() {
 
 function initializeOcTree(){
     var rootNode = new Node();
+    rootNode.currentDepth = 0;
+    rootNode.hasChildren = true;
+    rootNode.xMin = -1;
+    rootNode.xMax = 1;
+    rootNode.yMin = -1;
+    rootNode.yMax = 1;
+    rootNode.zMin = -1;
+    rootNode.zMax = 1;
+    rootNode.length = 1;
+    makeChildren(rootNode);
+    /*
+    For the first node, we assume it will have to create children.
+    However, when we recursively create more, how do you handle children already existing?
+    */
 }
 
-function Node(depth, pxMin, pxMax, pyMin, pyMax, pzMin, pzMax){
+function makeChildren(node){
+    if(currentDepth < treeDepth){
+        //for each triangle
+        if(!hasChildren){
+            for(var i = 0; i < triangleList.length; i++){
+                //check if triangle is within the bounds of the node
+                if((triangleList[i].xMax < node.xMax) && (triangleList[i].xMin > node.xMin)
+                    && (triangleList[i].yMax < node.yMax) && (triangleList[i].yMin > node.yMin)
+                    && (triangleList[i].zMax < node.zMax) && (triangleList[i].zMin > node.zMin)){
+                    //if this is true, we know we have to split it up into 8 octants
+                    //how do we get the bounds of the new octants?
+                    //8 possible cases
+                    
+                }
+            }
+        }
+    }else{
+        return node;
+    }
+}
+
+function Node(depth, length, pxMin, pxMax, pyMin, pyMax, pzMin, pzMax){
     this.currentDepth = depth+1;
+    //this is the length of all sides
+    this.length = Math.pow(.5, currentDepth);
     this.hasChildren = false;
     this.xMin = pxMin;
     this.xMax = pxMax;

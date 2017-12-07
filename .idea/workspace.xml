@@ -40,12 +40,12 @@
       <file leaf-file-name="meshfunctions-skeleton.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="110" column="1" lean-forward="true" selection-start-line="110" selection-start-column="1" selection-end-line="110" selection-end-column="1" />
+            <state relative-caret-position="595">
+              <caret line="128" column="20" lean-forward="false" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="20" />
               <folding>
-                <element signature="e#681#728#0" expanded="false" />
-                <element signature="e#733#788#0" expanded="false" />
-                <element signature="e#1518#1574#0" expanded="false" />
+                <element signature="e#701#748#0" expanded="false" />
+                <element signature="e#753#808#0" expanded="false" />
+                <element signature="e#1538#1594#0" expanded="false" />
                 <element signature="n#!!block;n#findMax#0" expanded="false" />
                 <element signature="n#!!block;n#findMin#0" expanded="false" />
                 <element signature="n#!!doc;n#createMesh#0" expanded="false" />
@@ -381,12 +381,12 @@
       <workItem from="1512492915841" duration="10317000" />
       <workItem from="1512509194158" duration="184000" />
       <workItem from="1512510304703" duration="7252000" />
-      <workItem from="1512606070367" duration="4179000" />
+      <workItem from="1512606070367" duration="7407000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="313685000" />
+    <option name="totallyTimeSpent" value="316913000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1066" extended-state="6" />
@@ -726,12 +726,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="110" column="1" lean-forward="true" selection-start-line="110" selection-start-column="1" selection-end-line="110" selection-end-column="1" />
+        <state relative-caret-position="595">
+          <caret line="128" column="20" lean-forward="false" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="20" />
           <folding>
-            <element signature="e#681#728#0" expanded="false" />
-            <element signature="e#733#788#0" expanded="false" />
-            <element signature="e#1518#1574#0" expanded="false" />
+            <element signature="e#701#748#0" expanded="false" />
+            <element signature="e#753#808#0" expanded="false" />
+            <element signature="e#1538#1594#0" expanded="false" />
             <element signature="n#!!block;n#findMax#0" expanded="false" />
             <element signature="n#!!block;n#findMin#0" expanded="false" />
             <element signature="n#!!doc;n#createMesh#0" expanded="false" />
