@@ -31,6 +31,8 @@ var indexBufferID;
 var meshVertexData;
 var indexData;
 
+var triangleList;
+
 window.onload = function init() {
 
     canvas = document.getElementById("gl-canvas");
@@ -88,7 +90,28 @@ window.onload = function init() {
     xAngle = 0;
     yAngle = 0;
 
+
 };
+
+function initializeOcTree(){
+    var rootNode = new Node();
+}
+
+function Triangle(v1, v2, v3){
+
+}
+
+function Node(depth, pxMin, pxMax, pyMin, pyMax, pzMin, pzMax){
+    this.currentDepth = depth+1;
+    this.hasChildren = false;
+    this.xMin = pxMin;
+    this.xMax = pxMax;
+    this.yMin = pyMin;
+    this.yMax = pyMax;
+    this.zMin = pzMin;
+    this.zMax = pzMax;
+    this.children = null;
+}
 
 /**
  * Parse string into list of vertices and triangles
@@ -107,7 +130,6 @@ function createMesh(input){
         // console.log(numbers[i] + ' ' + numbers[i+1] + ' ' + numbers[i+2]);
     }
     console.log("Position length: " + positionData.length);
-    //now the triangles
     indexData = []; //empty out any previous data
     //three vertex indices per triangle
     // 5*numVerts + 4*numTris

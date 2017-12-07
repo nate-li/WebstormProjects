@@ -40,19 +40,20 @@
       <file leaf-file-name="meshfunctions-skeleton.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="99" column="24" lean-forward="false" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="teapot.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/teapot.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-57771">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="4" />
-              <folding />
+            <state relative-caret-position="391">
+              <caret line="149" column="0" lean-forward="true" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+              <folding>
+                <element signature="e#663#710#0" expanded="false" />
+                <element signature="e#715#770#0" expanded="false" />
+                <element signature="e#986#1493#0" expanded="false" />
+                <element signature="e#1185#1348#0" expanded="false" />
+                <element signature="e#1500#1556#0" expanded="false" />
+                <element signature="n#!!doc;n#createMesh#0" expanded="false" />
+                <element signature="n#!!block;n#mouse_drag#0" expanded="false" />
+                <element signature="n#!!block;n#mouse_down#0" expanded="false" />
+                <element signature="n#!!block;n#mouse_up#0" expanded="false" />
+                <element signature="n#!!block;n#render#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -168,8 +169,8 @@
         <option value="$PROJECT_DIR$/RealAssignment5/Lighting.html" />
         <option value="$PROJECT_DIR$/RealAssignment5/lightingfunctions-skeleton.js" />
         <option value="$PROJECT_DIR$/Computer Graphics/FinalExample/teapot.txt" />
-        <option value="$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js" />
         <option value="$PROJECT_DIR$/Computer Graphics/FinalExample/LoadMesh.html" />
+        <option value="$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js" />
       </list>
     </option>
   </component>
@@ -379,12 +380,12 @@
       <workItem from="1512069775861" duration="2417000" />
       <workItem from="1512492915841" duration="10317000" />
       <workItem from="1512509194158" duration="184000" />
-      <workItem from="1512510304703" duration="4638000" />
+      <workItem from="1512510304703" duration="7252000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="306892000" />
+    <option name="totallyTimeSpent" value="309506000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1613" height="913" extended-state="6" />
@@ -726,9 +727,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="99" column="24" lean-forward="false" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="24" />
-          <folding />
+        <state relative-caret-position="391">
+          <caret line="149" column="0" lean-forward="true" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+          <folding>
+            <element signature="e#663#710#0" expanded="false" />
+            <element signature="e#715#770#0" expanded="false" />
+            <element signature="e#986#1493#0" expanded="false" />
+            <element signature="e#1185#1348#0" expanded="false" />
+            <element signature="e#1500#1556#0" expanded="false" />
+            <element signature="n#!!doc;n#createMesh#0" expanded="false" />
+            <element signature="n#!!block;n#mouse_drag#0" expanded="false" />
+            <element signature="n#!!block;n#mouse_down#0" expanded="false" />
+            <element signature="n#!!block;n#mouse_up#0" expanded="false" />
+            <element signature="n#!!block;n#render#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
