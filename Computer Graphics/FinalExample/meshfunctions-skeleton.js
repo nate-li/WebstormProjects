@@ -117,25 +117,35 @@ function initializeOcTree(){
 function makeChildren(node){
     if(currentDepth < treeDepth){
         //for each triangle
-        if(!hasChildren){
             for(var i = 0; i < triangleList.length; i++){
                 //check if triangle is within the bounds of the node
                 if((triangleList[i].xMax < node.xMax) && (triangleList[i].xMin > node.xMin)
                     && (triangleList[i].yMax < node.yMax) && (triangleList[i].yMin > node.yMin)
                     && (triangleList[i].zMax < node.zMax) && (triangleList[i].zMin > node.zMin)){
-                    //if this is true, we know we have to split it up into 8 octants
+                    //first we need to check if there are children or not at this node level
+
+                    //if this is false, we know we have to split it up into 8 octants
                     //how do we get the bounds of the new octants?
-                    //8 possible cases
+                    //8 possible cases, creates new octants
+
+                    //if children already exist then load them
+                    //
+                    // check them all to see which ones the triangle falls into
+                    // if the octant's min/maxes fall between the
+                    
+
+
+
+
                     
                 }
             }
-        }
     }else{
         return node;
     }
 }
 
-function Node(depth, length, pxMin, pxMax, pyMin, pyMax, pzMin, pzMax){
+function Node(depth, pxMin, pxMax, pyMin, pyMax, pzMin, pzMax){
     this.currentDepth = depth+1;
     //this is the length of all sides
     this.length = Math.pow(.5, currentDepth);
