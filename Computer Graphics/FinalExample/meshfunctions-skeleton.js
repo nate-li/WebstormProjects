@@ -31,6 +31,7 @@ var indexBufferID;
 var meshVertexData;
 var indexData;
 
+var positionData;
 var triangleList;
 
 window.onload = function init() {
@@ -97,10 +98,6 @@ function initializeOcTree(){
     var rootNode = new Node();
 }
 
-function Triangle(v1, v2, v3){
-
-}
-
 function Node(depth, pxMin, pxMax, pyMin, pyMax, pzMin, pzMax){
     this.currentDepth = depth+1;
     this.hasChildren = false;
@@ -113,6 +110,63 @@ function Node(depth, pxMin, pxMax, pyMin, pyMax, pzMin, pzMax){
     this.children = null;
 }
 
+function generateTriangleObjects(){
+    for(var i = 0; i < indexData.length; i+=3){
+        triangleList.push(new Triangle(i));
+    }
+}
+
+function Triangle(i){
+    this.vert1 = positionData[indexData[i]];
+    this.vert2 = positionData[indexData[i+1]];
+    this.vert3 = positionData[indexData[i+2]];
+
+    /*
+    Based on this...
+        vert1[0] is X coordinate of first triangle point
+        vert1[1] is Y coordinate of first triangle point
+        vert1[2] is Z coordinate of first triangle point
+    */
+
+    //Now we need to find the minimum/maximum X, Y and Z values of the triangle
+    this.minX = Math.min(vert1[0], vert2[0], vert3[0]);
+    this.maxX = Math.max(vert1[0], vert2[0], vert3[0]);
+    this.minY = Math.min(vert1[1], vert2[1], vert3[1]);
+    this.maxY = Math.max(vert1[1], vert2[1], vert3[1]);
+    this.minZ = Math.min(vert1[2], vert2[2], vert3[2]);
+    this.maxZ = Math.max(vert1[2], vert2[2], vert3[2]);
+}
+
+function findMax(a, b, c){
+    var max;
+    if(a > b && a > c){
+        max = a;
+    }else if(b > c && b > a){
+        max = b
+    }else{
+        max = c;
+    }
+
+    return max;
+}
+
+function findMin(a, b, c){
+    var min;
+    if(a < b && a < c){
+        min = a;
+    }else if(b < c && b < a){
+        min = b
+    }else{
+        min = c;
+    }
+
+    return min;
+}
+
+
+
+
+
 /**
  * Parse string into list of vertices and triangles
  * Not robust at all, but simple enough to follow as an introduction
@@ -122,7 +176,7 @@ function createMesh(input){
     var numbers = input.split(/\s+/); //split on white space
     var numVerts = 35947; //first element is number of vertices
     var numTris = 69451; //second element is number of triangles
-    var positionData = [];
+    positionData = [];
 
     //three numbers at a time for xyz
     for(var i = 0; i < 5*numVerts; i+= 5){
@@ -158,15 +212,19 @@ function createMesh(input){
         normalVectors[indexData[i]] = add(normalVectors[indexData[i+2]], triNormal);
     }
 
+
     for(var i = 0; i < normalVectors.length; i++) {
         normalVectors[i] = normalize(normalVectors[i]);
     }
 
+    //This is used for rendering
     meshVertexData = [];
     for(var i = 0; i<positionData.length; i++) {
         meshVertexData.push(positionData[i]);
         meshVertexData.push(normalVectors[i]);
     }
+
+    generateTriangleObjects();
 
     //buffer vertex data and enable vPosition attribute
     meshVertexBufferID = gl.createBuffer();
