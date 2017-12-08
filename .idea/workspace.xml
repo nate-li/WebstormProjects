@@ -40,21 +40,21 @@
       <file leaf-file-name="meshfunctions-skeleton.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="144" column="48" lean-forward="true" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
+            <state relative-caret-position="510">
+              <caret line="207" column="0" lean-forward="false" selection-start-line="207" selection-start-column="0" selection-end-line="221" selection-end-column="1" />
               <folding>
-                <element signature="e#701#748#0" expanded="false" />
-                <element signature="e#753#808#0" expanded="false" />
-                <element signature="e#1223#1386#0" expanded="false" />
-                <element signature="e#1538#1594#0" expanded="false" />
+                <element signature="e#715#762#0" expanded="false" />
+                <element signature="e#767#822#0" expanded="false" />
+                <element signature="e#1237#1400#0" expanded="false" />
+                <element signature="e#1552#1608#0" expanded="false" />
                 <element signature="n#!!block;n#generateTriangleObjects#0" expanded="false" />
                 <element signature="n#!!block;n#render#0" expanded="false" />
-                <marker date="1512698975045" expanded="false" signature="9699:9853" ph="{...}" />
-                <marker date="1512698975045" expanded="false" signature="9880:10034" ph="{...}" />
-                <marker date="1512698975045" expanded="false" signature="10040:10207" ph="/** Parse string into list of vertices and triangles ...*/" />
-                <marker date="1512698975045" expanded="false" signature="13593:13945" ph="{...}" />
-                <marker date="1512698975045" expanded="false" signature="14012:14207" ph="{...}" />
-                <marker date="1512698975045" expanded="false" signature="14306:14375" ph="{...}" />
+                <marker date="1512705301640" expanded="false" signature="10243:10397" ph="{...}" />
+                <marker date="1512705301640" expanded="false" signature="10424:10578" ph="{...}" />
+                <marker date="1512705301640" expanded="false" signature="10584:10751" ph="/** Parse string into list of vertices and triangles ...*/" />
+                <marker date="1512705301640" expanded="false" signature="14137:14489" ph="{...}" />
+                <marker date="1512705301640" expanded="false" signature="14556:14751" ph="{...}" />
+                <marker date="1512705301640" expanded="false" signature="14850:14919" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -384,12 +384,12 @@
       <workItem from="1512492915841" duration="10317000" />
       <workItem from="1512509194158" duration="184000" />
       <workItem from="1512510304703" duration="7252000" />
-      <workItem from="1512606070367" duration="15396000" />
+      <workItem from="1512606070367" duration="17273000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="325612000" />
+    <option name="totallyTimeSpent" value="327489000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1066" extended-state="6" />
@@ -737,21 +737,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="144" column="48" lean-forward="true" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
+        <state relative-caret-position="510">
+          <caret line="207" column="0" lean-forward="false" selection-start-line="207" selection-start-column="0" selection-end-line="221" selection-end-column="1" />
           <folding>
-            <element signature="e#701#748#0" expanded="false" />
-            <element signature="e#753#808#0" expanded="false" />
-            <element signature="e#1223#1386#0" expanded="false" />
-            <element signature="e#1538#1594#0" expanded="false" />
+            <element signature="e#715#762#0" expanded="false" />
+            <element signature="e#767#822#0" expanded="false" />
+            <element signature="e#1237#1400#0" expanded="false" />
+            <element signature="e#1552#1608#0" expanded="false" />
             <element signature="n#!!block;n#generateTriangleObjects#0" expanded="false" />
             <element signature="n#!!block;n#render#0" expanded="false" />
-            <marker date="1512698975045" expanded="false" signature="9699:9853" ph="{...}" />
-            <marker date="1512698975045" expanded="false" signature="9880:10034" ph="{...}" />
-            <marker date="1512698975045" expanded="false" signature="10040:10207" ph="/** Parse string into list of vertices and triangles ...*/" />
-            <marker date="1512698975045" expanded="false" signature="13593:13945" ph="{...}" />
-            <marker date="1512698975045" expanded="false" signature="14012:14207" ph="{...}" />
-            <marker date="1512698975045" expanded="false" signature="14306:14375" ph="{...}" />
+            <marker date="1512705301640" expanded="false" signature="10243:10397" ph="{...}" />
+            <marker date="1512705301640" expanded="false" signature="10424:10578" ph="{...}" />
+            <marker date="1512705301640" expanded="false" signature="10584:10751" ph="/** Parse string into list of vertices and triangles ...*/" />
+            <marker date="1512705301640" expanded="false" signature="14137:14489" ph="{...}" />
+            <marker date="1512705301640" expanded="false" signature="14556:14751" ph="{...}" />
+            <marker date="1512705301640" expanded="false" signature="14850:14919" ph="{...}" />
           </folding>
         </state>
       </provider>
