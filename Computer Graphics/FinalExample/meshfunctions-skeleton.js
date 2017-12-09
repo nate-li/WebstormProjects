@@ -191,6 +191,7 @@ function makeTree(node){
                     node = makeTree(node);
                 }else{
                     node.leafNode = true;
+                    node.triangles.push(triangleList[i]);
                     return node;
                 }
 
@@ -218,7 +219,9 @@ function Node(depth, newxMin, newxMax, newyMin, newyMax, newzMin, newzMax){
     this.zMin = newzMin;
     this.zMax = newzMax;
     this.children = null;
+    this.triangles = null;
     this.leafNode = false;
+
 }
 
 function generateTriangleObjects(){
