@@ -166,6 +166,6 @@ function render(){
     gl.clear(gl.COLOR_BUFFER_BIT);
     //draw the geometry we previously sent over.  It's a list of 1 triangle(s),
     //we want to start at index 0, and there will be a total of 3 vertices
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.drawArrays(gl.POINTS, 0, 3);
 
 }

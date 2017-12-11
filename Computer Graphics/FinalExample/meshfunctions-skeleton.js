@@ -20,6 +20,8 @@ var canvas;
 //interaction and rotation state
 var xAngle;
 var yAngle;
+var xOffset = 0;
+var yOffset = 0;
 var mouse_button_down = false;
 var prevMouseX = 0;
 var prevMouseY = 0;
@@ -35,8 +37,11 @@ var positionData;
 var triangleList = [];
 var rectanglePoints = [];
 var rectangleBuffer;
+var scalefactor = 10;
+var vPositionCH;
+var vColorCH;
 var vPosition;
-var vColor;
+var vNormal;
 
 var treeDepth = 5;
 var rootNode = new Node();
@@ -69,6 +74,28 @@ window.onload = function init() {
     ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
 
+    window.addEventListener("keydown", function(event){
+        switch(event.key){
+            case "w":
+                yOffset+=.1;
+                break;
+            case "s":
+                yOffset-=.1;
+                break;
+            case "a":
+                xOffset-=.1;
+                break;
+            case "d":
+                xOffset+=.1;
+                break;
+            case " ":
+                evaluateHit();
+                break;
+
+        }
+       requestAnimationFrame(render);
+    });
+
     //allow the user to rotate mesh with the mouse
     canvas.addEventListener("mousedown", mouse_down);
     canvas.addEventListener("mousemove", mouse_drag);
@@ -88,7 +115,7 @@ window.onload = function init() {
     umv = gl.getUniformLocation(program, "mv");
     uproj = gl.getUniformLocation(program, "proj");
 
-    makeShapeAndBuffer();
+
 
     //set up basic perspective viewing
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -98,24 +125,31 @@ window.onload = function init() {
     //initialize rotation angles
     xAngle = 0;
     yAngle = 0;
-
-
+    makeShapeAndBuffer();
+    requestAnimationFrame(render);
+    // window.setInterval(update, 16);
 
 };
+function evaluateHit(){
+    //we should compensate
+    var originX = xOffset;
+    var originY = yOffset;
+    var originZ = -1;
+
+
+
+
+}
 
 function makeShapeAndBuffer(){
-    rectanglePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
-    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
-    rectanglePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
-    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
-    rectanglePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
-    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
-    rectanglePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
-    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
-    rectanglePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
-    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
-    rectanglePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
-    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
+    rectanglePoints.push(vec4(1, -1, 1, 1));
+    rectanglePoints.push(vec4(0,0,0,1));
+    rectanglePoints.push(vec4(1, 1, 1, 1));
+    rectanglePoints.push(vec4(0,0,0,1));
+    rectanglePoints.push(vec4(-1, 1, 1, 1));
+    rectanglePoints.push(vec4(0,0,0,1));
+    rectanglePoints.push(vec4(-1, -1, 1, 1));
+    rectanglePoints.push(vec4(0,0,0,1));
 
     rectangleBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
@@ -123,18 +157,18 @@ function makeShapeAndBuffer(){
 
     //What is this data going to be used for?
     //The vertex shader has an attribute named "vPosition".  Let's associate part of this data to that attribute
-    vPosition = gl.getAttribLocation(program, "vPosition");
+    vPositionCH = gl.getAttribLocation(program, "vPosition");
     //attribute location we just fetched, 4 elements in each vector, data type float, don't normalize this data,
     //each position starts 32 bytes after the start of the previous one, and starts right away at index 0
-    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-    gl.enableVertexAttribArray(vPosition);
+    gl.vertexAttribPointer(vPositionCH, 4, gl.FLOAT, false, 4, 0);
+    gl.enableVertexAttribArray(vPositionCH);
 
     //The vertex shader also has an attribute named "vColor".  Let's associate the other part of this data to that attribute
-    vColor = gl.getAttribLocation(program, "vNormal");
+    vColorCH = gl.getAttribLocation(program, "vNormal");
     //attribute location we just fetched, 4 elements in each vector, data type float, don't normalize this data,
     //each color starts 32 bytes after the start of the previous one, and the first color starts 16 bytes into the data
-    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-    gl.enableVertexAttribArray(vColor);
+    gl.vertexAttribPointer(vColorCH, 4, gl.FLOAT, false, 4, 16);
+    gl.enableVertexAttribArray(vColorCH);
 }
 //This method kicks off the creation of the octree.
 //It creates a 'root' node and starts the recursive call
@@ -360,11 +394,11 @@ function createMesh(input){
     gl.bindBuffer(gl.ARRAY_BUFFER, meshVertexBufferID);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(meshVertexData), gl.STATIC_DRAW);
 
-    var vPosition = gl.getAttribLocation(program, "vPosition");
+    vPosition = gl.getAttribLocation(program, "vPosition");
     gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0); //stride is 32 bytes total for position, normal
     gl.enableVertexAttribArray(vPosition);
 
-    var vNormal = gl.getAttribLocation(program, "vNormal");
+    vNormal = gl.getAttribLocation(program, "vNormal");
     gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
     gl.enableVertexAttribArray(vNormal);
 
@@ -418,12 +452,11 @@ function render(){
 
 
 
-
-    var scalefactor = 10;
-
+    mv = mult(mv, translate(xOffset, yOffset, 0));
     var objectMV = mult(mv, scalem(scalefactor, scalefactor, scalefactor));
     //rotate if the user has been dragging the mouse around
     objectMV = mult(objectMV, mult(rotateY(yAngle), rotateX(xAngle)));
+
 
     //send the modelview matrix over
     gl.uniformMatrix4fv(umv, false, flatten(objectMV));
@@ -436,16 +469,25 @@ function render(){
         //having to repeat the vertex data.  However, if each vertex has additional
         //attributes like color, normal vector, texture coordinates, etc that are not
         //shared between triangles like position is, than this might cause problems
+        // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBufferID);
+        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0); //stride is 32 bytes total for position, normal
+        // gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
         gl.drawElements(gl.TRIANGLES, indexData.length, gl.UNSIGNED_SHORT, 0);
-
     }
-
-    // var crosshairMV = mult(mv, translate(0, 0, -1));
-    // // crosshairMV = mult(crosshairMV, scalem(2, 2, 2));
-    // gl.uniformMatrix4fv(umv, false, flatten(crosshairMV));
     //
+    // var crosshairMV = mult(mv, translate(0, 0, -2));
+    // crosshairMV = mult(crosshairMV, scalem(.05, .5, .5));
+    // gl.uniformMatrix4fv(umv, false, flatten(crosshairMV));
     // gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
-    // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
-    // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
-    // gl.drawArrays(gl.TRIANGLES, 0, 4);
+    // gl.vertexAttribPointer(vPositionCH, 4, gl.FLOAT, false, 32, 0);
+    // gl.vertexAttribPointer(vColorCH, 4, gl.FLOAT, false, 32, 16);
+    // gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+    //
+    // var crosshair2MV = mult(mv, translate(0, 0, -2));
+    // crosshair2MV = mult(crosshair2MV, scalem(.5, .05, .5));
+    // gl.uniformMatrix4fv(umv, false, flatten(crosshair2MV));
+    // gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
+    // gl.vertexAttribPointer(vPositionCH, 4, gl.FLOAT, false, 32, 0);
+    // gl.vertexAttribPointer(vColorCH, 4, gl.FLOAT, false, 32, 16);
+    // gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 }
