@@ -35,16 +35,13 @@ var indexData;
 
 var positionData;
 var triangleList = [];
-var rectanglePoints = [];
-var rectangleBuffer;
 var scalefactor = 10;
-var vPositionCH;
-var vColorCH;
 var vPosition;
 var vNormal;
 
-var treeDepth = 5;
+var treeDepth = 3;
 var rootNode = new Node();
+var collision = false;
 window.onload = function init() {
 
     canvas = document.getElementById("gl-canvas");
@@ -89,7 +86,13 @@ window.onload = function init() {
                 xOffset+=.1;
                 break;
             case " ":
+                //collision detection
                 evaluateHit();
+                if(collision === true){
+                    document.getElementById("results").innerHTML = "Collision detected.";
+                }else{
+                    document.getElementById("results").innerHTML = "No hit.";
+                }
                 break;
 
         }
@@ -125,51 +128,59 @@ window.onload = function init() {
     //initialize rotation angles
     xAngle = 0;
     yAngle = 0;
-    makeShapeAndBuffer();
     requestAnimationFrame(render);
-    // window.setInterval(update, 16);
-
 };
+
+/*
+ * The collision detection method
+ *  This currently does not work, but here is the methodology:
+ *  -we check each 
+ */
 function evaluateHit(){
-    //we should compensate
-    var originX = xOffset;
-    var originY = yOffset;
-    var originZ = -1;
+    //how far left/right are we from the origin?
+    var originX = xOffset/scalefactor;
+    var originY = yOffset/scalefactor;
+    //this is how far away the camera is from the origin
+    var originZ = 7/scalefactor;
 
-
-
-
+    console.log("evaluating");
+    //we are going to go to the other side of the screen in the z direction
+    //every time we go through this loop, move further away from the camera
+    for(var i = originZ; i > -7; i-=.01) {
+        if(rootNode.xMin < originX && rootNode.xMax > originX
+            && rootNode.yMin < originY && rootNode.yMax > originY
+            && rootNode.zMin < i/scalefactor && rootNode.zMax > i/scalefactor){
+            for (var j = 0; j < rootNode.children.length; j++) {
+                    checkBounds(rootNode, originX, originY, i/scalefactor);
+            }
+        }else{
+            hit = false;
+        }
+    }
 }
 
-function makeShapeAndBuffer(){
-    rectanglePoints.push(vec4(1, -1, 1, 1));
-    rectanglePoints.push(vec4(0,0,0,1));
-    rectanglePoints.push(vec4(1, 1, 1, 1));
-    rectanglePoints.push(vec4(0,0,0,1));
-    rectanglePoints.push(vec4(-1, 1, 1, 1));
-    rectanglePoints.push(vec4(0,0,0,1));
-    rectanglePoints.push(vec4(-1, -1, 1, 1));
-    rectanglePoints.push(vec4(0,0,0,1));
+function checkBounds(node, oX, oY, oZ){
+    var checkMore = false;
 
-    rectangleBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, flatten(rectanglePoints), gl.STATIC_DRAW);
+    if(node.leafNode === true && node.triangleList !== []){
+        //if the node is a leaf that has references to triangles we decide it is a collision
+        collision = true;
+    }else if(node.xMin < oX && node.xMax > oX
+            && node.yMin < oY && node.yMax > oY
+            && node.zMin < oZ && node.zMax > oZ) {
+            //if the ray is in the bounds of the parent octant, we need to check children of the node.
+        for(var i = 0; i < node.children.length; i++){
+            if(node.children[i].hasChildren === true){
+                checkMore = true;
+                if(collision === false) {
+                    checkBounds(node.children[i], oX, oY, oZ)
+                }
+            }
+        }
 
-    //What is this data going to be used for?
-    //The vertex shader has an attribute named "vPosition".  Let's associate part of this data to that attribute
-    vPositionCH = gl.getAttribLocation(program, "vPosition");
-    //attribute location we just fetched, 4 elements in each vector, data type float, don't normalize this data,
-    //each position starts 32 bytes after the start of the previous one, and starts right away at index 0
-    gl.vertexAttribPointer(vPositionCH, 4, gl.FLOAT, false, 4, 0);
-    gl.enableVertexAttribArray(vPositionCH);
-
-    //The vertex shader also has an attribute named "vColor".  Let's associate the other part of this data to that attribute
-    vColorCH = gl.getAttribLocation(program, "vNormal");
-    //attribute location we just fetched, 4 elements in each vector, data type float, don't normalize this data,
-    //each color starts 32 bytes after the start of the previous one, and the first color starts 16 bytes into the data
-    gl.vertexAttribPointer(vColorCH, 4, gl.FLOAT, false, 4, 16);
-    gl.enableVertexAttribArray(vColorCH);
+    }
 }
+
 //This method kicks off the creation of the octree.
 //It creates a 'root' node and starts the recursive call
 function initializeOcTree(){
@@ -199,14 +210,8 @@ If it does, we need to split it further so it makes a recursive call. Otherwise,
 the tree we are done creating that particular traversal.
  */
 function makeTree(node, triangle){
-    // for(var i = 0; i < triangleList.length; i++) {
-    // console.log(node);
-    // debugger;
     //first we need to check if there are children or not at this node level
-    var levelSplit = false;
-
-
-    if (node.hasChildren === false && node.leafNode === false) {
+    if (node.hasChildren === false ){//&& node.leafNode === false) {
         //if this is false, we know we have to split it up into 8 octants
         //the new length of the line segment will be half as long as the current
         //1 goes to .5, .5 goes to .25, etc
@@ -220,8 +225,7 @@ function makeTree(node, triangle){
 
         The 8 child nodes are created to reflect the 8 different octant cases:
         */
-        var newNode = new Node(node.currentDepth, childLength, node.xMin, node.xMin + childLength, node.yMin, node.yMin + childLength, node.zMin, node.zMin + childLength);
-        node.children.push(newNode); //0x to 0y to 0z
+        node.children.push(new Node(node.currentDepth, childLength, node.xMin, node.xMin + childLength, node.yMin, node.yMin + childLength, node.zMin, node.zMin + childLength)); //0x to 0y to 0z
         node.children.push(new Node(node.currentDepth, childLength, node.xMin, node.xMin + childLength, node.yMin, node.yMin + childLength, node.zMin + childLength, node.zMax)); //0x to 0y to .5z
         node.children.push(new Node(node.currentDepth, childLength, node.xMin, node.xMin + childLength, node.yMin + childLength, node.yMax, node.zMin, node.zMin + childLength)); //0x to .5y to 0z
         node.children.push(new Node(node.currentDepth, childLength, node.xMin, node.xMin + childLength, node.yMin + childLength, node.yMax, node.zMin + childLength, node.zMax)); //0x to .5y to .5z
@@ -272,20 +276,16 @@ function makeTree(node, triangle){
         if (xOverlap && yOverlap && zOverlap) {
             if (node.currentDepth < treeDepth) {
                 makeTree(node.children[j], triangle);
-
             } else {
                 //if we've gotten this far, we know the node is a leaf node that has an overlapping triangle
                 node.leafNode = true;
                 node.triangles.push(triangle);
-                // //if the maximum level of nodes is reached, then we return the node with the information of the previous node's children
-                return; //node;
+                //if the maximum level of nodes is reached, then we return.
+                return;
             }
         }
     }
-    // //Getting here means that this triangle does not overlap, so we're done with this particular octant.
-    // node.leafNode = true;
-    // return;// node;
-    // }
+    node.leafNode = false;
 }
 
 //This represents an octant of the tree, it scales accordingly to its parent octant
@@ -301,7 +301,7 @@ function Node(depth, length, newxMin, newxMax, newyMin, newyMax, newzMin, newzMa
     this.zMax = newzMax;
     this.children = [];
     this.triangles = [];
-    this.leafNode = false;
+    this.leafNode = true;
     this.hasChildren = false;
 }
 
@@ -386,6 +386,17 @@ function createMesh(input){
         meshVertexData.push(normalVectors[i]);
     }
 
+    //point data for crosshairs
+    meshVertexData.push(vec4(1, -1, 1, 1));
+    meshVertexData.push(vec4(0,0,0,1));
+    meshVertexData.push(vec4(1, 1, 1, 1));
+    meshVertexData.push(vec4(0,0,0,1));
+    meshVertexData.push(vec4(-1, 1, 1, 1));
+    meshVertexData.push(vec4(0,0,0,1));
+    meshVertexData.push(vec4(-1, -1, 1, 1));
+    meshVertexData.push(vec4(0,0,0,1));
+
+
     generateTriangleObjects();
     initializeOcTree();
 
@@ -446,11 +457,8 @@ function mouse_up(){
 function render(){
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    //position camera 10 units back from origin
+    //position camera 7 units back from origin
     mv = lookAt(vec3(0, 0, 7), vec3(0, 0, 0), vec3(0, 1, 0));
-
-
-
 
     mv = mult(mv, translate(xOffset, yOffset, 0));
     var objectMV = mult(mv, scalem(scalefactor, scalefactor, scalefactor));
@@ -469,25 +477,10 @@ function render(){
         //having to repeat the vertex data.  However, if each vertex has additional
         //attributes like color, normal vector, texture coordinates, etc that are not
         //shared between triangles like position is, than this might cause problems
-        // gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBufferID);
-        // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0); //stride is 32 bytes total for position, normal
-        // gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 32, 16);
         gl.drawElements(gl.TRIANGLES, indexData.length, gl.UNSIGNED_SHORT, 0);
+
+        var crosshairMV = mult(mv, translate(0, 0, -2));
+        crosshairMV = mult(crosshairMV, scalem(.05, .5, .5));
+        gl.uniformMatrix4fv(umv, false, flatten(crosshairMV));
     }
-    //
-    // var crosshairMV = mult(mv, translate(0, 0, -2));
-    // crosshairMV = mult(crosshairMV, scalem(.05, .5, .5));
-    // gl.uniformMatrix4fv(umv, false, flatten(crosshairMV));
-    // gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
-    // gl.vertexAttribPointer(vPositionCH, 4, gl.FLOAT, false, 32, 0);
-    // gl.vertexAttribPointer(vColorCH, 4, gl.FLOAT, false, 32, 16);
-    // gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
-    //
-    // var crosshair2MV = mult(mv, translate(0, 0, -2));
-    // crosshair2MV = mult(crosshair2MV, scalem(.5, .05, .5));
-    // gl.uniformMatrix4fv(umv, false, flatten(crosshair2MV));
-    // gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
-    // gl.vertexAttribPointer(vPositionCH, 4, gl.FLOAT, false, 32, 0);
-    // gl.vertexAttribPointer(vColorCH, 4, gl.FLOAT, false, 32, 16);
-    // gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 }
