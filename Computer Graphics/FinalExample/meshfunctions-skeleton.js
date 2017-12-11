@@ -33,10 +33,13 @@ var indexData;
 
 var positionData;
 var triangleList = [];
+var rectanglePoints = [];
+var rectangleBuffer;
+var vPosition;
+var vColor;
 
 var treeDepth = 5;
 var rootNode = new Node();
-
 window.onload = function init() {
 
     canvas = document.getElementById("gl-canvas");
@@ -85,6 +88,8 @@ window.onload = function init() {
     umv = gl.getUniformLocation(program, "mv");
     uproj = gl.getUniformLocation(program, "proj");
 
+    makeShapeAndBuffer();
+
     //set up basic perspective viewing
     gl.viewport(0, 0, canvas.width, canvas.height);
     p = perspective(60, (canvas.width / canvas.height), 5, 500);
@@ -95,8 +100,42 @@ window.onload = function init() {
     yAngle = 0;
 
 
+
 };
 
+function makeShapeAndBuffer(){
+    rectanglePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
+    rectanglePoints.push(vec4(1.0, 1.0, 1.0, 1.0));
+    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
+    rectanglePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
+    rectanglePoints.push(vec4(-1.0, 1.0, 1.0, 1.0));
+    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
+    rectanglePoints.push(vec4(-1.0, -1.0, 1.0, 1.0));
+    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
+    rectanglePoints.push(vec4(1.0, -1.0, 1.0, 1.0));
+    rectanglePoints.push(vec4(0.0, 0.0, 0.0, 1.0));
+
+    rectangleBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(rectanglePoints), gl.STATIC_DRAW);
+
+    //What is this data going to be used for?
+    //The vertex shader has an attribute named "vPosition".  Let's associate part of this data to that attribute
+    vPosition = gl.getAttribLocation(program, "vPosition");
+    //attribute location we just fetched, 4 elements in each vector, data type float, don't normalize this data,
+    //each position starts 32 bytes after the start of the previous one, and starts right away at index 0
+    gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    gl.enableVertexAttribArray(vPosition);
+
+    //The vertex shader also has an attribute named "vColor".  Let's associate the other part of this data to that attribute
+    vColor = gl.getAttribLocation(program, "vNormal");
+    //attribute location we just fetched, 4 elements in each vector, data type float, don't normalize this data,
+    //each color starts 32 bytes after the start of the previous one, and the first color starts 16 bytes into the data
+    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+    gl.enableVertexAttribArray(vColor);
+}
 //This method kicks off the creation of the octree.
 //It creates a 'root' node and starts the recursive call
 function initializeOcTree(){
@@ -259,36 +298,6 @@ function Triangle(i){
     this.maxZ = Math.max(this.vert1[2], this.vert2[2], this.vert3[2]);
 }
 
-function findMax(a, b, c){
-    var max;
-    if(a > b && a > c){
-        max = a;
-    }else if(b > c && b > a){
-        max = b
-    }else{
-        max = c;
-    }
-
-    return max;
-}
-
-function findMin(a, b, c){
-    var min;
-    if(a < b && a < c){
-        min = a;
-    }else if(b < c && b < a){
-        min = b
-    }else{
-        min = c;
-    }
-
-    return min;
-}
-
-
-
-
-
 /**
  * Parse string into list of vertices and triangles
  * Not robust at all, but simple enough to follow as an introduction
@@ -296,24 +305,21 @@ function findMin(a, b, c){
  */
 function createMesh(input){
     var numbers = input.split(/\s+/); //split on white space
-    var numVerts = 35947; //first element is number of vertices
-    var numTris = 69451; //second element is number of triangles
+    var numVerts = 35947;
+    var numTris = 69451;
     positionData = [];
 
     //three numbers at a time for xyz
     for(var i = 0; i < 5*numVerts; i+= 5){
         positionData.push(vec4(parseFloat(numbers[i]), parseFloat(numbers[i+1]), parseFloat(numbers[i+2]), 1));
-        // console.log(numbers[i] + ' ' + numbers[i+1] + ' ' + numbers[i+2]);
     }
     console.log("Position length: " + positionData.length);
     indexData = []; //empty out any previous data
     //three vertex indices per triangle
-    // 5*numVerts + 4*numTris
     for(var i = 5*numVerts; i < 5*numVerts + 4*numTris; i+=4){
         indexData.push(parseInt(numbers[i+1]));
         indexData.push(parseInt(numbers[i+2]));
         indexData.push(parseInt(numbers[i+3]));
-        // console.log(numbers[i] + ' ' + numbers[i+1] + ' ' + numbers[i+2] + ' ' + numbers[i+3]);
     }
     console.log("Index length: " + indexData.length);
 
@@ -407,14 +413,20 @@ function render(){
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     //position camera 10 units back from origin
-    mv = lookAt(vec3(0, 0, 10), vec3(0, 0, 0), vec3(0, 1, 0));
-    var scalefactor = 25;
-    mv = mult(mv, scalem(scalefactor, scalefactor, scalefactor));
+    mv = lookAt(vec3(0, 0, 7), vec3(0, 0, 0), vec3(0, 1, 0));
+
+
+
+
+
+    var scalefactor = 10;
+
+    var objectMV = mult(mv, scalem(scalefactor, scalefactor, scalefactor));
     //rotate if the user has been dragging the mouse around
-    mv = mult(mv, mult(rotateY(yAngle), rotateX(xAngle)));
+    objectMV = mult(objectMV, mult(rotateY(yAngle), rotateX(xAngle)));
 
     //send the modelview matrix over
-    gl.uniformMatrix4fv(umv, false, flatten(mv));
+    gl.uniformMatrix4fv(umv, false, flatten(objectMV));
 
     //if we've loaded a mesh, draw it
     if(meshVertexData.length > 0) {
@@ -427,4 +439,13 @@ function render(){
         gl.drawElements(gl.TRIANGLES, indexData.length, gl.UNSIGNED_SHORT, 0);
 
     }
+
+    // var crosshairMV = mult(mv, translate(0, 0, -1));
+    // // crosshairMV = mult(crosshairMV, scalem(2, 2, 2));
+    // gl.uniformMatrix4fv(umv, false, flatten(crosshairMV));
+    //
+    // gl.bindBuffer(gl.ARRAY_BUFFER, rectangleBuffer);
+    // gl.vertexAttribPointer(vPosition, 4, gl.FLOAT, false, 32, 0);
+    // gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 32, 16);
+    // gl.drawArrays(gl.TRIANGLES, 0, 4);
 }
