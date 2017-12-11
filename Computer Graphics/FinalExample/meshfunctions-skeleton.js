@@ -134,7 +134,8 @@ window.onload = function init() {
 /*
  * The collision detection method
  *  This currently does not work, but here is the methodology:
- *  -we check each 
+ *  we check the current position and evaluate each octant that falls within that position to see
+ *  if there is any triangles in that octant to determine whether or not there woudl be a "collision"
  */
 function evaluateHit(){
     //how far left/right are we from the origin?

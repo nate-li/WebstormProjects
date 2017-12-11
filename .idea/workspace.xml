@@ -16,85 +16,53 @@
     <favorites_list name="WebstormProjects" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.7221964">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="LoadMesh.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/LoadMesh.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="357">
-                  <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="vshader-lighting.glsl" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 5/vshader-lighting.glsl">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="meshfunctions-skeleton.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="136" column="19" lean-forward="false" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
-                  <folding>
-                    <element signature="e#5268#5319#0" expanded="false" />
-                    <element signature="e#5783#6382#0" expanded="false" />
-                    <element signature="n#!!block;n#generateTriangleObjects#0" expanded="false" />
-                    <element signature="n#!!block;n#Triangle#0" expanded="false" />
-                    <element signature="n#!!doc;n#createMesh#0" expanded="false" />
-                    <element signature="n#!!block;n#mouse_drag#0" expanded="false" />
-                    <element signature="n#!!block;n#mouse_down#0" expanded="false" />
-                    <element signature="n#!!block;n#mouse_up#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 3/functions.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="317">
-                  <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="HelloInteract.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Computer Graphics/9-12-17/HelloInteract.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="408">
-                  <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="hellofunctions.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Computer Graphics/9-12-17/hellofunctions.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1989">
-                  <caret line="150" column="43" lean-forward="true" selection-start-line="150" selection-start-column="43" selection-end-line="150" selection-end-column="43" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="LoadMesh.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/LoadMesh.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="36" lean-forward="false" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+              <folding>
+                <marker date="1513023668270" expanded="true" signature="1128:1854" ph="..." />
+                <marker date="1513023668270" expanded="true" signature="1128:2062" ph="..." />
+                <marker date="1513023668270" expanded="true" signature="1860:1926" ph="..." />
+                <marker date="1513023668270" expanded="true" signature="1977:2054" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vshader-lighting.glsl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 5/vshader-lighting.glsl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="meshfunctions-skeleton.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="167" column="25" lean-forward="true" selection-start-line="167" selection-start-column="25" selection-end-line="167" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bun_zipper.ply" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/bun_zipper.ply">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1859302">
+              <caret line="28" column="43" lean-forward="true" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -128,8 +96,6 @@
       <find>color</find>
       <find>cubebuffer</find>
       <find>makeshape</find>
-      <find>normal</find>
-      <find>ground</find>
       <find>gl.triangle</find>
       <find>gl.points</find>
       <find>pointsize</find>
@@ -137,6 +103,8 @@
       <find>listener</find>
       <find>treedepth</find>
       <find>vposition</find>
+      <find>ground</find>
+      <find>normal</find>
     </findStrings>
     <replaceStrings>
       <replace>points</replace>
@@ -299,7 +267,13 @@
               <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
               <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
-              <item name="Assignment 3" type="462c0819:PsiDirectoryNode" />
+              <item name="Assignment 1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
+              <item name="Assignment 2" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
@@ -322,19 +296,19 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\linat\Documents\GitHub\WebstormProjects\Computer Graphics\FinalExample" />
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\RealAssignment5" />
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\RealExample" />
-      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\11-2-17" />
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\PhongExample" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\RealExample" />
       <recent name="C:\Users\linat\WebstormProjects\RealAssignment5" />
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\PhongExample" />
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
       <recent name="C:\Users\linat\WebstormProjects\Computer Graphics" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\linat\Documents\GitHub\WebstormProjects\Computer Graphics\FinalExample" />
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\RealAssignment5" />
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\RealExample" />
+      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\11-2-17" />
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\PhongExample" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -426,20 +400,19 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="374833000" />
+    <option name="totallyTimeSpent" value="376128000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1066" extended-state="6" />
+    <frame x="-6" y="-6" width="1613" height="913" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16054687" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16072546" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06282052" sideWeight="0.5046904" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33116177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.058064517" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.05897436" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.128125" sideWeight="0.5036726" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -453,6 +426,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.058064517" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16054687" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33116177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.128125" sideWeight="0.5036726" order="2" side_tool="true" content_ui="tabs" />
@@ -738,14 +712,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/bun_zipper.ply">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="35904" column="42" lean-forward="true" selection-start-line="35904" selection-start-column="42" selection-end-line="35904" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 1/targetfunctions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -756,8 +722,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 2/functions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="740" column="0" lean-forward="true" selection-start-line="740" selection-start-column="0" selection-end-line="740" selection-end-column="0" />
+        <state relative-caret-position="130">
+          <caret line="695" column="0" lean-forward="true" selection-start-line="695" selection-start-column="0" selection-end-line="695" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -766,7 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="73" column="22" lean-forward="false" selection-start-line="73" selection-start-column="22" selection-end-line="73" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -774,7 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -782,7 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1989">
           <caret line="150" column="43" lean-forward="true" selection-start-line="150" selection-start-column="43" selection-end-line="150" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -796,34 +759,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 5/vshader-lighting.glsl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="26" lean-forward="true" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+        <state relative-caret-position="0">
+          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/LoadMesh.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+        <state relative-caret-position="255">
+          <caret line="15" column="36" lean-forward="false" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+          <folding>
+            <marker date="1513023668270" expanded="true" signature="1128:1854" ph="..." />
+            <marker date="1513023668270" expanded="true" signature="1128:2062" ph="..." />
+            <marker date="1513023668270" expanded="true" signature="1860:1926" ph="..." />
+            <marker date="1513023668270" expanded="true" signature="1977:2054" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/bun_zipper.ply">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1859302">
+          <caret line="28" column="43" lean-forward="true" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="136" column="19" lean-forward="false" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
-          <folding>
-            <element signature="e#5268#5319#0" expanded="false" />
-            <element signature="e#5783#6382#0" expanded="false" />
-            <element signature="n#!!block;n#generateTriangleObjects#0" expanded="false" />
-            <element signature="n#!!block;n#Triangle#0" expanded="false" />
-            <element signature="n#!!doc;n#createMesh#0" expanded="false" />
-            <element signature="n#!!block;n#mouse_drag#0" expanded="false" />
-            <element signature="n#!!block;n#mouse_down#0" expanded="false" />
-            <element signature="n#!!block;n#mouse_up#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="219">
+          <caret line="167" column="25" lean-forward="true" selection-start-line="167" selection-start-column="25" selection-end-line="167" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
