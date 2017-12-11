@@ -20,7 +20,7 @@
       <file leaf-file-name="LoadMesh.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/LoadMesh.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
+            <state relative-caret-position="0">
               <caret line="26" column="48" lean-forward="false" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
               <folding />
             </state>
@@ -37,26 +37,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="meshfunctions-skeleton.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="meshfunctions-skeleton.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="176" column="17" lean-forward="false" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="17" />
+            <state relative-caret-position="317">
+              <caret line="209" column="9" lean-forward="true" selection-start-line="209" selection-start-column="9" selection-end-line="209" selection-end-column="9" />
               <folding>
-                <element signature="n#!!block;n#render#0" expanded="false" />
-                <marker date="1512943457739" expanded="false" signature="14546:14898" ph="{...}" />
-                <marker date="1512943457739" expanded="false" signature="14965:15160" ph="{...}" />
-                <marker date="1512943457739" expanded="false" signature="15259:15328" ph="{...}" />
+                <element signature="e#733#780#0" expanded="false" />
+                <element signature="e#785#840#0" expanded="false" />
+                <element signature="e#1247#1398#0" expanded="false" />
+                <element signature="e#1546#1602#0" expanded="false" />
+                <element signature="n#!!block;n#findMax#0" expanded="false" />
+                <element signature="n#!!block;n#findMin#0" expanded="false" />
+                <element signature="n#!!doc;n#createMesh#0" expanded="false" />
+                <element signature="n#!!block;n#mouse_drag#0" expanded="false" />
+                <element signature="n#!!block;n#mouse_down#0" expanded="false" />
+                <element signature="n#!!block;n#mouse_up#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bun_zipper.ply" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bun_zipper.ply" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/bun_zipper.ply">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="8" column="41" lean-forward="false" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
+            <state relative-caret-position="341">
+              <caret line="35904" column="42" lean-forward="true" selection-start-line="35904" selection-start-column="42" selection-end-line="35904" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -75,10 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>textureSam</find>
-      <find>initTextures</find>
-      <find>utexturesampler</find>
-      <find>textureSampler</find>
       <find>texture</find>
       <find>sampler</find>
       <find>anisotropic_ext</find>
@@ -105,6 +107,10 @@
       <find>v1</find>
       <find>createmesh</find>
       <find>color</find>
+      <find>-0.0921802</find>
+      <find>-0.0923144</find>
+      <find>min</find>
+      <find>trianglelist</find>
     </findStrings>
     <replaceStrings>
       <replace>points</replace>
@@ -264,6 +270,12 @@
               <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
               <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
               <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
+              <item name="9-21-17" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WebstormProjects" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WebstormProjects" type="462c0819:PsiDirectoryNode" />
+              <item name="Computer Graphics" type="462c0819:PsiDirectoryNode" />
               <item name="FinalExample" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -281,19 +293,19 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\RealExample" />
-      <recent name="C:\Users\linat\WebstormProjects\RealAssignment5" />
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\PhongExample" />
-      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
-      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\linat\Documents\GitHub\WebstormProjects\Computer Graphics\FinalExample" />
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\RealAssignment5" />
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\RealExample" />
       <recent name="C:\Users\linat\WebstormProjects\Computer Graphics\11-2-17" />
       <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\PhongExample" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\RealExample" />
+      <recent name="C:\Users\linat\WebstormProjects\RealAssignment5" />
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\PhongExample" />
+      <recent name="C:\Users\Nathan\Documents\GitHub\WebstormProjects\Computer Graphics\9-7-17" />
+      <recent name="C:\Users\linat\WebstormProjects\Computer Graphics" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -385,19 +397,19 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="335182000" />
+    <option name="totallyTimeSpent" value="352668000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1613" height="913" extended-state="6" />
+    <frame x="-8" y="-8" width="2576" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16072546" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16054687" sideWeight="0.4963274" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06282052" sideWeight="0.5046904" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.05897436" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.058064517" sideWeight="0.49530956" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.128125" sideWeight="0.5036726" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -437,13 +449,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 3/functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="704" column="67" lean-forward="false" selection-start-line="704" selection-start-column="67" selection-end-line="704" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/Assignment 3/rollercoaster.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
@@ -724,30 +729,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/LoadMesh.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
+        <state relative-caret-position="0">
           <caret line="26" column="48" lean-forward="false" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/bun_zipper.ply">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="35904" column="42" lean-forward="true" selection-start-line="35904" selection-start-column="42" selection-end-line="35904" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="3582" column="0" lean-forward="false" selection-start-line="3582" selection-start-column="0" selection-end-line="3582" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/meshfunctions-skeleton.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="176" column="17" lean-forward="false" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="17" />
+        <state relative-caret-position="317">
+          <caret line="209" column="9" lean-forward="true" selection-start-line="209" selection-start-column="9" selection-end-line="209" selection-end-column="9" />
           <folding>
-            <element signature="n#!!block;n#render#0" expanded="false" />
-            <marker date="1512943457739" expanded="false" signature="14546:14898" ph="{...}" />
-            <marker date="1512943457739" expanded="false" signature="14965:15160" ph="{...}" />
-            <marker date="1512943457739" expanded="false" signature="15259:15328" ph="{...}" />
+            <element signature="e#733#780#0" expanded="false" />
+            <element signature="e#785#840#0" expanded="false" />
+            <element signature="e#1247#1398#0" expanded="false" />
+            <element signature="e#1546#1602#0" expanded="false" />
+            <element signature="n#!!block;n#findMax#0" expanded="false" />
+            <element signature="n#!!block;n#findMin#0" expanded="false" />
+            <element signature="n#!!doc;n#createMesh#0" expanded="false" />
+            <element signature="n#!!block;n#mouse_drag#0" expanded="false" />
+            <element signature="n#!!block;n#mouse_down#0" expanded="false" />
+            <element signature="n#!!block;n#mouse_up#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Computer Graphics/FinalExample/bun_zipper.ply">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="41" lean-forward="false" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>

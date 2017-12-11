@@ -32,10 +32,10 @@ var meshVertexData;
 var indexData;
 
 var positionData;
-var triangleList;
+var triangleList = [];
 
 var treeDepth = 5;
-var treeNode;
+var rootNode = new Node();
 
 window.onload = function init() {
 
@@ -59,7 +59,6 @@ window.onload = function init() {
             requestAnimationFrame(render); //ask for a new frame
         };
         reader.readAsText(file);
-        initializeOcTree();
         // }else{
         //     console.log("File not supported: " + file.type + ".");
         // }
@@ -101,9 +100,8 @@ window.onload = function init() {
 //This method kicks off the creation of the octree.
 //It creates a 'root' node and starts the recursive call
 function initializeOcTree(){
-    var rootNode = new Node();
     rootNode.currentDepth = 0;
-    rootNode.hasChildren = true;
+    rootNode.hasChildren = false;
     rootNode.xMin = -1;
     rootNode.xMax = 1;
     rootNode.yMin = -1;
@@ -112,7 +110,10 @@ function initializeOcTree(){
     rootNode.zMax = 1;
     //-1 to 1 yields a total length of 2
     rootNode.length = 2;
-    treeNode = makeTree(rootNode);
+
+    for(var i = 0; i < triangleList.length; i++){
+        makeTree(rootNode, triangleList[i]);
+    }
 }
 
 /*
@@ -124,95 +125,101 @@ Next, it goes through each triangle and determines whether or not the triangle h
 If it does, we need to split it further so it makes a recursive call. Otherwise, it returns the current node and tells
 the tree we are done creating that particular traversal.
  */
-function makeTree(node){
-        for(var i = 0; i < triangleList.length; i++) {
-            //first we need to check if there are children or not at this node level
-            if (!node.hasChildren && !node.leafNode) {
-                //if this is false, we know we have to split it up into 8 octants
-                //the new length of the line segment will be half as long as the current
-                //1 goes to .5, .5 goes to .25, etc
-                var childLength = node.length * .5;
-                /*
-                the min values represent the lowest bound of the new octant
-                each dimension will be split between
-                node.minX to node.minX + childlength
-                and
-                node.minX + childlength to node.maxX
+function makeTree(node, triangle){
+    // for(var i = 0; i < triangleList.length; i++) {
+    // console.log(node);
+    // debugger;
+    //first we need to check if there are children or not at this node level
+    var levelSplit = false;
 
-                The 8 child nodes are created to reflect the 8 different octant cases:
-                */
-                node.children.push(new Node(node.currentDepth, childLength, node.minX, node.minX + childLength, node.minY, node.minY + childLength, node.minZ, node.minZ + childLength)); //0x to 0y to 0z
-                node.children.push(new Node(node.currentDepth, childLength, node.minX, node.minX + childLength, node.minY, node.minY + childLength, node.minZ + childLength, node.maxZ)); //0x to 0y to .5z
-                node.children.push(new Node(node.currentDepth, childLength, node.minX, node.minX + childLength, node.minY + childLength, node.maxY, node.minZ, node.minZ + childLength)); //0x to .5y to 0z
-                node.children.push(new Node(node.currentDepth, childLength, node.minX, node.minX + childLength, node.minY + childLength, node.maxY, node.minZ + childLength, node.maxZ)); //0x to .5y to .5z
-                node.children.push(new Node(node.currentDepth, childLength, node.minX + childLength, node.maxX, node.minY, node.minY + childLength, node.minZ, node.minZ + childLength)); //.5x to 0y to 0z
-                node.children.push(new Node(node.currentDepth, childLength, node.minX + childLength, node.maxX, node.minY, node.minY + childLength, node.minZ + childLength, node.maxZ)); //.5x to 0y to .5z
-                node.children.push(new Node(node.currentDepth, childLength, node.minX + childLength, node.maxX, node.minY + childLength, node.maxY, node.minZ, node.minZ + childLength)); //.5x to .5y to 0z
-                node.children.push(new Node(node.currentDepth, childLength, node.minX + childLength, node.maxX, node.minY + childLength, node.maxY, node.minZ + childLength, node.maxZ)); //.5x to .5y to .5z
-                node.hasChildren = true;
-            }
 
-            //by now, the current node has children created or it is determined that the node in question already has children
-            //we can now check them all to see which ones the triangle falls into
-            var xOverlap = false;
-            var yOverlap = false;
-            var zOverlap = false;
+    if (node.hasChildren === false && node.leafNode === false) {
+        //if this is false, we know we have to split it up into 8 octants
+        //the new length of the line segment will be half as long as the current
+        //1 goes to .5, .5 goes to .25, etc
+        var childLength = node.length * .5;
+        /*
+        the min values represent the lowest bound of the new octant
+        each dimension will be split between
+        node.minX to node.minX + childlength
+        and
+        node.minX + childlength to node.maxX
 
-            for (var j = 0; j < node.children.length; j++) {
-                //does the triangle's xmin fall between the octant's xmin and xmax?
-                if (triangleList[i].minX > node.children[j].xMin && triangleList[i].minX < node.children[j].xMax) {
-                    xOverlap = true;
-                }
-                //does the triangle's xmax fall between the octant's xmin and xmax?
-                if (triangleList[i].maxX > node.children[j].xMin && triangleList[i].maxX < node.children[j].xMax) {
-                    xOverlap = true;
-                }
-                //does the triangle's ymin fall between the octant's ymin and ymax?
-                if (triangleList[i].minY > node.children[j].yMin && triangleList[i].minY < node.children[j].yMax) {
-                    yOverlap = true;
-                }
-                //does the triangle's ymax fall between the octant's ymin and ymax?
-                if (triangleList[i].maxY > node.children[j].yMin && triangleList[i].maxY < node.children[j].yMax) {
-                    yOverlap = true;
-                }
-                //does the triangle's zmin fall between the octant's zmin and zmax?
-                if (triangleList[i].minZ > node.children[j].zMin && triangleList[i].minZ < node.children[j].zMax) {
-                    zOverlap = true;
-                }
-                //does the triangle's zmax fall between the octant's zmin and zmax?
-                if (triangleList[i].maxZ > node.children[j].zMin && triangleList[i].maxZ < node.children[j].zMax) {
-                    zOverlap = true;
-                }
+        The 8 child nodes are created to reflect the 8 different octant cases:
+        */
+        var newNode = new Node(node.currentDepth, childLength, node.xMin, node.xMin + childLength, node.yMin, node.yMin + childLength, node.zMin, node.zMin + childLength);
+        node.children.push(newNode); //0x to 0y to 0z
+        node.children.push(new Node(node.currentDepth, childLength, node.xMin, node.xMin + childLength, node.yMin, node.yMin + childLength, node.zMin + childLength, node.zMax)); //0x to 0y to .5z
+        node.children.push(new Node(node.currentDepth, childLength, node.xMin, node.xMin + childLength, node.yMin + childLength, node.yMax, node.zMin, node.zMin + childLength)); //0x to .5y to 0z
+        node.children.push(new Node(node.currentDepth, childLength, node.xMin, node.xMin + childLength, node.yMin + childLength, node.yMax, node.zMin + childLength, node.zMax)); //0x to .5y to .5z
+        node.children.push(new Node(node.currentDepth, childLength, node.xMin + childLength, node.xMax, node.yMin, node.yMin + childLength, node.zMin, node.zMin + childLength)); //.5x to 0y to 0z
+        node.children.push(new Node(node.currentDepth, childLength, node.xMin + childLength, node.xMax, node.yMin, node.yMin + childLength, node.zMin + childLength, node.zMax)); //.5x to 0y to .5z
+        node.children.push(new Node(node.currentDepth, childLength, node.xMin + childLength, node.xMax, node.yMin + childLength, node.yMax, node.zMin, node.zMin + childLength)); //.5x to .5y to 0z
+        node.children.push(new Node(node.currentDepth, childLength, node.xMin + childLength, node.xMax, node.yMin + childLength, node.yMax, node.zMin + childLength, node.zMax)); //.5x to .5y to .5z
+        node.hasChildren = true;
+    }
 
-                //in order to determine if there is any overlap, we must have at least 1 min or max of each dimension have "overlap" in each dimension
-                //if this occurs, we need to go down to the next level of octants
-                if (xOverlap && yOverlap && zOverlap) {
-                    if (currentDepth < treeDepth) {
-                        node = makeTree(node);
-                    } else {
-                        //if we've gotten this far, we know the node is a leaf node that has an overlapping triangle
-                        node.leafNode = true;
-                        node.triangles.push(triangleList[i]);
-                        //if the maximum level of nodes is reached, then we return the node with the information of the previous node's children
-                        return node;
-                    }
-                } else {
-                    //Getting here means that this triangle does not overlap, so we're done with this triangle.
-                    node.leafNode = true;
-                    return node;
-                }
+    //by now, the current node has children created or it is determined that the node in question already has children
+    //we can now check them all to see which ones the triangle falls into
+    var xOverlap;
+    var yOverlap;
+    var zOverlap;
 
-            }
+    for (var j = 0; j < node.children.length; j++) {
+        xOverlap = false;
+        yOverlap = false;
+        zOverlap = false;
+        //does the triangle's xmin fall between the octant's xmin and xmax?
+        if (triangle.minX > node.children[j].xMin && triangle.minX < node.children[j].xMax) {
+            xOverlap = true;
+        }
+        //does the triangle's xmax fall between the octant's xmin and xmax?
+        if (triangle.maxX > node.children[j].xMin && triangle.maxX < node.children[j].xMax) {
+            xOverlap = true;
+        }
+        //does the triangle's ymin fall between the octant's ymin and ymax?
+        if (triangle.minY > node.children[j].yMin && triangle.minY < node.children[j].yMax) {
+            yOverlap = true;
+        }
+        //does the triangle's ymax fall between the octant's ymin and ymax?
+        if (triangle.maxY > node.children[j].yMin && triangle.maxY < node.children[j].yMax) {
+            yOverlap = true;
+        }
+        //does the triangle's zmin fall between the octant's zmin and zmax?
+        if (triangle.minZ > node.children[j].zMin && triangle.minZ < node.children[j].zMax) {
+            zOverlap = true;
+        }
+        //does the triangle's zmax fall between the octant's zmin and zmax?
+        if (triangle.maxZ > node.children[j].zMin && triangle.maxZ < node.children[j].zMax) {
+            zOverlap = true;
         }
 
+        //in order to determine if there is any overlap, we must have at least 1 min or max of each dimension have "overlap" in each dimension
+        //if this occurs, we need to go down to the next level of octants
+        if (xOverlap && yOverlap && zOverlap) {
+            if (node.currentDepth < treeDepth) {
+                makeTree(node.children[j], triangle);
+
+            } else {
+                //if we've gotten this far, we know the node is a leaf node that has an overlapping triangle
+                node.leafNode = true;
+                node.triangles.push(triangle);
+                // //if the maximum level of nodes is reached, then we return the node with the information of the previous node's children
+                return; //node;
+            }
+        }
+    }
+    // //Getting here means that this triangle does not overlap, so we're done with this particular octant.
+    // node.leafNode = true;
+    // return;// node;
+    // }
 }
 
 //This represents an octant of the tree, it scales accordingly to its parent octant
-function Node(depth, newxMin, newxMax, newyMin, newyMax, newzMin, newzMax){
+function Node(depth, length, newxMin, newxMax, newyMin, newyMax, newzMin, newzMax){
     this.currentDepth = depth+1;
     //this is the length of all sides
     this.length = length;
-    this.hasChildren = false;
     this.xMin = newxMin;
     this.xMax = newxMax;
     this.yMin = newyMin;
@@ -220,9 +227,9 @@ function Node(depth, newxMin, newxMax, newyMin, newyMax, newzMin, newzMax){
     this.zMin = newzMin;
     this.zMax = newzMax;
     this.children = [];
-    this.triangles = null;
+    this.triangles = [];
     this.leafNode = false;
-
+    this.hasChildren = false;
 }
 
 function generateTriangleObjects(){
@@ -244,12 +251,12 @@ function Triangle(i){
     */
 
     //Now we need to find the minimum/maximum X, Y and Z values of the triangle
-    this.minX = Math.min(vert1[0], vert2[0], vert3[0]);
-    this.maxX = Math.max(vert1[0], vert2[0], vert3[0]);
-    this.minY = Math.min(vert1[1], vert2[1], vert3[1]);
-    this.maxY = Math.max(vert1[1], vert2[1], vert3[1]);
-    this.minZ = Math.min(vert1[2], vert2[2], vert3[2]);
-    this.maxZ = Math.max(vert1[2], vert2[2], vert3[2]);
+    this.minX = Math.min(this.vert1[0], this.vert2[0], this.vert3[0]);
+    this.maxX = Math.max(this.vert1[0], this.vert2[0], this.vert3[0]);
+    this.minY = Math.min(this.vert1[1], this.vert2[1], this.vert3[1]);
+    this.maxY = Math.max(this.vert1[1], this.vert2[1], this.vert3[1]);
+    this.minZ = Math.min(this.vert1[2], this.vert2[2], this.vert3[2]);
+    this.maxZ = Math.max(this.vert1[2], this.vert2[2], this.vert3[2]);
 }
 
 function findMax(a, b, c){
@@ -340,6 +347,7 @@ function createMesh(input){
     }
 
     generateTriangleObjects();
+    initializeOcTree();
 
     //buffer vertex data and enable vPosition attribute
     meshVertexBufferID = gl.createBuffer();
